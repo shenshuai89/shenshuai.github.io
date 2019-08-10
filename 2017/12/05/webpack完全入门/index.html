@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="工具的使用,webpack,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="webpack设置  新建一个初始化项目npm init -y安装webpack，npm install –save-dev webpack新建webpack配置文件webpack.config.js   123456789101112const path = require(&apos;path&apos;)module.exports = &amp;#123;  // 入口文件  entry:&quot;./src/app.js">
+<meta name="keywords" content="工具的使用,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack从入门到精通">
+<meta property="og:url" content="http://shenshuai.me/2017/12/05/webpack完全入门/index.html">
+<meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
+<meta property="og:description" content="webpack设置  新建一个初始化项目npm init -y安装webpack，npm install –save-dev webpack新建webpack配置文件webpack.config.js   123456789101112const path = require(&apos;path&apos;)module.exports = &amp;#123;  // 入口文件  entry:&quot;./src/app.js">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-10T03:52:13.142Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack从入门到精通">
+<meta name="twitter:description" content="webpack设置  新建一个初始化项目npm init -y安装webpack，npm install –save-dev webpack新建webpack配置文件webpack.config.js   123456789101112const path = require(&apos;path&apos;)module.exports = &amp;#123;  // 入口文件  entry:&quot;./src/app.js">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shenshuai.me/2017/12/05/webpack完全入门/">
+
+
+
+
+
+  <title>webpack从入门到精通 | 北鸟南游<br>前端开发设计师</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北鸟南游<br>前端开发设计师</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">web前端开发，设计师</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2017/12/05/webpack完全入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">webpack从入门到精通</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T22:18:04+08:00">
+                2017-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>webpack设置</p>
+<blockquote>
+<p>新建一个初始化项目npm init -y<br>安装webpack，npm install –save-dev webpack<br>新建webpack配置文件webpack.config.js</p>
+</blockquote>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const path = require(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  // 入口文件</span><br><span class="line">  entry:<span class="string">"./src/app.js"</span>,</span><br><span class="line">  // 打包后的文件</span><br><span class="line">  output:&#123;</span><br><span class="line">	//path 需要使用绝对路径，这里引入一个nodejs的path模块</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename:<span class="string">'main.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改package.json文件<br>在”script”中添加<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"dev"</span>: <span class="string">"webpack"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果将webpack.config.js修改名字为webpack.config.dev.js,则需要设置为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"dev"</span>: <span class="string">"webpack --config webpack.config.dev.js"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>lesson3 插件<br>插件plugin<br>安装一个创建html文件的html-webpack-plugin插件<br>npm install –save-dev html-webpack-plugin<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">const path = require(<span class="string">'path'</span>)</span><br><span class="line">const HtmlWebpackPlugin = require(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  // 入口文件</span><br><span class="line">  entry:<span class="string">"./src/app.js"</span>,</span><br><span class="line">  // 打包后的文件</span><br><span class="line">  output:&#123;</span><br><span class="line">  //path 需要使用绝对路径，这里引入一个nodejs的path模块</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename:<span class="string">'main.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      filename:<span class="string">"setName.html"</span>, //可以设置输出文件的名字</span><br><span class="line">      template:<span class="string">"src/index.html"</span>  //可以设置打包文件的模板</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>lesson4 loader<br>由于在js文件中写入html代码，不能够被正常编译使用，或者一些es6语法，不能被浏览器识别，需要一个loader进行预编译<br>在webpack.config.js中添加设置loader</p>
+<p>项目中先安装依赖<br>npm i -D babel-loader babel-core babel-preset-react</p>
+<p>在app.js中添加jsx语法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import React from <span class="string">'react'</span></span><br><span class="line">import ReactDOM from <span class="string">'react-dom'</span></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;div&gt;引入了react框架&lt;/div&gt;,</span><br><span class="line">    document.getElementById(<span class="string">'root'</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">const path = require(<span class="string">'path'</span>)</span><br><span class="line">const HtmlWebpackPlugin = require(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  // 入口文件</span><br><span class="line">  entry:<span class="string">"./src/app.js"</span>,</span><br><span class="line">  // 打包后的文件</span><br><span class="line">  output:&#123;</span><br><span class="line">  //path 需要使用绝对路径，这里引入一个nodejs的path模块</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename:<span class="string">'main.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  module:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">      &#123; <span class="built_in">test</span>: /\.js$/,  // 判断文件的类型</span><br><span class="line">        use: [</span><br><span class="line">          loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">          options:&#123;       // 配置编译的参数</span><br><span class="line">            presets:[<span class="string">'react'</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      filename:<span class="string">"setName.html"</span>, //可以设置输出文件的名字</span><br><span class="line">      template:<span class="string">"src/index.html"</span>  //可以设置打包文件的模板</span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>lesson5 webpack-dev-server</p>
+<p>npm install –save-dev webpack-dev-server<br>安装好文件依赖包，就可以在module.exports中引用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  // 入口文件</span><br><span class="line">  entry:<span class="string">"./src/app.js"</span>,</span><br><span class="line">  // 打包后的文件</span><br><span class="line">  output:&#123;</span><br><span class="line">  //path 需要使用绝对路径，这里引入一个nodejs的path模块</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename:<span class="string">'main.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  module:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">      &#123; <span class="built_in">test</span>: /\.js$/,  // 判断文件的类型</span><br><span class="line">        use: [</span><br><span class="line">          loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">          options:&#123;       // 配置编译的参数</span><br><span class="line">            presets:[<span class="string">'react'</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      filename:<span class="string">"index.html"</span>, //可以设置输出文件的名字</span><br><span class="line">      template:<span class="string">"src/index.html"</span>  //可以设置打包文件的模板</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  devServer:&#123;</span><br><span class="line">    open:<span class="literal">true</span>,</span><br><span class="line">    port:8888</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>lesson6 引入css文件时需要使用css-loader、style-loader<br>npm i -D css-loader style-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  // 入口文件</span><br><span class="line">  entry:<span class="string">"./src/app.js"</span>,</span><br><span class="line">  // 打包后的文件</span><br><span class="line">  output:&#123;</span><br><span class="line">  //path 需要使用绝对路径，这里引入一个nodejs的path模块</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename:<span class="string">'main.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  module:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.js$/,  // 判断文件的类型</span><br><span class="line">        use: [</span><br><span class="line">          loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">          options:&#123;       // 配置编译的参数</span><br><span class="line">            presets:[<span class="string">'react'</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.css$/,  // 判断文件的类型</span><br><span class="line">        use: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      filename:<span class="string">"index.html"</span>, //可以设置输出文件的名字</span><br><span class="line">      template:<span class="string">"src/index.html"</span>  //可以设置打包文件的模板</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  devServer:&#123;</span><br><span class="line">    open:<span class="literal">true</span>,</span><br><span class="line">    port:8888</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>lesson7 引入图片文件时需要使用file-loader<br>npm i -D file-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  // 入口文件</span><br><span class="line">  entry:<span class="string">"./src/app.js"</span>,</span><br><span class="line">  // 打包后的文件</span><br><span class="line">  output:&#123;</span><br><span class="line">  //path 需要使用绝对路径，这里引入一个nodejs的path模块</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename:<span class="string">'main.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  module:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.js$/,  // 判断文件的类型</span><br><span class="line">        use: [</span><br><span class="line">          loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">          options:&#123;       // 配置编译的参数</span><br><span class="line">            presets:[<span class="string">'react'</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.css$/,  // 判断文件的类型</span><br><span class="line">        use: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.(jpg|gif|png|jpeg)$/,  // 处理图片文件</span><br><span class="line">        use: [<span class="string">'file-loader'</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      filename:<span class="string">"index.html"</span>, //可以设置输出文件的名字</span><br><span class="line">      template:<span class="string">"src/index.html"</span>  //可以设置打包文件的模板</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  devServer:&#123;</span><br><span class="line">    open:<span class="literal">true</span>,</span><br><span class="line">    port:8888</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>lesson9 引入图片文件时需要使用url-loader,url-loader可以将图片转成base64<br>npm i -D url-loader<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  // 入口文件</span><br><span class="line">  entry:<span class="string">"./src/app.js"</span>,</span><br><span class="line">  // 打包后的文件</span><br><span class="line">  output:&#123;</span><br><span class="line">  //path 需要使用绝对路径，这里引入一个nodejs的path模块</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename:<span class="string">'main.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  module:&#123;</span><br><span class="line">    rules:[</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.js$/,  // 判断文件的类型</span><br><span class="line">        use: [</span><br><span class="line">          loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">          options:&#123;       // 配置编译的参数</span><br><span class="line">            presets:[<span class="string">'react'</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.css$/,  // 判断文件的类型</span><br><span class="line">        use: [<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; </span><br><span class="line">        <span class="built_in">test</span>: /\.(jpg|gif|png|jpeg)$/,  // 处理图片文件</span><br><span class="line">        use: [&#123;</span><br><span class="line">          loader:<span class="string">'url-loader'</span>,</span><br><span class="line">          options:&#123;  // 图片文件小于这个时，会进行转换</span><br><span class="line">            <span class="built_in">limit</span>:10000</span><br><span class="line">          &#125;</span><br><span class="line">          &#125;]</span><br><span class="line">      &#125;,</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  plugins:[</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">      filename:<span class="string">"index.html"</span>, //可以设置输出文件的名字</span><br><span class="line">      template:<span class="string">"src/index.html"</span>  //可以设置打包文件的模板</span><br><span class="line">    &#125;)</span><br><span class="line">  ],</span><br><span class="line">  devServer:&#123;</span><br><span class="line">    open:<span class="literal">true</span>,</span><br><span class="line">    port:8888</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>lesson10 引入字体<br>在css文件中引入字体文件时，需要安装file-loader，<br>css-loader的作用是：处理css文件中出现的url，会自动引入处理相应文件所需的loader<br>file-loader的作用是：把资源移动到输出目录，并返回最终引入资源的url</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="built_in">test</span>: /\.(ttf|eot|woff|woff2|svg)$/,</span><br><span class="line">  use: [ <span class="string">'file-loader'</span> ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>lesson12 css模块化<br>main.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.line</span>&#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#f65</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.inner</span>&#123;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">  <span class="attribute">color</span>:<span class="number">#000</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>small.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.line</span>&#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">30px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在js文件中可以全局引入css，如<br>import ‘../css/main.css’;<br>模块化引入css，<br>import style from ‘../css/main.css’<br>import small from ‘../css/small.css’<br>更改webpack.config.js配置文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// 处理成模块化css</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">test</span>:/\.css$/,</span><br><span class="line">    use:[<span class="string">'style-loader'</span>,</span><br><span class="line">    // css模块化</span><br><span class="line">    &#123;</span><br><span class="line">      loader:<span class="string">'css-loader'</span>,</span><br><span class="line">      options:&#123;</span><br><span class="line">        module:<span class="literal">true</span>,</span><br><span class="line">        // 编译出来类的名称</span><br><span class="line">        localIdentName: <span class="string">'[path]_[name]_[local]_[hash:6]'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;],</span><br><span class="line">    exclude:[</span><br><span class="line">      path.resolve(__dirname, <span class="string">'node_modules'</span>),</span><br><span class="line">      path.resolve(__dirname, <span class="string">'src/asset/style'</span>),</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  // 处理成全局的css</span><br><span class="line">  // 无options参数配置，直接写字符串</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">test</span>:/\.css$/,</span><br><span class="line">    use:[<span class="string">'style-loader'</span>,<span class="string">'css-loader'</span>],</span><br><span class="line">    include:[</span><br><span class="line">      path.resolve(__dirname, <span class="string">'node_modules'</span>),</span><br><span class="line">      path.resolve(__dirname, <span class="string">'src/asset/style'</span>),</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样通过两个对象就可以模块化引入css<br>然后就可以在dom结构中引入<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 模块化引入,通过webpack.config.js配置排除了全局化设置</span><br><span class="line">import style from <span class="string">'./asset/style/main.css'</span></span><br><span class="line">// 模块化引入，通过webpack.config.js配置排除了全局化设置</span><br><span class="line">import small from <span class="string">'./asset/style/small.css'</span></span><br><span class="line"></span><br><span class="line">//webpack.config.js配置，只有外部路径的css被模块化，</span><br><span class="line">import outer from <span class="string">'./outer.css'</span></span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;div className=&#123;style.line&#125;&gt;</span><br><span class="line">        &lt;span className=&#123;small.line&#125;&gt; 引入了react框架he&lt;/span&gt;</span><br><span class="line">     &lt;/div&gt;,</span><br><span class="line">    document.getElementById(<span class="string">'root'</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>lesson15 关于预处理样式scss(sass)、less文件的编译<br>处理scss(sass)文件先安装依赖包，都是引入sass-loader和node-loader<br>npm install –save-dev sass-loader node-sass<br>在webpack.config.js中添加配置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="built_in">test</span>:/\.scss$/,</span><br><span class="line">  use:[<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>, <span class="string">'sass-loader'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果是less文件<br>需要安装npm install –save-dev less less-loader<br>在webpack.config.js中添加配置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="built_in">test</span>:/\.less$/,</span><br><span class="line">  use:[<span class="string">'style-loader'</span>, <span class="string">'css-loader'</span>, <span class="string">'less-loader'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>lesson18 重新认识babel-loader<br>处理js文件的时候，要使用babel编译一些es6语法或者react语法，<br>可以在webpack.config.js中设置需要引用的插件plugins或presets</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="built_in">test</span>:/\.js$/,</span><br><span class="line">  use:[&#123;</span><br><span class="line">    loader:<span class="string">'babel-loader'</span>,</span><br><span class="line">    // options配置选项可以单独写出一个.babelrc文件，可以分离出来</span><br><span class="line">    options: &#123;</span><br><span class="line">      // 预设，包含多个插件</span><br><span class="line">      presets:[<span class="string">'react'</span>,<span class="string">'env'</span>],</span><br><span class="line">      // 插件,处理一些最新的语法</span><br><span class="line">      plugins: [<span class="string">"transform-object-rest-spread"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;],</span><br><span class="line">  // 排除掉一些不需要babel处理的文件</span><br><span class="line">  exclude:[</span><br><span class="line">    path.resolve(__dirname, <span class="string">'node_modules'</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于options还可以单独写成.babelrc文件<br>文件内容是一个json对象<br>.babelrc<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"presets"</span>:[<span class="string">"react"</span>,<span class="string">"env"</span>],</span><br><span class="line">  <span class="string">"plugins"</span>: [<span class="string">"transform-object-rest-spread"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>lesson20 output的publicPath和devServer的publicPath</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">output:&#123;</span><br><span class="line">    path:path.resolve(__dirname, <span class="string">'dist/'</span>),</span><br><span class="line">    filename:<span class="string">'assets/js/app.js'</span>,</span><br><span class="line">    //output中的public是所有打包文件的根路径，并且必须以/结束。</span><br><span class="line">    publicPath:<span class="string">'/public/'</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>设置过output的publicPath,要访问打包出来的index.html，则要加上publicPath的路径<br>如：localhost:8080/public/index.html</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">devServer:&#123;</span><br><span class="line">  open:<span class="literal">true</span>,</span><br><span class="line">  port:8888,</span><br><span class="line">  contentBase:<span class="string">'/src'</span>,</span><br><span class="line">  //服务器打包资源后的输出路径,不需要用 / 作为结尾</span><br><span class="line">  publicPath:<span class="string">"/pub"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置过devServer的publicPath,要访问打包出来的index.html，则要加上publicPath的路径<br>如：localhost:8080/pub/index.html</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具的使用/" rel="tag"># 工具的使用</a>
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/23/vue-cli改造多页面框架/" rel="next" title="使用vue-cli一步步改造成多页面框架">
+                <i class="fa fa-chevron-left"></i> 使用vue-cli一步步改造成多页面框架
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/11/requireJs/" rel="prev" title="requireJs模块化">
+                requireJs模块化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="shenshuai.me">
+            
+              <p class="site-author-name" itemprop="name">shenshuai.me</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shenshuai89" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/beiniaonanyou" target="_blank" title="sina">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>sina</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shenshuai89@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://jsfiddle.net/user/shenshuai" target="_blank" title="jsfiddle">
+                      
+                        <i class="fa fa-fw fa-jsfiddle"></i>jsfiddle</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenshuai.me</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

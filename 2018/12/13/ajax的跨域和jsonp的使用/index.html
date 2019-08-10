@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="ajax 跨域 jsonp,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="文章中源码地址：github JavaScript原生ajax对象web页面和数据的交互读取是网页的基本功能，使用ajax是常用的技术方案之一。通过创建var xhr = new XMLHttpRequest()对象来进行工作。代码参考文件ajax.html123456789101112var xhr = new XMLHttpRequest();xhr.open(&apos;get&apos;,&apos;back.php?">
+<meta name="keywords" content="ajax 跨域 jsonp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ajax的跨域和jsonp的使用">
+<meta property="og:url" content="http://shenshuai.me/2018/12/13/ajax的跨域和jsonp的使用/index.html">
+<meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
+<meta property="og:description" content="文章中源码地址：github JavaScript原生ajax对象web页面和数据的交互读取是网页的基本功能，使用ajax是常用的技术方案之一。通过创建var xhr = new XMLHttpRequest()对象来进行工作。代码参考文件ajax.html123456789101112var xhr = new XMLHttpRequest();xhr.open(&apos;get&apos;,&apos;back.php?">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-10T03:52:13.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ajax的跨域和jsonp的使用">
+<meta name="twitter:description" content="文章中源码地址：github JavaScript原生ajax对象web页面和数据的交互读取是网页的基本功能，使用ajax是常用的技术方案之一。通过创建var xhr = new XMLHttpRequest()对象来进行工作。代码参考文件ajax.html123456789101112var xhr = new XMLHttpRequest();xhr.open(&apos;get&apos;,&apos;back.php?">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shenshuai.me/2018/12/13/ajax的跨域和jsonp的使用/">
+
+
+
+
+
+  <title>ajax的跨域和jsonp的使用 | 北鸟南游<br>前端开发设计师</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北鸟南游<br>前端开发设计师</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">web前端开发，设计师</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/12/13/ajax的跨域和jsonp的使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">ajax的跨域和jsonp的使用</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T11:05:18+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>文章中源码地址：<a href="https://github.com/shenshuai89/ajax-jsonp" target="_blank" rel="noopener">github</a></p>
+<h2 id="JavaScript原生ajax对象"><a href="#JavaScript原生ajax对象" class="headerlink" title="JavaScript原生ajax对象"></a>JavaScript原生ajax对象</h2><p>web页面和数据的交互读取是网页的基本功能，使用ajax是常用的技术方案之一。<br>通过创建var xhr = new XMLHttpRequest()对象来进行工作。<br>代码参考文件ajax.html<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">'get'</span>,<span class="string">'back.php?a=1&amp;b=2'</span>, <span class="literal">true</span>);</span><br><span class="line">xhr.send();</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(xhr.readyState == <span class="number">4</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>((xhr.status &gt;= <span class="number">200</span> &amp;&amp; xhr.status&lt;<span class="number">300</span>) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(xhr.responseText);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			alert(<span class="string">"出错了"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="使用ajax技术的跨域实现"><a href="#使用ajax技术的跨域实现" class="headerlink" title="使用ajax技术的跨域实现"></a>使用ajax技术的跨域实现</h2><p>当请求数据的地址和前端接口不在一个服务器上，或者端口号不同，都会造成跨域，解决跨域的方案cors<br>通过给服务器端的Access-Control-Allow-Origin设置*通配符<br>代码参考文件ajax-cros.html，后端是server文件夹下的node_server.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">xhr.open(<span class="string">"post"</span>,<span class="string">"http://localhost:8088"</span>,<span class="literal">true</span>)</span><br><span class="line">xhr.send();</span><br><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(readyState==<span class="number">4</span>)&#123;</span><br><span class="line">		<span class="keyword">if</span>( (xhr.status&gt;=<span class="number">200</span>&amp;&amp;xhr.status&lt;<span class="number">300</span> ) || xhr.status == <span class="number">304</span>)&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(xhr.responseText);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			alert(<span class="string">"出错了"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">	<span class="comment">// 添加配置，可以跨域</span></span><br><span class="line">	res.setHeader(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>);</span><br><span class="line">	res.write(<span class="string">'aaa'</span>);</span><br><span class="line">	res.end();</span><br><span class="line">&#125;).listen(<span class="number">8088</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="jsonp实现跨域"><a href="#jsonp实现跨域" class="headerlink" title="jsonp实现跨域"></a>jsonp实现跨域</h2><p>在同源策略下，在某个服务器下的页面是无法获取到该服务器以外的数据的，但img、iframe、script等标签是个例外，这些标签可以通过src属性请求到其他服务器上的数据。利用script标签的开放策略，我们可以实现跨域请求数据，当然，也需要服务端的配合。当我们正常地请求一个JSON数据的时候，服务端返回的是一串JSON类型的数据，而我们使用JSONP模式来请求数据的时候，服务端返回的是一段可执行的JavaScript代码。</p>
+<h3 id="原生js实现jsonp"><a href="#原生js实现jsonp" class="headerlink" title="原生js实现jsonp"></a>原生js实现jsonp</h3><p>使用jsonp调用百度请求数据的接口<br>代码参考文件jsonp.html<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">json</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> oUl = <span class="built_in">document</span>.querySelector(<span class="string">"#ullist"</span>)</span><br><span class="line"></span><br><span class="line">		oUl.innerHTML = <span class="string">''</span></span><br><span class="line">		json.s.forEach(<span class="function"><span class="params">str</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="keyword">let</span> oLi = <span class="built_in">document</span>.createElement(<span class="string">'li'</span>);</span><br><span class="line">			oLi.innerHTML = str;</span><br><span class="line"></span><br><span class="line">			oUl.append(oLi);</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">window.onload = function()&#123;</span></span><br><span class="line"><span class="regexp">	var oInput = document.querySelector("#inp1")</span></span><br><span class="line"><span class="regexp">	var oUl = document.querySelector("#ullist")</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">	oInput.oninput = function()&#123;</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/ 创建一个script标签</span></span><br><span class="line"><span class="regexp">		let oS = document.createElement("script");</span></span><br><span class="line"><span class="regexp">		/</span><span class="regexp">/ 百度请求数据的jsonp接口，回调方法为cb，数据为wd</span></span><br><span class="line"><span class="regexp">		oS.src = `https:/</span><span class="regexp">/sp0.baidu.com/</span><span class="number">5</span>a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=$&#123;oInput.value&#125;&amp;cb=show<span class="string">`</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">		document.head.append(oS)</span></span><br><span class="line"><span class="string">	&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"inp1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"ullist"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="jquery实现jsonp"><a href="#jquery实现jsonp" class="headerlink" title="jquery实现jsonp"></a>jquery实现jsonp</h3><p>源代码参考文件jsonp-js.html<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先引入jquery.js</span></span><br><span class="line">&lt;script src=<span class="string">"./js/jquery.js"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		$(<span class="string">"#inp1"</span>).on(<span class="string">'input'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			$.ajax(&#123;</span><br><span class="line">				url:<span class="string">"https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su"</span>,</span><br><span class="line">				data:&#123;</span><br><span class="line">					wd:$(<span class="string">'#inp1'</span>).val()</span><br><span class="line">				&#125;,</span><br><span class="line">				<span class="comment">// 下面的两个对象为必填</span></span><br><span class="line">				dataType:<span class="string">'jsonp'</span>,</span><br><span class="line">				jsonp:<span class="string">'cb'</span>,</span><br><span class="line">				success(json)&#123;</span><br><span class="line">					<span class="built_in">console</span>.log(json.s)</span><br><span class="line">					$(<span class="string">"#ullist"</span>).html(<span class="string">''</span>);</span><br><span class="line">					json.s.forEach(<span class="function"><span class="params">str</span> =&gt;</span>&#123;</span><br><span class="line">						$(<span class="string">'&lt;li&gt;'</span>+str+<span class="string">'&lt;/li&gt;'</span>).appendTo(<span class="string">"#ullist"</span>);</span><br><span class="line">					&#125;)</span><br><span class="line">				&#125;,</span><br><span class="line">				error()&#123;</span><br><span class="line">					alert(<span class="string">'error'</span>)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;)</span><br><span class="line">		</span><br><span class="line">	&#125;)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="使用node服务器写一个jsonp后端接口"><a href="#使用node服务器写一个jsonp后端接口" class="headerlink" title="使用node服务器写一个jsonp后端接口"></a>使用node服务器写一个jsonp后端接口</h2><p>代码参考文件jsonp_server.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"><span class="keyword">var</span> url = <span class="built_in">require</span>(<span class="string">"url"</span>);</span><br><span class="line"><span class="keyword">let</span> server = http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> &#123;pathname, query&#125; = url.parse(req.url, <span class="literal">true</span>);</span><br><span class="line">	<span class="keyword">let</span> &#123;a, b, callback&#125; = query;</span><br><span class="line">	res.write(<span class="string">`<span class="subst">$&#123;callback&#125;</span>(<span class="subst">$&#123;<span class="built_in">parseInt</span>(a)+<span class="built_in">parseInt</span>(b)&#125;</span>)`</span>);</span><br><span class="line">	res.end();</span><br><span class="line">&#125;).listen(<span class="number">8088</span>)</span><br></pre></td></tr></table></figure></p>
+<p>前端页面文件nodeserver_jsonp.html<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;</span><br><span class="line">	<span class="keyword">function</span> show(json)&#123;</span><br><span class="line">		alert(json)</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">	window.onload = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">		var oInput = document.querySelector(<span class="string">"#inp1"</span>)</span><br><span class="line">		var oUl = document.querySelector(<span class="string">"#ullist"</span>)</span><br><span class="line"></span><br><span class="line">		oInput.onclick = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">			// 创建script标签</span><br><span class="line">			<span class="built_in">let</span> oS = document.createElement(<span class="string">"script"</span>);</span><br><span class="line">			// 把回调方法定义为callback</span><br><span class="line">			oS.src = `http://localhost:8088?a=50&amp;b=60&amp;callback=show`</span><br><span class="line"></span><br><span class="line">			document.head.append(oS)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"inp1"</span> <span class="attr">value</span>=<span class="string">"计算"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ajax-跨域-jsonp/" rel="tag"># ajax 跨域 jsonp</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/22/React 与 Vue 创建同一款 App的对比/" rel="next" title="React 与 Vue 创建同一款 App的对比">
+                <i class="fa fa-chevron-left"></i> React 与 Vue 创建同一款 App的对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/24/学习less/" rel="prev" title="学习less">
+                学习less <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="shenshuai.me">
+            
+              <p class="site-author-name" itemprop="name">shenshuai.me</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shenshuai89" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/beiniaonanyou" target="_blank" title="sina">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>sina</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shenshuai89@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://jsfiddle.net/user/shenshuai" target="_blank" title="jsfiddle">
+                      
+                        <i class="fa fa-fw fa-jsfiddle"></i>jsfiddle</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript原生ajax对象"><span class="nav-number">1.</span> <span class="nav-text">JavaScript原生ajax对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用ajax技术的跨域实现"><span class="nav-number">2.</span> <span class="nav-text">使用ajax技术的跨域实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jsonp实现跨域"><span class="nav-number">3.</span> <span class="nav-text">jsonp实现跨域</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原生js实现jsonp"><span class="nav-number">3.1.</span> <span class="nav-text">原生js实现jsonp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jquery实现jsonp"><span class="nav-number">3.2.</span> <span class="nav-text">jquery实现jsonp</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用node服务器写一个jsonp后端接口"><span class="nav-number">4.</span> <span class="nav-text">使用node服务器写一个jsonp后端接口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenshuai.me</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

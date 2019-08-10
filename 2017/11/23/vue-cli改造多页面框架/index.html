@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="下载vue-cli基础框架1$ vue init webpack morepages 由于多页面中使用不到路由，不必安装路由 安装完成会创建一个morepages文件夹，里面存放项目文件使用$ npm install 安装项目的依赖 安装成功完成后，可以看到morepages内所有文件夹和文件 改造项目src的文件在src文件夹下新建一个module文件夹，里面创建三个文件夹index、secon">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用vue-cli一步步改造成多页面框架">
+<meta property="og:url" content="http://shenshuai.me/2017/11/23/vue-cli改造多页面框架/index.html">
+<meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
+<meta property="og:description" content="下载vue-cli基础框架1$ vue init webpack morepages 由于多页面中使用不到路由，不必安装路由 安装完成会创建一个morepages文件夹，里面存放项目文件使用$ npm install 安装项目的依赖 安装成功完成后，可以看到morepages内所有文件夹和文件 改造项目src的文件在src文件夹下新建一个module文件夹，里面创建三个文件夹index、secon">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://shenshuai.me/images/初始化安装vue-cli.png">
+<meta property="og:image" content="http://shenshuai.me/images/项目中文件的介绍.png">
+<meta property="og:image" content="http://shenshuai.me/images/dist.png">
+<meta property="og:updated_time" content="2019-08-10T03:52:13.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用vue-cli一步步改造成多页面框架">
+<meta name="twitter:description" content="下载vue-cli基础框架1$ vue init webpack morepages 由于多页面中使用不到路由，不必安装路由 安装完成会创建一个morepages文件夹，里面存放项目文件使用$ npm install 安装项目的依赖 安装成功完成后，可以看到morepages内所有文件夹和文件 改造项目src的文件在src文件夹下新建一个module文件夹，里面创建三个文件夹index、secon">
+<meta name="twitter:image" content="http://shenshuai.me/images/初始化安装vue-cli.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shenshuai.me/2017/11/23/vue-cli改造多页面框架/">
+
+
+
+
+
+  <title>使用vue-cli一步步改造成多页面框架 | 北鸟南游<br>前端开发设计师</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北鸟南游<br>前端开发设计师</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">web前端开发，设计师</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2017/11/23/vue-cli改造多页面框架/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">使用vue-cli一步步改造成多页面框架</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T19:34:20+08:00">
+                2017-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="下载vue-cli基础框架"><a href="#下载vue-cli基础框架" class="headerlink" title="下载vue-cli基础框架"></a>下载vue-cli基础框架</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ vue init webpack morepages</span><br></pre></td></tr></table></figure>
+<p>由于多页面中使用不到路由，不必安装路由</p>
+<p><img src="/images/初始化安装vue-cli.png" alt="初始化安装vue-cli"><br>安装完成会创建一个morepages文件夹，里面存放项目文件<br>使用$ npm install 安装项目的依赖</p>
+<p>安装成功完成后，可以看到morepages内所有文件夹和文件<br><img src="/images/项目中文件的介绍.png" alt=""></p>
+<h2 id="改造项目src的文件"><a href="#改造项目src的文件" class="headerlink" title="改造项目src的文件"></a>改造项目src的文件</h2><p>在src文件夹下新建一个module文件夹，里面创建三个文件夹<br>index、second、third<br>在三个文件夹中分别创建html、vue、js文件</p>
+<p>index.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>多页面的第一个页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>index.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'babel-polyfill'</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> index <span class="keyword">from</span> <span class="string">'./index.vue'</span></span><br><span class="line"></span><br><span class="line">Vue.config.productionTip = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  template: <span class="string">'&lt;index/&gt;'</span>,</span><br><span class="line">  components: &#123; index &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>index.vue<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;div id=<span class="string">"index"</span>&gt;</span><br><span class="line">		这是index页面&lt;br&gt;</span><br><span class="line">		&lt;hello-world&gt;&lt;/hello-world&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import HelloWorld from <span class="string">'../../components/HelloWorld'</span></span><br><span class="line"><span class="built_in">export</span> default&#123;</span><br><span class="line">	<span class="function"><span class="title">data</span></span>()&#123;</span><br><span class="line">		<span class="built_in">return</span>&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="function"><span class="title">mounted</span></span>()&#123;</span><br><span class="line">		console.log(<span class="string">"这是index页面"</span>)</span><br><span class="line">	&#125;,</span><br><span class="line">	methods:&#123;</span><br><span class="line"></span><br><span class="line">	&#125;,</span><br><span class="line">	components: &#123;</span><br><span class="line">	    HelloWorld</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line">	<span class="comment">#index &#123;</span></span><br><span class="line">	  font-family: <span class="string">'Avenir'</span>, Helvetica, Arial, sans-serif;</span><br><span class="line">	  -webkit-font-smoothing: antialiased;</span><br><span class="line">	  -moz-osx-font-smoothing: grayscale;</span><br><span class="line">	  text-align: center;</span><br><span class="line">	  color: <span class="comment">#2c3e50;</span></span><br><span class="line">	&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改webpack-base-conf"><a href="#修改webpack-base-conf" class="headerlink" title="修改webpack.base.conf"></a>修改webpack.base.conf</h2><p>安装一个依赖包 npm install –save-dev glob<br>引入依赖<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> glob = <span class="built_in">require</span>(<span class="string">'glob'</span>);</span><br><span class="line"><span class="keyword">var</span> entries = getEntry(<span class="string">'./src/module/**/*.js'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>把module.exports中的entry属性设置为entries;</p>
+<p>设置getEntry公用方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> getEntry(globPath) &#123;</span><br><span class="line">  var entries = &#123;&#125;,</span><br><span class="line">    basename, tmp, pathname;</span><br><span class="line">  glob.sync(globPath).forEach(<span class="keyword">function</span> (entry) &#123;</span><br><span class="line">    basename = path.basename(entry, path.extname(entry));</span><br><span class="line">    tmp = entry.split(<span class="string">'/'</span>).splice(-3);</span><br><span class="line">    pathname = tmp.splice(0, 1) + <span class="string">'/'</span> + basename; // 正确输出js和html的路径</span><br><span class="line">    entries[pathname] = entry;</span><br><span class="line">  &#125;);</span><br><span class="line">  console.log(<span class="string">"base-entrys:"</span>);</span><br><span class="line">  console.log(entries);</span><br><span class="line">  <span class="built_in">return</span> entries;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="修改webpack-dev-conf"><a href="#修改webpack-dev-conf" class="headerlink" title="修改webpack.dev.conf"></a>修改webpack.dev.conf</h2><p>引入依赖包<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">let</span> path = require(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">let</span> glob = require(<span class="string">'glob'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>首先注释掉plugins中的<br>// new HtmlWebpackPlugin({<br>//   filename: ‘index.html’,<br>//   template: ‘index.html’,<br>//   inject: true<br>// }),</p>
+<p>添加新的方法，设置生成文件的路径和名称<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getEntry</span>(<span class="params">globPath</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> entries = &#123;&#125;,</span><br><span class="line">	basename, tmp, pathname;</span><br><span class="line">	glob.sync(globPath).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">entry</span>) </span>&#123;</span><br><span class="line">		basename = path.basename(entry, path.extname(entry));</span><br><span class="line">		tmp = entry.split(<span class="string">'/'</span>).splice(<span class="number">-3</span>);</span><br><span class="line">		pathname = tmp.splice(<span class="number">0</span>, <span class="number">1</span>) + <span class="string">'/'</span> + basename; <span class="comment">// 正确输出js和html的路径</span></span><br><span class="line">		entries[pathname] = entry;</span><br><span class="line">	&#125;);</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"dev-entrys:"</span>);</span><br><span class="line">	<span class="built_in">console</span>.log(entries);</span><br><span class="line">	<span class="keyword">return</span> entries;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pages = getEntry(<span class="string">'./src/module/**/*.html'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"dev pages----------------------"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> pathname <span class="keyword">in</span> pages) &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"filename:"</span> + pathname + <span class="string">'.html'</span>);</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">"template:"</span> + pages[pathname]);</span><br><span class="line"><span class="comment">// 配置生成的html文件，定义路径等</span></span><br><span class="line"><span class="keyword">var</span> conf = &#123;</span><br><span class="line">	filename: pathname + <span class="string">'.html'</span>,</span><br><span class="line">	template: pages[pathname], <span class="comment">// 模板路径</span></span><br><span class="line">minify: &#123; <span class="comment">//传递 html-minifier 选项给 minify 输出</span></span><br><span class="line">  removeComments: <span class="literal">true</span></span><br><span class="line">&#125;,</span><br><span class="line">inject: <span class="string">'body'</span>, <span class="comment">// js插入位置</span></span><br><span class="line">chunks: [pathname, <span class="string">"vendor"</span>, <span class="string">"manifest"</span>] <span class="comment">// 每个html引用的js模块，也可以在这里加上vendor等公用模块</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 需要生成几个html文件，就配置几个HtmlWebpackPlugin对象</span></span><br><span class="line">devWebpackConfig.plugins.push(<span class="keyword">new</span> HtmlWebpackPlugin(conf));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后可以执行命令 npm run dev可以打开页面<br><a href="http://localhost:8086/module/index.html" target="_blank" rel="noopener">http://localhost:8086/module/index.html</a></p>
+<h2 id="修改webpack-prod-conf"><a href="#修改webpack-prod-conf" class="headerlink" title="修改webpack.prod.conf"></a>修改webpack.prod.conf</h2><p>添加新的依赖<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var glob = require(<span class="string">'glob'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>首先注释掉plugins中的new HtmlWebpackPlugin插件</p>
+<p>然后在文件最后添加打包文件的配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getEntry</span>(<span class="params">globPath</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> entries = &#123;&#125;,</span><br><span class="line">      basename, tmp, pathname;</span><br><span class="line">  glob.sync(globPath).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">entry</span>) </span>&#123;</span><br><span class="line">    basename = path.basename(entry, path.extname(entry));</span><br><span class="line">    tmp = entry.split(<span class="string">'/'</span>).splice(<span class="number">-3</span>);</span><br><span class="line">    pathname = tmp.splice(<span class="number">0</span>, <span class="number">1</span>) + <span class="string">'/'</span> + basename; <span class="comment">// 正确输出js和html的路径</span></span><br><span class="line">    entries[pathname] = entry;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"pro-entrys:"</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(entries);</span><br><span class="line">  <span class="keyword">return</span> entries;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> pages = getEntry(<span class="string">'./src/module/**/*.html'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"pro pages----------------------"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> pathname <span class="keyword">in</span> pages) &#123;</span><br><span class="line">  <span class="comment">// 配置生成的html文件，定义路径等</span></span><br><span class="line">  <span class="keyword">var</span> conf = &#123;</span><br><span class="line">    filename: pathname + <span class="string">'.html'</span>,</span><br><span class="line">    template: pages[pathname], <span class="comment">// 模板路径</span></span><br><span class="line">    minify: &#123; <span class="comment">//传递 html-minifier 选项给 minify 输出</span></span><br><span class="line">      removeComments: <span class="literal">true</span>,</span><br><span class="line">      collapseWhitespace: <span class="literal">false</span></span><br><span class="line">    &#125;,</span><br><span class="line">    inject: <span class="string">'true'</span>, <span class="comment">// js插入位置</span></span><br><span class="line">    chunks: [pathname, <span class="string">"vendor"</span>, <span class="string">"manifest"</span>] <span class="comment">// 每个html引用的js模块，也可以在这里加上vendor等公用模块</span></span><br><span class="line">  &#125;;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 需要生成几个html文件，就配置几个HtmlWebpackPlugin对象</span></span><br><span class="line">  <span class="built_in">module</span>.exports.plugins.push(<span class="keyword">new</span> HtmlWebpackPlugin(conf));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>设置完成后，执行npm run build命令，<br>在项目中生成新的文件夹dist，就可以在服务器中运行module文件下的html文件</p>
+<p><img src="/images/dist.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/14/webpack的使用二-pulgin/" rel="next" title="webpack教程二————插件的使用">
+                <i class="fa fa-chevron-left"></i> webpack教程二————插件的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/05/webpack完全入门/" rel="prev" title="webpack从入门到精通">
+                webpack从入门到精通 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="shenshuai.me">
+            
+              <p class="site-author-name" itemprop="name">shenshuai.me</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shenshuai89" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/beiniaonanyou" target="_blank" title="sina">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>sina</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shenshuai89@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://jsfiddle.net/user/shenshuai" target="_blank" title="jsfiddle">
+                      
+                        <i class="fa fa-fw fa-jsfiddle"></i>jsfiddle</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载vue-cli基础框架"><span class="nav-number">1.</span> <span class="nav-text">下载vue-cli基础框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改造项目src的文件"><span class="nav-number">2.</span> <span class="nav-text">改造项目src的文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改webpack-base-conf"><span class="nav-number">3.</span> <span class="nav-text">修改webpack.base.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改webpack-dev-conf"><span class="nav-number">4.</span> <span class="nav-text">修改webpack.dev.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改webpack-prod-conf"><span class="nav-number">5.</span> <span class="nav-text">修改webpack.prod.conf</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenshuai.me</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

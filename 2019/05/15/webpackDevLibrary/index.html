@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="工具的使用,webpack,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="使用webpack开发一个npm包，并发布到npmjs创建webpack开发环境,设置package.json执行npm init -y生成package.json12345678910111213141516171819&amp;#123;  &quot;name&quot;: &quot;num-word-chinese&quot;,  &quot;version&quot;: &quot;1.0.0&quot;,  &quot;description&quot;: &quot;将数字转成英文单词或者中文大写">
+<meta name="keywords" content="工具的使用,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpackDevLibrary">
+<meta property="og:url" content="http://shenshuai.me/2019/05/15/webpackDevLibrary/index.html">
+<meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
+<meta property="og:description" content="使用webpack开发一个npm包，并发布到npmjs创建webpack开发环境,设置package.json执行npm init -y生成package.json12345678910111213141516171819&amp;#123;  &quot;name&quot;: &quot;num-word-chinese&quot;,  &quot;version&quot;: &quot;1.0.0&quot;,  &quot;description&quot;: &quot;将数字转成英文单词或者中文大写">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-10T03:52:13.140Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpackDevLibrary">
+<meta name="twitter:description" content="使用webpack开发一个npm包，并发布到npmjs创建webpack开发环境,设置package.json执行npm init -y生成package.json12345678910111213141516171819&amp;#123;  &quot;name&quot;: &quot;num-word-chinese&quot;,  &quot;version&quot;: &quot;1.0.0&quot;,  &quot;description&quot;: &quot;将数字转成英文单词或者中文大写">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shenshuai.me/2019/05/15/webpackDevLibrary/">
+
+
+
+
+
+  <title>webpackDevLibrary | 北鸟南游<br>前端开发设计师</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北鸟南游<br>前端开发设计师</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">web前端开发，设计师</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/05/15/webpackDevLibrary/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">webpackDevLibrary</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T15:03:33+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="使用webpack开发一个npm包，并发布到npmjs"><a href="#使用webpack开发一个npm包，并发布到npmjs" class="headerlink" title="使用webpack开发一个npm包，并发布到npmjs"></a>使用webpack开发一个npm包，并发布到npmjs</h1><h2 id="创建webpack开发环境-设置package-json"><a href="#创建webpack开发环境-设置package-json" class="headerlink" title="创建webpack开发环境,设置package.json"></a>创建webpack开发环境,设置package.json</h2><p>执行npm init -y生成package.json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"num-word-chinese"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"将数字转成英文单词或者中文大写"</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"dist/num-word-chinese.js"</span>,</span><br><span class="line">  <span class="attr">"module"</span>: <span class="string">"src/index.js"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="attr">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"webpack"</span>: <span class="string">"^4.31.0"</span>,</span><br><span class="line">    <span class="attr">"webpack-cli"</span>: <span class="string">"^3.3.2"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"lodash"</span>: <span class="string">"^4.17.11"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>main指定访问生成的js插件的入口</li>
+<li>module将js包添加为标准模块</li>
+<li>devDependencies，编译生成js包所需的开发依赖包，这里面引用的包，使用者使用安装该js时，不会下载这些依赖。</li>
+<li>dependencies，js包运行所需的依赖包，这里面引用的包，使用者使用安装该js时，会自动下载这些依赖。</li>
+</ul>
+<h2 id="创建webpack-config-js修改配置"><a href="#创建webpack-config-js修改配置" class="headerlink" title="创建webpack.config.js修改配置"></a>创建webpack.config.js修改配置</h2><h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><p>现在，让我们以某种方式打包这个 library，能够实现以下几个目标：</p>
+<ul>
+<li>使用 externals 选项，避免将 lodash 打包到应用程序，而使用者会去加载它。</li>
+<li>将 library 的名称设置为 num-word-chinese。</li>
+<li>将 library 暴露为一个名为 numWordChinese 的变量。</li>
+<li>能够访问其他 Node.js 中的 library。</li>
+</ul>
+<p>此外，consumer(使用者) 应该能够通过以下方式访问 library：</p>
+<ul>
+<li>ES2015 模块。例如 import numWordChinese from ‘num-word-chinese’。</li>
+<li>CommonJS 模块。例如 require(‘num-word-chinese’).</li>
+<li>全局变量，在通过 script 标签引入时</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename: <span class="string">'num-word-chinese.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="外部化lodash"><a href="#外部化lodash" class="headerlink" title="外部化lodash"></a>外部化lodash</h3><p>现在，如果执行 webpack，你会发现创建了一个体积相当大的文件。如果你查看这个文件，会看到 lodash 也被打包到代码中。在这种场景中，我们更倾向于把 lodash 当作 peerDependency。也就是说，consumer(使用者) 应该已经安装过 lodash 。因此，你就可以放弃控制此外部 library ，而是将控制权让给使用 library 的 consumer。</p>
+<p>这可以使用 externals 配置来完成：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename: <span class="string">'num-word-chinese.js'</span></span><br><span class="line"> &#125;</span><br><span class="line"> &#125;,</span><br><span class="line"> externals: &#123;</span><br><span class="line">   lodash: &#123;</span><br><span class="line">     commonjs: <span class="string">'lodash'</span>,</span><br><span class="line">     commonjs2: <span class="string">'lodash'</span>,</span><br><span class="line">     amd: <span class="string">'lodash'</span>,</span><br><span class="line">     root: <span class="string">'_'</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="暴露-library"><a href="#暴露-library" class="headerlink" title="暴露 library"></a>暴露 library</h3><p>对于用法广泛的 library，我们希望它能够兼容不同的环境，例如 CommonJS，AMD，Node.js 或者作为一个全局变量。为了让你的 library 能够在各种使用环境中可用，需要在 output 中添加 library 属性：<br>library: ‘numWordChinese’<br>将你的 library bundle 暴露为名为 numWordChinese 的全局变量，consumer 通过此名称来 import。为了让 library 和其他环境兼容，则需要在配置中添加 libraryTarget 属性。这个选项可以控制以不同形式暴露 library。最重要的模块输出选项应该是 libraryTarget ，它是用来决定模块以何种规范输出，在全局变量的 Name 是啥。其基本格式为：</p>
+<p>output.libraryTarget[String]: var | assign | this | window | global | commonjs | commonjs2 | amd | umd<br>上面那些全部是都是可选项值。这里先告诉大家，在现代 JS 的写法中，最后一个 umd 的选项是最常用的。<br>libraryTarget: ‘umd’</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">        filename: <span class="string">'num-word-chinese.js'</span>,</span><br><span class="line">        library: <span class="string">'numWordChinese'</span>,</span><br><span class="line">        libraryTarget: <span class="string">'umd'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    externals: &#123;</span><br><span class="line">        lodash: &#123;</span><br><span class="line">            commonjs: <span class="string">'lodash'</span>,</span><br><span class="line">            commonjs2: <span class="string">'lodash'</span>,</span><br><span class="line">            amd: <span class="string">'lodash'</span>,</span><br><span class="line">            root: <span class="string">'_'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="添加npm包的应用功能"><a href="#添加npm包的应用功能" class="headerlink" title="添加npm包的应用功能"></a>添加npm包的应用功能</h2><p>src/index.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span>;</span><br><span class="line"><span class="keyword">import</span> numRef <span class="keyword">from</span> <span class="string">'./ref.json'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">numToWord</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _.reduce(numRef, (accum, ref) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> ref.num === num ? ref.word : accum;</span><br><span class="line">  &#125;, <span class="string">''</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">numToChinese</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _.reduce(numRef, (accum, ref) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> ref.num === num ? ref.chinese : accum;</span><br><span class="line">  &#125;, <span class="string">''</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">wordToNum</span>(<span class="params">word</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _.reduce(numRef, (accum, ref) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> ref.word === word &amp;&amp; word.toLowerCase() ? ref.num : accum;</span><br><span class="line">  &#125;, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">chineseCurrency</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> chineseNumber = <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">var</span> num = [<span class="string">"零"</span>, <span class="string">"壹"</span>, <span class="string">"贰"</span>, <span class="string">"叁"</span>, <span class="string">"肆"</span>, <span class="string">"伍"</span>, <span class="string">"陆"</span>, <span class="string">"柒"</span>, <span class="string">"捌"</span>, <span class="string">"玖"</span> ];</span><br><span class="line">  <span class="keyword">var</span> unit = [<span class="string">"分"</span>, <span class="string">"角"</span>, <span class="string">"圆"</span>, <span class="string">"拾"</span>, <span class="string">"佰"</span>, <span class="string">"仟"</span>, <span class="string">"万"</span>, <span class="string">"拾"</span>, <span class="string">"佰"</span>, <span class="string">"仟"</span>, <span class="string">"亿"</span>, <span class="string">"拾"</span>, <span class="string">"佰"</span>, <span class="string">"仟"</span>, <span class="string">"万"</span> ];</span><br><span class="line">  <span class="keyword">var</span> tempNumber = <span class="built_in">Math</span>.round(number * <span class="number">100</span>) + <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">var</span> tempNumberLength = tempNumber.length;</span><br><span class="line">  <span class="keyword">if</span>(<span class="string">"0"</span> === tempNumber)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"零元整"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(tempNumberLength &gt; <span class="number">15</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"超出转化范围"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> preReadZero = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = tempNumberLength; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">    <span class="keyword">if</span> ((tempNumberLength - i + <span class="number">2</span>) % <span class="number">4</span> == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i - <span class="number">4</span> &gt;= <span class="number">0</span> &amp;&amp; <span class="string">"0000"</span> === tempNumber.substring(i - <span class="number">4</span>, i)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!preReadZero) &#123;</span><br><span class="line">          chineseNumber = <span class="string">"零"</span> + chineseNumber  ;</span><br><span class="line">          preReadZero = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i -= <span class="number">3</span>; </span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      preReadZero = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> digit = <span class="built_in">parseInt</span>(tempNumber.substring(i - <span class="number">1</span>, i), <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">if</span> (digit == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!preReadZero) &#123;</span><br><span class="line">        chineseNumber = <span class="string">"零"</span> + chineseNumber  ;</span><br><span class="line">        preReadZero = <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ((tempNumberLength - i + <span class="number">2</span>) % <span class="number">4</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        chineseNumber = unit[tempNumberLength - i] + chineseNumber  ;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      chineseNumber = num[digit] + unit[tempNumberLength - i] + chineseNumber;</span><br><span class="line">      preReadZero = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (tempNumberLength - <span class="number">2</span> &gt;= <span class="number">0</span> &amp;&amp; <span class="string">"00"</span> === tempNumber.substring(tempNumberLength - <span class="number">2</span>, tempNumberLength))&#123;</span><br><span class="line">    chineseNumber += <span class="string">"整"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> chineseNumber;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>numToWord数字转英文</li>
+<li>numToChinese数字转中文</li>
+<li>chineseCurrency数字转金融货币写法</li>
+</ul>
+<h2 id="使用npm-publish发布包"><a href="#使用npm-publish发布包" class="headerlink" title="使用npm publish发布包"></a>使用npm publish发布包</h2><p>安装好webpack和webpack-cli<br>执行webpack命令将src/index.js打包到dist/num-word-chinese.js<br>登录npm，第一次登录npm adduser；<br>以后登录npm login<br>登录成功之后，执行npm publish发布程序包</p>
+<h2 id="测试包的使用"><a href="#测试包的使用" class="headerlink" title="测试包的使用"></a>测试包的使用</h2><p>发布成功后，可以npm install –save-dev num-word-chinese安装包<br>初始化一套支持Es6的webpack环境进行测试</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> numWordChinese <span class="keyword">from</span> <span class="string">'num-word-chinese'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(numWordChinese.numToWord(<span class="number">8</span>));</span><br><span class="line"><span class="built_in">console</span>.log(numWordChinese.numToChinese(<span class="number">3</span>));</span><br><span class="line"><span class="built_in">console</span>.log(numWordChinese.chineseCurrency(<span class="number">88845</span>));</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具的使用/" rel="tag"># 工具的使用</a>
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/24/学习less/" rel="next" title="学习less">
+                <i class="fa fa-chevron-left"></i> 学习less
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/24/使用node的express框架搭建的webSocket请求/" rel="prev" title="使用node的express框架搭建的webSocket请求">
+                使用node的express框架搭建的webSocket请求 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="shenshuai.me">
+            
+              <p class="site-author-name" itemprop="name">shenshuai.me</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shenshuai89" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/beiniaonanyou" target="_blank" title="sina">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>sina</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shenshuai89@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://jsfiddle.net/user/shenshuai" target="_blank" title="jsfiddle">
+                      
+                        <i class="fa fa-fw fa-jsfiddle"></i>jsfiddle</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用webpack开发一个npm包，并发布到npmjs"><span class="nav-number">1.</span> <span class="nav-text">使用webpack开发一个npm包，并发布到npmjs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建webpack开发环境-设置package-json"><span class="nav-number">1.1.</span> <span class="nav-text">创建webpack开发环境,设置package.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建webpack-config-js修改配置"><span class="nav-number">1.2.</span> <span class="nav-text">创建webpack.config.js修改配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本配置"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外部化lodash"><span class="nav-number">1.2.2.</span> <span class="nav-text">外部化lodash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暴露-library"><span class="nav-number">1.2.3.</span> <span class="nav-text">暴露 library</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加npm包的应用功能"><span class="nav-number">1.3.</span> <span class="nav-text">添加npm包的应用功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用npm-publish发布包"><span class="nav-number">1.4.</span> <span class="nav-text">使用npm publish发布包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试包的使用"><span class="nav-number">1.5.</span> <span class="nav-text">测试包的使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenshuai.me</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

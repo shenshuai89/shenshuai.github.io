@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="requireJs定义随着web应用越来越复杂，嵌入的javascript代码越来越多，模块化编程就变成了必须。RequireJS 是一个JavaScript模块加载器。 它非常适合在浏览器中使用，但它也可以用在其他脚本环境, 就像 Rhino and Node. 使用RequireJS加载模块化脚本将提高代码的加载速度和质量。 为什么使用requireJs 异步“加载”。我们知道，通常网站都会把">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="requireJs模块化">
+<meta property="og:url" content="http://shenshuai.me/2017/12/11/requireJs/index.html">
+<meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
+<meta property="og:description" content="requireJs定义随着web应用越来越复杂，嵌入的javascript代码越来越多，模块化编程就变成了必须。RequireJS 是一个JavaScript模块加载器。 它非常适合在浏览器中使用，但它也可以用在其他脚本环境, 就像 Rhino and Node. 使用RequireJS加载模块化脚本将提高代码的加载速度和质量。 为什么使用requireJs 异步“加载”。我们知道，通常网站都会把">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://shenshuai.me/images/requiredemo.png">
+<meta property="og:updated_time" content="2019-08-10T03:52:13.135Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="requireJs模块化">
+<meta name="twitter:description" content="requireJs定义随着web应用越来越复杂，嵌入的javascript代码越来越多，模块化编程就变成了必须。RequireJS 是一个JavaScript模块加载器。 它非常适合在浏览器中使用，但它也可以用在其他脚本环境, 就像 Rhino and Node. 使用RequireJS加载模块化脚本将提高代码的加载速度和质量。 为什么使用requireJs 异步“加载”。我们知道，通常网站都会把">
+<meta name="twitter:image" content="http://shenshuai.me/images/requiredemo.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shenshuai.me/2017/12/11/requireJs/">
+
+
+
+
+
+  <title>requireJs模块化 | 北鸟南游<br>前端开发设计师</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北鸟南游<br>前端开发设计师</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">web前端开发，设计师</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2017/12/11/requireJs/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">requireJs模块化</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T10:14:26+08:00">
+                2017-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="requireJs定义"><a href="#requireJs定义" class="headerlink" title="requireJs定义"></a>requireJs定义</h2><p>随着web应用越来越复杂，嵌入的javascript代码越来越多，模块化编程就变成了必须。<br>RequireJS 是一个JavaScript模块加载器。 它非常适合在浏览器中使用，但它也可以用在其他脚本环境, 就像 Rhino and Node. 使用RequireJS加载模块化脚本将提高代码的加载速度和质量。</p>
+<h2 id="为什么使用requireJs"><a href="#为什么使用requireJs" class="headerlink" title="为什么使用requireJs"></a>为什么使用requireJs</h2><ul>
+<li><p>异步“加载”。我们知道，通常网站都会把script脚本的放在html的最后，这样就可以避免浏览器执行js带来的页面阻塞。使用RequireJS，会在相关的js加载后执行回调函数，这个过程是异步的，所以它不会阻塞页面。</p>
+</li>
+<li><p>按需加载。通过RequireJS，你可以在需要加载js逻辑的时候再加载对应js模块，这样避免了在初始化网页的时候发生大量的请求和数据传输。</p>
+</li>
+<li><p>更加方便的模块依赖管理。曾经遇到过因为script标签顺序问题而导致依赖关系发生错误，这个函数未定义，那个变量undefine之类的。通过RequireJS的机制，你能确保在所有的依赖模块都加载以后再执行相关的文件，所以可以起到依赖管理的作用。</p>
+</li>
+<li><p>更加高效的版本管理。想一想，如果你还是用的script脚本引入的方式来引入一个jQuery2.x的文件，然后你有100个页面都是这么引用的，那当你想换成jQuery3.x，那你就不得不去改这100个页面。但是如果你的requireJS有在config中做jQuery的path映射，那你只需要改一处地方即可。</p>
+</li>
+<li><p>当然还有一些诸如cdn加载不到js文件，可以请求本地文件等其它的优点，这里就不一一列举了。</p>
+</li>
+</ul>
+<p>学习requireJs有三个暴露变量requirejs,require,define。其中requirejs只是require的一个别名，目的是如果页面中有require其它实现，还是能通过使用requirejs来使用requireJS API的(本文中没有相关冲突，所以还是使用require)。<br>作为入门，只需要掌握require,require.config,define这三样就可以了。</p>
+<p>requirejs下。其主要API主要是下面三个函数:</p>
+<ul>
+<li>define—— 该函数用户创建模块。每个模块拥有一个唯一的模块ID，它被用于RequireJS的运行时函数，define函数是一个全局函数，不需要使用requirejs命名空间.</li>
+<li>require—— 该函数用于读取依赖。同样它是一个全局函数，不需要使用requirejs命名空间.</li>
+<li>config—— 该函数用于配置RequireJS.</li>
+<li>require.config配置参数选项</li>
+<li>baseUrl——用于加载模块的根路径。</li>
+<li>paths——用于映射不存在根路径下面的模块路径。</li>
+<li>shims——配置在脚本/模块外面并没有使用RequireJS的函数依赖并且初始化函数。假设underscore并没有使用  </li>
+<li>RequireJS定义，但是你还是想通过RequireJS来使用它，那么你就需要在配置中把它定义为一个shim。</li>
+<li>deps——加载依赖关系数组</li>
+</ul>
+<h2 id="RequireJS需要在页面中引入"><a href="#RequireJS需要在页面中引入" class="headerlink" title="RequireJS需要在页面中引入"></a>RequireJS需要在页面中引入</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">"text/javascript"</span> src=<span class="string">'./js/lib/require.js'</span> data-main=<span class="string">'./js/src/main'</span>&gt;&lt;/script&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>创建如图所示的目录结构<br><img src="/images/requiredemo.png" alt="requireJs项目结构"></p>
+<p>// ./index.html<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Require Demo 1&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Require Demo 1 -- usage of Require()&lt;/h1&gt;</span><br><span class="line">        &lt;button id=<span class="string">"contentBtn"</span>&gt;Click me&lt;/button&gt;</span><br><span class="line">    &lt;p id=<span class="string">"messagebox"</span>&gt;&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;script data-main=<span class="string">"js/src/main"</span> src=<span class="string">"js/lib/require.js"</span> <span class="built_in">type</span>=<span class="string">"text/javascript"</span>&gt;&lt;/script&gt; </span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>// ./js/src/main.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置配置</span></span><br><span class="line"><span class="built_in">require</span>.config(</span><br><span class="line">    &#123;</span><br><span class="line">        paths: &#123;</span><br><span class="line">            <span class="string">'jquery'</span>: <span class="string">'../lib/jquery'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"><span class="comment">// 引入依赖，执行程序</span></span><br><span class="line"><span class="built_in">require</span>([<span class="string">'jquery'</span>],<span class="function"><span class="keyword">function</span> (<span class="params">$</span>) </span>&#123;</span><br><span class="line">         $(<span class="built_in">document</span>).on(<span class="string">'click'</span>,<span class="string">'#contentBtn'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            $(<span class="string">'#messagebox'</span>).html(<span class="string">'You have access Jquery by using require()'</span>);</span><br><span class="line">         &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<blockquote>
+<p>require.js会在加载完成以后通过回调方法去加载这个data-main里面的js文件,js文件被加载的时候，RequireJS已经加载执行完毕。</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>main.js文件,里面被一个匿名立即执行函数所包括。</li>
+<li>require.config(…)中放一个对象，可以配置许多配置项，在上面文件中设置了paths，该属性设置之后，就可以按照设置的路径加载相应的模块。</li>
+<li>require()函数<br>require函数接受的第一个参数是，所依赖模块的一个数组。 第二个参数回调函数，引入的依赖加载完毕后回调函数会被触发。<br>如果你传入的依赖有注入变量（函数）,然后在回调函数中需要用到，你就需要按照顺序在回调函数的参数中添加别名，在本例子中可以通过别名$来使用jQuery的相关API。所以<strong>有注入的模块</strong>需要放在<strong>无注入或者不需要调用模块</strong>的模块前面，方便回调函数传入别名。</li>
+</ul>
+<blockquote>
+<blockquote>
+<p>requireJS在不同情况下的相对路径的层级关系。</p>
+</blockquote>
+</blockquote>
+<p>以下是相对路径的规则:</p>
+<ul>
+<li><p>如果script标签引入require.js时没有指定data-main属性，则以引入该js的html文件所在的路径为根路径。</p>
+</li>
+<li><p>如果有指定data-main属性，也就是有指定入口文件，则以入口文件所在的路径为根路径。在本例子中也就是main.js所在的script文件夹就是根路径，这也是为什么配置jQuery的时候需要返回上层目录再进入lib目录才能找到jQuery文件。</p>
+</li>
+<li><p>如果再require.config()中有配置baseUrl，则以baseUrl的路径为根路径。<br>以上三条优先级逐级提升，如果有重叠，后面的根路径覆盖前面的根路径。</p>
+</li>
+</ul>
+<h2 id="define函数的使用，如何定义一个模块"><a href="#define函数的使用，如何定义一个模块" class="headerlink" title="define函数的使用，如何定义一个模块"></a>define函数的使用，如何定义一个模块</h2><p>通过 define = function (name, deps, callback)完成的,第一个参数是定义模块名，第二个参数是传入定义模块所需要的依赖，第三个函数则是定义模块的主函数，主函数和require的回调函数一样，同样是在依赖加载完以后再调用执行。</p>
+<ul>
+<li>当你没有任何依赖的时候,你可以这么写:</li>
+</ul>
+<p>// ./js/src/desc.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    <span class="built_in">return</span>&#123;</span><br><span class="line">        decs : <span class="string">'this js will be request only if it is needed'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>修改main.js文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">require([<span class="string">'jquery'</span>], <span class="keyword">function</span>($)&#123;</span><br><span class="line">	$(document).on(<span class="string">'click'</span>, <span class="string">'#contentBtn'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">		$(<span class="string">'#msgBox'</span>).html(<span class="string">'You have access Jquery by using require()'</span>);</span><br><span class="line">		require([<span class="string">'./desc'</span>],<span class="keyword">function</span>(desc)&#123;</span><br><span class="line">			alert(JSON.stringify(desc))</span><br><span class="line">		&#125;)	</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>打开网页，查看network视图，点击按钮，通过require获得的desc模块就会alert出来，同时你会发现，desc.js是按需请求的，并不是在页面一开始的时候就请求的。</p>
+<ul>
+<li>当你有相关依赖的时候,你可以这么写:</li>
+</ul>
+<p>// ./js/src/alertDesc.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'./desc'</span>],<span class="keyword">function</span>(desc)&#123;</span><br><span class="line">    <span class="built_in">return</span> <span class="function"><span class="title">function</span></span> ()&#123;</span><br><span class="line">        alert(JSON.stringify(desc));</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>修改main.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">require([<span class="string">'jquery'</span>], <span class="keyword">function</span>($)&#123;</span><br><span class="line">	$(document).on(<span class="string">'click'</span>, <span class="string">'#contentBtn'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">		$(<span class="string">'#msgBox'</span>).html(<span class="string">'You have access Jquery by using require()'</span>);</span><br><span class="line">		require([<span class="string">'./alertDesc'</span>],<span class="keyword">function</span>(alertDesc)&#123;</span><br><span class="line">			alertdesc();</span><br><span class="line">		&#125;)	</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h2 id="requireJs-config参数的配置"><a href="#requireJs-config参数的配置" class="headerlink" title="requireJs.config参数的配置"></a>requireJs.config参数的配置</h2><p>在使用require()函数的时候，我们已经接触到了require.config()。require.config()做的一些修改会影响到全局require的一些特性。<br>如果设置了baseUrl，require的根路径就以这个路径为准。<br>设置map可以在不同路径下用相同的模块ID调用不同版本的模块。<br>也可以把require.config单独分离出来一个模块，单独放置在一个js文件中。<br>// ./js/src/config.js<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    require.config(&#123;</span><br><span class="line">        baseUrl: <span class="string">'./js/'</span>,</span><br><span class="line">        paths: &#123;</span><br><span class="line">            <span class="string">'jquery'</span>: <span class="string">'lib/jquery-1.7.2'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>修改main.js文件<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">require([<span class="string">'config'</span>],<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">    require([<span class="string">'jquery'</span>],<span class="keyword">function</span> ($) &#123;</span><br><span class="line">         $(document).on(<span class="string">'click'</span>,<span class="string">'#contentBtn'</span>,<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">            $(<span class="string">'#messagebox'</span>).html(<span class="string">'You have access Jquery by using require()'</span>);</span><br><span class="line">            require([<span class="string">'./src/alertdesc'</span>],<span class="keyword">function</span>(alertdesc)&#123;</span><br><span class="line">                alertdesc();</span><br><span class="line">            &#125;);</span><br><span class="line">         &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="data-main模块"><a href="#data-main模块" class="headerlink" title="data-main模块"></a>data-main模块</h2><p>当require.js加载的时候会检查data-main属性，所以在data-main指向的脚本<br>(也就是本例子中的js/src/main.js)中设置模块加载的选项,然后在这个脚本加载第一个应用模块。<br>注意，你在main.js中所设置的脚本是异步加载并通过回调来执行的，这意味着如果你在页面中有通过script引入其它的脚本，不能保证在main.js里面做的配置会在其它脚本中生效。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/05/webpack完全入门/" rel="next" title="webpack从入门到精通">
+                <i class="fa fa-chevron-left"></i> webpack从入门到精通
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/15/移动端开发兼容/" rel="prev" title="移动端开发兼容性">
+                移动端开发兼容性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="shenshuai.me">
+            
+              <p class="site-author-name" itemprop="name">shenshuai.me</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shenshuai89" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/beiniaonanyou" target="_blank" title="sina">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>sina</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shenshuai89@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://jsfiddle.net/user/shenshuai" target="_blank" title="jsfiddle">
+                      
+                        <i class="fa fa-fw fa-jsfiddle"></i>jsfiddle</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#requireJs定义"><span class="nav-number">1.</span> <span class="nav-text">requireJs定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么使用requireJs"><span class="nav-number">2.</span> <span class="nav-text">为什么使用requireJs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequireJS需要在页面中引入"><span class="nav-number">3.</span> <span class="nav-text">RequireJS需要在页面中引入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#define函数的使用，如何定义一个模块"><span class="nav-number">4.</span> <span class="nav-text">define函数的使用，如何定义一个模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#requireJs-config参数的配置"><span class="nav-number">5.</span> <span class="nav-text">requireJs.config参数的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#data-main模块"><span class="nav-number">6.</span> <span class="nav-text">data-main模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenshuai.me</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
