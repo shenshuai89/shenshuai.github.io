@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/08/22/React 与 Vue 创建同一款 App的对比/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/06/20/vue样式class和style/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -271,7 +271,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/22/React 与 Vue 创建同一款 App的对比/" itemprop="url">React 与 Vue 创建同一款 App的对比</a></h2>
+                <a class="post-title-link" href="/2019/06/20/vue样式class和style/" itemprop="url">vue样式class和style(二)</a></h2>
         
 
         <div class="post-meta">
@@ -283,199 +283,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T22:14:20+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="React-与-Vue-创建同一款-App的对比"><a href="#React-与-Vue-创建同一款-App的对比" class="headerlink" title="React 与 Vue 创建同一款 App的对比"></a>React 与 Vue 创建同一款 App的对比</h2><p>众所周知，Vue 和 React 都是目前非常著名的前端框架。我在工作中经常使用 Vue，因此我对它有很深入的了解。同时，我也对 React 充满了好奇，想要学习一下，一探究竟。</p>
-<p>于是我阅读了 React 文档并观看了一些视频教程，虽然这些资料很不错，但是我真正想了解的是 React 与 Vue 之间的不同之处。所谓“不同之处”，我并非想知道它们是否都具有虚拟 DOMS 或者它们如何渲染页面，而是希望有人能够从代码的角度解释这两者之间的差异。我想找到一篇解释这些差异的文章，以便 Vue 或者 React 的初学者可以更好地理解它们两者之间的差异。</p>
-<h3 id="01目标"><a href="#01目标" class="headerlink" title="01目标"></a>01目标</h3><p>我将会构建一个标准的待办事项应用程序，允许用户添加和删除列表中的项目。这两个应用程序都使用默认的 CLI（command-line interface，命令行界面） 构建，React 使用 create-react-app，Vue 使用 vue-cli。<br>两个应用程序的外观如下：<br><img src="/images/vue_and_react.jpg" alt=""></p>
-<p>两个应用程序的 CSS 代码几乎一样，但这些代码的位置存在差异。考虑到这一点，我们来看看这两个应用程序的文件结构：</p>
-<p><img src="/images/vue_and_react1.jpg" alt=""></p>
-<p>你会发现它们的结构几乎完全相同。唯一的区别在于 React App 拥有三个 CSS 文件，而 Vue App 中没有 CSS 文件。这是因为 React 的 create-react-app 组件需要一个附带文件来保存其样式，而 Vue CLI 采用全包方法，其样式在实际组件文件中声明。</p>
-<p>两种不同的策略得到的结果是一样的，相信开发者很快能够掌握这两种不同的策略。开发者可以根据自己的偏好做出选择，你会听到开发社区关于如何构建 CSS 的大量讨论。以上，我们遵循两个 CLI 列出了代码结构。</p>
-<p>在我们进一步讨论之前，先快速看一下典型的 Vue 和 React 组件的外观：<br><img src="/images/vue_and_react2.jpg" alt=""><br>左侧为 Vue，右侧为 React</p>
-<h3 id="02如何修改数据"><a href="#02如何修改数据" class="headerlink" title="02如何修改数据"></a>02如何修改数据</h3><p>首先，我们需要明白“修改数据”的意思是什么。它听起来有些学术，但实际上很简单，就是把我们已经存储好的数据进行更改。比如，如果我们想把一个人的名字变量从“Jhon”改为“Mark”，我们就需要执行“修改数据”的操作。在这一点上，React 和 Vue 的处理方式有所区别。Vue 本质上会创建一个数据对象，其中的数据可以自由更改；React 则创建一个状态对象，更改数据需要一些额外的操作。React 之所以需要额外的操作有着自己的理由，稍后我会深入介绍。在此之前，我们先看看 Vue 中的数据对象和 React 中的状态对象：<br><img src="/images/react_data.jpg" alt=""><br>Vue 数据对象<br><img src="/images/vue_data.jpg" alt=""><br>React 状态对象<br>从图中可以看出，我们传入了相同的数据，但它们的标记方法不同。因此，将初始数据传递到组件的方式非常相似。但正如我们提到的那样，在两个框架中更改数据的方式有所不同。</p>
-<p>假设我们有一个名为 name: ‘Sunil’ 的数据元素。</p>
-<p>在 Vue 中，我们通过调用 this.name 来引用它。我们也可以通过调用 this.name =’John’ 来更新它。这样一来，名字就被成功改为了 “Jhon”。</p>
-<p>在 React 中，我们通过调用 this.state.name 来引用同一段数据。现在关键的区别在于，我们不能简单地写成 this.state.name =’John’，因为 React 有限制机制，它会阻止这种简单的修改方式。在 React 中，我们需要这样写：this.setState({name：’John’})。</p>
-<p>虽然这基本上与我们在 Vue 中实现的结果一样，但是 React 的操作更为繁琐，那是因为 Vue 在每次更新数据时默认组合了自己的 setState 版本。 简单来说就是，React 需要 setState，然后更新其内部数据，而对于 Vue 来说，当你更新数据对象的值时它就默认了你的更改意图。 那么为什么 React 没有进行简化，为什么需要 setState 呢？ Revanth Kumar 对此做出了解释：</p>
-<blockquote>
-<p>“这是因为 React 希望在状态发生变化时重新运行某些生命周期 hook，比如 componentWillReceiveProps、shouldComponentUpdate、componentWillUpdate、render、componentDidUpdate。当你调用 setState 函数时，它知道状态已经改变。如果你直接改变状态，React 将需要做更多工作来跟踪更改以及运行生命周期 hook 等等。所以为了简单起见，React 使用 setState。”<br>现在我们知道如何更改数据了，接下来看看如何在待办应用程序中添加新的事项。</p>
-</blockquote>
-<h3 id="03-添加新的待办事项"><a href="#03-添加新的待办事项" class="headerlink" title="03 添加新的待办事项"></a>03 添加新的待办事项</h3><p>React 的实现方法</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">createNewToDoItem = () =&gt; &#123;</span><br><span class="line">    this.setState( (&#123; list, todo &#125;) =&gt; (&#123;</span><br><span class="line">      list: [</span><br><span class="line">          ...list,</span><br><span class="line">        &#123;</span><br><span class="line">          todo</span><br><span class="line">        &#125;</span><br><span class="line">      ],</span><br><span class="line">      todo: <span class="string">''</span></span><br><span class="line">    &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>在 React 中，我们的输入字段有一个名为 value 的属性。这个 value 通过使用几个函数自动更新，这些函数绑定在一起以创建双向绑定。我们通过在输入字段上附加一个 onChange 事件监听器来创建这种形式的双向绑定。看看代码，一探究竟：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> </span></span><br><span class="line"><span class="tag">       <span class="attr">value</span>=<span class="string">&#123;this.state.todo&#125;</span> </span></span><br><span class="line"><span class="tag">       <span class="attr">onChange</span>=<span class="string">&#123;this.handleInput&#125;/</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">handleInput = e =&gt; &#123;</span><br><span class="line">  this.setState(&#123;</span><br><span class="line">    todo: e.target.value</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>现在，只要用户按下页面上的 + 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加todo。整个列表是通过使用扩展运算符添加的。</p>
-<p>最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的 value。</p>
-<p>Vue 的实现方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">createNewToDoItem</span></span>() &#123;</span><br><span class="line">    this.list.push(</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="string">'todo'</span>: this.todo</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">    this.todo = <span class="string">''</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在 Vue 中，我们的输入字段中有一个名为 v-model 的句柄。这实现了**双向绑定。输入字段代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"todo"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：’ ‘。如果已经存在数据，例如 todo：’添加文本处’，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。<br>因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中 ，然后将 todo 改为空字符串。</p>
-<h3 id="删除待办事项"><a href="#删除待办事项" class="headerlink" title="删除待办事项"></a>删除待办事项</h3><p>React 的实现方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deleteItem = indexToDelete =&gt; &#123;</span><br><span class="line">    this.setState((&#123; list &#125;) =&gt; (&#123;</span><br><span class="line">      list: list.filter((toDo, index) =&gt; index !== indexToDelete)</span><br><span class="line">    &#125;));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="删除待办事项-1"><a href="#删除待办事项-1" class="headerlink" title="删除待办事项"></a>删除待办事项</h3><h3 id="删除待办事项-2"><a href="#删除待办事项-2" class="headerlink" title="删除待办事项"></a>删除待办事项</h3><h3 id="删除待办事项-3"><a href="#删除待办事项-3" class="headerlink" title="删除待办事项"></a>删除待办事项</h3><p>前提需要安装hexo-deployer-git自动部署发布工具</p>
-<h1 id="安装命令npm-install-hexo-deployer-git-–save"><a href="#安装命令npm-install-hexo-deployer-git-–save" class="headerlink" title="安装命令npm install hexo-deployer-git –save"></a>安装命令npm install hexo-deployer-git –save</h1><p>&lt;input type=”text”<br>    value={this.state.todo}<br>    onChange={this.handleInput} </p>
-<blockquote>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">只要输入字段的值发生更改，handleInput 函数就会运行。它通过将状态对象设置为输入字段中的任何内容来更新状态对象内的 todo。handleInput 函数如下：</span><br><span class="line">​``` bash</span><br><span class="line">handleInput = e =&gt; &#123;</span><br><span class="line">	this.setState(&#123;</span><br><span class="line">		todo: e.target.value</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>现在，只要用户按下页面上的 + 按钮添加新项目，createNewToDoItem 函数就会运行 this.setState 并向其传递一个函数。该函数有两个参数，第一个是来自状态对象的整个列表数组，第二个是由 handleInput 函数更新的todo。然后该函数返回一个新对象，该对象包含之前的整个列表，并在其末尾添加todo。整个列表是通过使用扩展运算符添加的。</p>
-<p>最后，我们将 todo 设置为空字符串，它会自动更新输入字段中的value;</p>
-<p>Vue的实现方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">createNewToDoItem</span></span>()&#123;</span><br><span class="line">	this.list.push(</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="string">'todo'</span>: this.todo</span><br><span class="line">		&#125;</span><br><span class="line">	)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在Vue中,我们输入字段中有个名为v-model的句柄。这样实现了数据双向绑定。输入字段代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"todo"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>V-Model 将输入字段的内容绑定到名为 toDoItem 的数据对象的键（key）上。当页面加载时，我们将 toDoItem 设置为空字符串，比如：todo：’ ‘。如果已经存在数据，例如 todo：’添加文本处’，输入字段将加载添加文本处的输入内容。无论如何，将其作为空字符串，我们在输入字段中键入的任何文本都会绑定到 todo。这实际上是双向绑定（输入字段可以更新数据对象，数据对象可以更新输入字段）。</p>
-<p>因此，回顾前面的 createNewToDoItem() 代码块，我们将 todo 的内容存放到列表数组中 ，然后将 todo 改为空字符串。</p>
-<h3 id="04删除待办事项"><a href="#04删除待办事项" class="headerlink" title="04删除待办事项"></a>04删除待办事项</h3><p>React的实现方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deleteItem = indexToDelete =&gt;&#123;</span><br><span class="line">	this.setState((&#123;list&#125;) =&gt;(&#123;</span><br><span class="line">		list:list.filter((toDO, index) =&gt; index!==indexToDelete)</span><br><span class="line">	&#125;));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>尽管deleteItem函数位于ToDo.js文件中，但是从 ToDoItem.js 文件中引用它也很容易，将 deleteItem() 函数作为 上的 prop 传递：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ToDoItem deleteItem=&#123;this.deleteItem.bind(this, key)&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
-<p>这会将该函数传递给子组件，使其可以访问。我们绑定了this并传递key参数，当用户点击删除项时，函数通过key区分用户点击的是哪一条ToDoItem。然后在ToDoItem 组件内部，我们执行以下操作：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">"ToDoItem-Delete"</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.deleteItem&#125;</span>&gt;</span>-<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>想要引用位于父组件内部的函数，只需引用this.props.deleteItem即可。</p>
-<p>Vue 的实现方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onDeleteItem(todo)&#123;</span><br><span class="line">	this.list = this.list.filter(item=&gt; item!==todo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Vue的实现方法稍有不同，需要三个步骤：<br>step1： 首先在元素上调用函数<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ToDoItem-Delete"</span> @<span class="attr">click</span>=<span class="string">"deleteItem(todo)"</span>&gt;</span>-<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>step2: 然后我们创建一个emit函数，将其作为子组件的内部方法(在本例中为ToDoItem.vue),如下所示<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deleteItem(todo)&#123;</span><br><span class="line">	this.<span class="variable">$emit</span>(<span class="string">'delete'</span>, todo)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>step3: 最后添加ToDo.vue的ToDOItem.vue时，实际上引用了一个函数：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ToDoItem v-for=<span class="string">"todo in list"</span></span><br><span class="line">	:todo = <span class="string">'todo'</span></span><br><span class="line">	@delete=<span class="string">"onDeleteItem"</span></span><br><span class="line">	:key = <span class="string">"todo.id"</span></span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-<p>简写为 hexo d<br>更多信息: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h2 id="新添加一篇文章后执行的命令"><a href="#新添加一篇文章后执行的命令" class="headerlink" title="新添加一篇文章后执行的命令"></a>新添加一篇文章后执行的命令</h2><p>=======<br>这就是所谓的自定义事件监听。它会监听任何使用’delete’字符串的触发事件。一旦监听到事件，它会触发一个名为onDeleleItem的函数。此函数位于ToDo.vue内部，而不是ToDoItem.vue。<br>如前所述，该函数只是过滤数据对象内的todo数组，以删除被点击的待办事项。</p>
-<p>在Vue示例中还需要注意的是，我们可以在@click侦听器中编写$emit部分，这样更加简单，如下所示<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"ToDoItem-Delete"</span> @<span class="attr">click</span>=<span class="string">"$emit('delete', todo)"</span>&gt;</span>-<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>还可以把3步减少到2步<br>React中的子组件可以通过this.props访问父函数，而在Vue中，你需要从子组件中发出事件，父组件来收集事件。</p>
-<h3 id="05如何传递事件监听器"><a href="#05如何传递事件监听器" class="headerlink" title="05如何传递事件监听器"></a>05如何传递事件监听器</h3><p>React 的实现方法<br>事件监听器处理简单事件（比如点击）非常直接。我们为待办事项创建了点击事件，用于创建新的待办事项，代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">”ToDo-Add”</span> <span class="attr">onClick</span>=<span class="string">&#123;this.createNewToDoItem&#125;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>按下回车按钮，设置事件监听器就需要花费更长的时间。这需要输入标签处理 onKeyPress 事件，代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”text”</span> <span class="attr">onKeyPress</span>=<span class="string">&#123;this.handleKeyPress&#125;/</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>该函数只要识别到’enter’键被按下，它就会触发 “createNewToDoItem” 函数，代码如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">handleKeyPress = (e) =&gt; &#123;</span><br><span class="line">	<span class="keyword">if</span> (e.key === ‘Enter’) &#123;</span><br><span class="line">		this.createNewToDoItem();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>Vue 的实现方法<br>Vue 的事件监听器更加直接。我们只需要使用一个简单的 @ 符号，就可以构建出我们想要的事件监听器。例如，想要添加 click 事件监听器，代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">”ToDo-Add”</span> @<span class="attr">click</span>=<span class="string">”createNewToDoItem()”</span>&gt;</span>+<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>注意：@click 实际上是 v-on:click 的简写。Vue 事件监听器很强大，你可以为其选择属性，例如 .once 可以防止事件监听器被多次触发。此外，它还包含很多快捷方式。按下回车按钮时，React 就需要花费更长的时间来创建事件监听器，从而创建新的 ToDo 项目。在 Vue，代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">”text”</span> <span class="attr">v-on:keyup.enter</span>=<span class="string">”createNewToDoItem”/</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="06如何将数据传递给子组件"><a href="#06如何将数据传递给子组件" class="headerlink" title="06如何将数据传递给子组件"></a>06如何将数据传递给子组件</h3><p>React的实现方法<br>在 React 中，我们将 props 传递到子组件的创建处。比如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ToDoItem key=&#123;key&#125; item=&#123;todo&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
-<p>此处我们向 ToDoItem 组件传递了两个 prop。之后，我们可以在子组件中通过 this.props 引用它们。因此，想要访问 item.todo prop，我们只需调用this.props.item 。<br>Vue 的实现方法<br>在 Vue 中，我们将 props 传递到子组件创建处的方式如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;ToDoItem v-for=<span class="string">"todo in list"</span> </span><br><span class="line">	:todo=<span class="string">"todo"</span></span><br><span class="line">	:key=<span class="string">"todo.id"</span></span><br><span class="line">	@delete=<span class="string">"onDeleteItem"</span> /&gt;</span><br></pre></td></tr></table></figure></p>
-<p>我们将它们传递给子组件中的 props 数组，如：props：[‘id’，’todo’]。然后可以在子组件中通过名字引用它们。</p>
-<h3 id="07如何将数据发送回父组件"><a href="#07如何将数据发送回父组件" class="headerlink" title="07如何将数据发送回父组件"></a>07如何将数据发送回父组件</h3><p>React的实现方法<br>我们首先将函数传递给子组件，方法是在我们调用子组件时将其引用为 prop。然后我们通过引用 this.props.whateverTheFunctionIsCalled，为子组件添加调用函数，例如 onClick。然后，这将触发父组件中的函数。删除待办事项一节中详细介绍了整个过程。<br>Vue的实现方法<br>在子组件中我们只需编写一个函数，将一个值发送回父函数。在父组件中编写一个函数来监听子组件何时发出该值的事件，监听到事件之后触发函数调用。同样，删除待办事项一节中详细介绍了整个过程。</p>
-<h3 id="08总结"><a href="#08总结" class="headerlink" title="08总结"></a>08总结</h3><p>我们研究了添加、删除和更改数据，以 prop 形式从父组件到子组件传递数据，以及通过事件监听器的形式将数据从子组件发送到父组件。当然，React 和 Vue 之间存在一些小差异，希望本文的内容有助于理解这两个框架。</p>
-<p>两个应用程序的 GitHub 地址：</p>
-<p>Vue ToDo：<a href="https://github.com/sunil-sandhu/vue-todo" target="_blank" rel="noopener">https://github.com/sunil-sandhu/vue-todo</a></p>
-<p>React ToDo：<a href="https://github.com/sunil-sandhu/react-todo" target="_blank" rel="noopener">https://github.com/sunil-sandhu/react-todo</a></p>
-<blockquote>
-<p>原文：<a href="https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd" target="_blank" rel="noopener">https://medium.com/javascript-in-plain-english/i-created-the-exact-same-app-in-react-and-vue-here-are-the-differences-e9a1ae8077fd</a> </p>
-</blockquote>
-<h4 id="新添加一篇文章后执行的命令-1"><a href="#新添加一篇文章后执行的命令-1" class="headerlink" title="新添加一篇文章后执行的命令"></a>新添加一篇文章后执行的命令</h4><ol>
-<li>hexo g</li>
-<li>hexo d</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/07/20/按照字体格式引用svg图标/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shenshuai.me">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/20/按照字体格式引用svg图标/" itemprop="url">将svg图标转化成字体格式使用</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T09:05:04+08:00">
-                2018-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-20T00:00:00+08:00">
+                2019-06-20
               </time>
             
 
@@ -536,12 +345,16 @@
       
         
           
-            <h2 id="将svg图标转化成字体格式使用"><a href="#将svg图标转化成字体格式使用" class="headerlink" title="将svg图标转化成字体格式使用"></a>将svg图标转化成字体格式使用</h2><p>在一般的站点中都会多次使用一些icon小图标，传统做法会制作成一张图片，来减少网络加载请求。除了这个方案还可以将图标转为一套字体来使用。</p>
-<h3 id="准备好需要的icon图标"><a href="#准备好需要的icon图标" class="headerlink" title="准备好需要的icon图标"></a>准备好需要的icon图标</h3><p>下载好所需要的所有icon图标，颜色和大小不必在意和设置，都可以在字体文件中进行修改。<br>提前准备的add.svg del.svg arrow-down.svg arrow-up.svg cart.svg loading.svg</p>
-<h3 id="将图标制作成字体"><a href="#将图标制作成字体" class="headerlink" title="将图标制作成字体"></a>将图标制作成字体</h3><p>打开<a href="https://www.icomoon.io" target="_blank" rel="noopener">icomoon.io</a>网站，<br>点击右上角的icoMoonApp，进入页面后点击import导入所有的svg图标。<br>选中所有添加的图标，边框为黄色的为选中状态，然后点击右侧的修改，可以修改重命名字体，如图片所示<br><img src="/images/mall-font.png" alt=""><br>最后在页面底部点击generate font，将字体下载导出</p>
-<h3 id="将字体文件加载至站点资源中"><a href="#将字体文件加载至站点资源中" class="headerlink" title="将字体文件加载至站点资源中"></a>将字体文件加载至站点资源中</h3><p>下载的文件包含了demo-files，可以参考使用<br>点击demo.html可以查看效果<br>最重要的两个文件1，fonts  2，fonts.css,将这两个文件引入到项目中<br>就可以在页面中需要的位置引用字体图标<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class="icon-add"&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class="icon-del"&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class="icon-arrow-down"&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class="icon-arrow-up"&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class="icon-cart"&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class="icon-loading"&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这种方法，可以减少对图片的加载请求，还可以在页面中自行设置大小和颜色。</p>
-
+            <ul>
+<li><a href="http://www.shenshuai.me/2019/06/18/vue基础介绍，数据绑定" target="_blank" rel="noopener">第一篇：vue基础介绍，数据绑定(computed+watch)</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/20/vue样式class和style" target="_blank" rel="noopener">第二篇：vue样式class和style</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/22/vue组件及生命周期" target="_blank" rel="noopener">第三篇：vue组件及生命周期</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/24/vue父子组件之间的数据传递" target="_blank" rel="noopener">第四篇：vue父子组件之间的数据传递</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/26/vue动画与过渡" target="_blank" rel="noopener">第五篇：vue动画与过渡</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/28/vue-router路由的使用" target="_blank" rel="noopener">第六篇：vue-router路由的使用</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/30/vuex数据管理" target="_blank" rel="noopener">第七篇：vuex数据管理</a></li>
+</ul>
+<h3 id="Vue介绍"><a href="#Vue介绍" class="headerlink" title="Vue介绍"></a>Vue介绍</h3><h3 id="Vue数据绑定"><a href="#Vue数据绑定" class="headerlink" title="Vue数据绑定"></a>Vue数据绑定</h3>
           
         
       
@@ -589,7 +402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/05/16/生活杂谈/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/06/18/js正则表达式深度解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -608,7 +421,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/16/生活杂谈/" itemprop="url">阅读《如何阅读一本书》笔记</a></h2>
+                <a class="post-title-link" href="/2019/06/18/js正则表达式深度解析/" itemprop="url">js正则表达式深度解析</a></h2>
         
 
         <div class="post-meta">
@@ -620,150 +433,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-16T20:20:54+08:00">
-                2018-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活杂谈/" itemprop="url" rel="index">
-                    <span itemprop="name">生活杂谈</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>关于如何阅读一本书，快速理解快速记忆有效学习的方法。</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/01/21/exports和module.exports以及export的区别/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="shenshuai.me">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/21/exports和module.exports以及export的区别/" itemprop="url">exports和module.exports以及export的区别</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T21:20:54+08:00">
-                2018-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-18T21:02:33+08:00">
+                2019-06-18
               </time>
             
 
@@ -824,18 +495,47 @@
       
         
           
-            <blockquote>
-<blockquote>
-<p>exports和module.exports属于CommonJs规范，export属于Es6定义</p>
-</blockquote>
-</blockquote>
-<h2 id="CommonJS-exports和module-exports-模块规范"><a href="#CommonJS-exports和module-exports-模块规范" class="headerlink" title="CommonJS(exports和module.exports)模块规范"></a>CommonJS(exports和module.exports)模块规范</h2><p>NodeJs使用的是CommonJs规范，根据这个规范每个js文件就是一个模块，有自己的作用域。<br>在一个文件内部定义的变量，函数，类都是私有的，其他文件看不到。</p>
-<p>exports对象是module.exports的引用。<br>关于引用可以使用下面的例子来解释清楚：<br>ECMAScript的变量值类型共有两种;<br>基本类型(primitive values):包括undefined,null,boolean,number,string五种基本类型。<br>引用类型(reference values):保存在内存中的对象，不能直接操作，只能通过保存在变量的地址引用对其进行操作。<br>exports和module.exports属于object类型，属于引用类型。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = &#123;</span><br><span class="line">	exports:&#123;</span><br><span class="line">		name:<span class="string">"I am module exports"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> exports = <span class="built_in">module</span>.exports;<span class="comment">// exports是对module.exports的引用，就是说exports指向的内存地址和module.exports指向的内存地址一样。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.exports); <span class="comment">//&#123;name:'I am module exports'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(exports); <span class="comment">//&#123;name:'I am module exports'&#125;</span></span><br><span class="line"></span><br><span class="line">exports.name = <span class="string">"change name"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.exports); <span class="comment">//&#123;name:'change name'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(exports); <span class="comment">//&#123;name:'change name'&#125;</span></span><br><span class="line">**由此可见，exports和<span class="built_in">module</span>.exports是引用的同一块内存地址**</span><br><span class="line"><span class="comment">//如果重新定义一个对象，将exports的引用指向重新定义的对象</span></span><br><span class="line"><span class="keyword">var</span> newObj = &#123;</span><br><span class="line">	name:<span class="string">"this is new Object"</span>,</span><br><span class="line">	func:<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x*x;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">exports = newObj;<span class="comment">//这时newObj这个Object在内存中指向了新的地址，所以exports也指向了这个新地址，和原来的module.exports对象内存地址没有任何关系。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.exports);<span class="comment">//&#123;name:'change name'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(exports);<span class="comment">//&#123;name:'this is new Object',function:[Function]&#125;</span></span><br><span class="line"><span class="string">``</span></span><br><span class="line"></span><br><span class="line">回到nodeJs中，<span class="built_in">module</span>.exports初始的时候置为&#123;&#125;,exports也指向这个空对象。</span><br><span class="line">下面的写法，作用是一样的</span><br><span class="line"><span class="string">``</span><span class="string">` js</span></span><br><span class="line"><span class="string">exports.name = function(x)&#123;</span></span><br><span class="line"><span class="string">	console.log(x)</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string">module.exports.name = function(x)&#123;</span></span><br><span class="line"><span class="string">	console.log(x)</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure></p>
-<p>但是如果按照下面的写法，效果就不同<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">exports = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(x)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//上面的function是一块新的内存地址，导致了exports和module.exports不存在任何关系，而require下看到的只有module.exports这个对象，看不到exports对象，所以这样写是有问题是无法导出的。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面的这个写法是可以导出，module.exports除了导出对象、函数，还可以导出所有的类型，如字符串，数值，布尔...</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Es6-export-模块规范"><a href="#Es6-export-模块规范" class="headerlink" title="Es6(export)模块规范"></a>Es6(export)模块规范</h2><p>不同于commonJs，Es6使用export和import来导入导出模块<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//info.js</span></span><br><span class="line"><span class="keyword">var</span> firstName = <span class="string">"Michael"</span>;</span><br><span class="line"><span class="keyword">var</span> lastName = <span class="string">"jackson"</span>;</span><br><span class="line"><span class="keyword">var</span> year = <span class="number">1958</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;firstName, lastName, year&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>需要特别注意的是，export命令规定的是对外的接口，必须与模块内部的变量建立一一对应关系<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写法一</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> m = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写法二</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;m&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写法三</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;n <span class="keyword">as</span> m&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>使用export default命令，为模块指定默认输出,一个文件只能有一个默认输出<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+            <h2 id="正则简介和图形化工具使用"><a href="#正则简介和图形化工具使用" class="headerlink" title="正则简介和图形化工具使用"></a>正则简介和图形化工具使用</h2><p>正则表达式是一套匹配固定格式字符串的语法规则。常用来对字符串的查找替换等操作。<br>为了方便学习和使用正则表达式，可以借助图形化工具翻译<br>如网站<a href="https://regexper.com" target="_blank" rel="noopener">regexper</a>可以将表达式转换为图形语义<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\w&#123;3,8&#125;@(\w|\d)&#123;2,5&#125;\.(\w)&#123;2&#125;/</span></span><br></pre></td></tr></table></figure></p>
+<p>如下图展示<img src="/images/regex1.png" alt="regex1">正则表达式可以通过对象字面量创建：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/</span>;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用构造函数创建 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'\\bhello\\b'</span>,<span class="string">'g'</span>);</span><br></pre></td></tr></table></figure>
+<p>正则表达式只有一个test方法，即(正则).<strong>test</strong>(字符串)，其他的为字符串方法如(字符串).<strong>match</strong>(正则)，(字符串).<strong>search</strong>(正则)，(字符串).<strong>replace</strong>(正则)，(字符串).<strong>split</strong>(正则)</p>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><ul>
+<li><p>g: global全局搜索，不添加的话，只搜索到第一个就会停止</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'上海市北京市郑州市'</span>.match(<span class="regexp">/市/</span>,<span class="string">"省"</span>)</span><br><span class="line"><span class="comment">// ["市", index: 2, input: "上海市北京市郑州市", groups: undefined]</span></span><br><span class="line"><span class="string">'上海市北京市郑州市'</span>.match(<span class="regexp">/市/g</span>,<span class="string">"省"</span>)</span><br><span class="line"><span class="comment">//  ["市", "市", "市"]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>i: ignore case 忽略大小写，默认是大小写敏感</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'heLlo worLd'</span>.replace(<span class="regexp">/l/g</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"heL!o worLd"</span></span><br><span class="line"><span class="string">'heLlo worLd'</span>.replace(<span class="regexp">/l/gi</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"he!!o wor!d"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>m：multiple line多行搜索 </p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"@123</span></span><br><span class="line"><span class="string">@456</span></span><br><span class="line"><span class="string">@789"</span>.replace(<span class="regexp">/^@./g</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"!23</span></span><br><span class="line"><span class="string">@456</span></span><br><span class="line"><span class="string">@789"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"@123</span></span><br><span class="line"><span class="string">@456</span></span><br><span class="line"><span class="string">@789"</span>.replace(<span class="regexp">/^@./gm</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"!23</span></span><br><span class="line"><span class="string">!56</span></span><br><span class="line"><span class="string">!89"</span></span><br></pre></td></tr></table></figure>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>正则表达是有两种基本字符类型组成</p>
+<ul>
+<li><p>原义文本字符：如“是”，“s”</p>
+</li>
+<li><p>元字符:在正则表达式中有特殊含义的非字母字符<br>^ |  $ ? <em> + . \ ( ) { } [ ]<br>|名称|含义|<br>|:—|:–:|<br>| ^ | 匹配输入字符串的开始位置。如果是在[]内，表示否定的意思 |<br>| $ | 匹配字符串结束的位置。 |<br>| . | 匹配除换行符（\n、\r）之外的任何单个字符。 |<br>| \ | 将下一个字符标记为一个特殊字符的引用转义符。 |<br>| </em> | 匹配显示零次或多次 |<br>| + | 匹配显示1次或多次 |<br>| ? | 匹配显示0次或1次 |<br>| \b | 匹配一个单词边界，也就是指单词和空格间的位置。 |<br>| \B | 匹配非单词边界。 |<br>| \d | 匹配一个数字字符。 |<br>| \D |匹配一个非数字字符。 |<br>| \n |匹配一个换行符。 |<br>| \r | 匹配一个回车符 |<br>| \s | 匹配任何空白字符，包括空格、制表符、换页符等等。 |<br>| \S | 匹配任何非空白字符。 |<br>| \w | 匹配字母、数字、下划线。 |<br>| \W | 匹配非字母、数字、下划线。 |</p>
+<p><strong>\b</strong>  匹配边界值<br><img src="/images/regex2.png" alt="regex2"></p>
+</li>
+</ul>
+<p>“hello world lo”.replace(/lo\b/g,”!”)       &gt;   “hel! world !”</p>
+<p>“hello world lo”.replace(/\Blo\b/g,”!”)   &gt;   “hel! world lo”</p>
+<p>  <strong>\w</strong><br>  <img src="/images/regex3.png" alt="regex3"><br>  <strong>\d</strong><br>  <img src="/images/regex4.png" alt="regex4"></p>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>一般情况下正则字符匹配的是一个字符串。如果匹配一类特性的字符，要创建一个特定的字符类，元字符[]可以把一些字符归为一类，表达式可以匹配这一类的字符。</p>
+<p>如果使用/[hello]/,匹配到单独的或h、或e、或l、或o单个字母<br>/hello/匹配到完整的hello单词</p>
+<p>/[hello]/<br> <img src="/images/regex5.png" alt="regex5"><br>/hello/<br> <img src="/images/regex6.png" alt="regex6"></p>
+<p> <strong>在字符类里面写上^表示否定</strong></p>
+<p>[^hello]<br> <img src="/images/^hello.png" alt="^hello"></p>
+<h2 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h2><p>{20}匹配20次<br>{4,}至少4次<br>{1,5}1次到5次<br>{0,8} 0次到8次<br>? 零次或一次，最多一次<br>+一次或多次，至少一次<br>*零次或者多次</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>可以使用()对要匹配的内容进行分组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"a1a2a3a4"</span>.replace(<span class="regexp">/\w\d&#123;3&#125;/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">// 匹配不到结果 "a1a2a3a4"</span></span><br><span class="line"><span class="string">"a1a2a3a4"</span>.replace(<span class="regexp">/(\w\d)&#123;3&#125;/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">//可以匹配字母加数字的重复3次  "Xa4"</span></span><br></pre></td></tr></table></figure></p>
+<p>分组常用于改变数据格式，反向引用<br>$代表分组的内容，$1表示第一组，$2表示第二组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"2019-08-06"</span>.replace(<span class="regexp">/(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)/g</span>,<span class="string">"$2/$3/$1"</span>)</span><br><span class="line"><span class="comment">// "08/06/2019"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="范围类"><a href="#范围类" class="headerlink" title="范围类"></a>范围类</h2><p>正则表达式里有创建字符类，可以用来匹配一类字符，如[0123456789],这样会造成书写困难不雅观。可以直接写成[0-9],字母可以写成[a-z]。这是一个闭区间，包含了两头的字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"2019-05-01"</span>.replace(<span class="regexp">/[0-9]/g</span>,<span class="string">"x"</span>)  =&gt;  <span class="string">"xxxx-xx-xx"</span></span><br><span class="line"><span class="string">"2019-05-01"</span>.replace(<span class="regexp">/[0-9-]/g</span>,<span class="string">"x"</span>)  =&gt; <span class="string">"xxxxxxxxxx"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="贪婪模式和非贪婪模式"><a href="#贪婪模式和非贪婪模式" class="headerlink" title="贪婪模式和非贪婪模式"></a>贪婪模式和非贪婪模式</h2><p>正则表达式会尽可能多的匹配，默认贪婪模式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"1234567"</span>.replace(<span class="regexp">/\d&#123;3,5&#125;/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">// "X67"</span></span><br></pre></td></tr></table></figure></p>
+<p>将贪婪模式转为非贪婪模式，只需要在量词后加?<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"1234567"</span>.replace(<span class="regexp">/\d&#123;3,5&#125;?/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">// "XX7"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="前瞻"><a href="#前瞻" class="headerlink" title="前瞻"></a>前瞻</h2><p>正则表达式从文本左边往右边匹配解析，向右边的方向称作“前”<br>从右往左匹配称作“后”<br><strong>正向前瞻</strong>  exp(?=assert)  当符合了第一个表达式后，继续向右查看是否符合断言部分（也是正则表达式），符合了则为匹配<br><strong>负向前瞻</strong>  exp(?!assert)   当符合了第一个表达式后，继续向右查看是否符合断言部分（也是正则表达式），不符合断言，则为匹配</p>
+<p><strong><u>断言部分不参与替换</u></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;(?!(w))/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">// "123wfor!dwordN" 匹配到789并替换成N，因为123后面是w，不符合断言部分的后边不是w条件</span></span><br><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;(?!(f))/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">// "Nwfor!dwordN"  匹配到123和789，断言是后边不能是f，都符合条件</span></span><br><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;((?!(for)).)*$/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">//"123wfor!dwordN" 匹配到了789，因为123后边包含了for单词   </span></span><br><span class="line"><span class="comment">// (assert.)*$表示以任意字符结尾往左查找，来判断断言部分的内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ((?!word).)*$ 表示字符串中不能包含word的断言</span></span><br><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;((?!(word)).)*$/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">//"123wfor!dwordN"</span></span><br></pre></td></tr></table></figure>
           
         
       
@@ -883,7 +583,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/01/17/Flex布局/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/06/18/vue基础入门一(方法和数据)/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -902,7 +602,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/17/Flex布局/" itemprop="url">flex页面布局详解</a></h2>
+                <a class="post-title-link" href="/2019/06/18/vue基础入门一(方法和数据)/" itemprop="url">vue基础介绍，数据绑定(一)</a></h2>
         
 
         <div class="post-meta">
@@ -914,8 +614,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T20:54:18+08:00">
-                2018-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-18T00:00:00+08:00">
+                2019-06-18
               </time>
             
 
@@ -976,84 +676,339 @@
       
         
           
-            <h2 id="Flexbox介绍"><a href="#Flexbox介绍" class="headerlink" title="Flexbox介绍"></a>Flexbox介绍</h2><p>Flex主要是为了解决<strong>容器</strong>内部<strong>子项</strong>的对齐和自由分配，即使它们大小是未知的或者动态的。<br>Flex背后设计思想给容器控制子项的宽度和高度的能力，使得flex子项可以自动填满容器的可用空间（主要是适用所有显示设备和屏幕大小）。</p>
-<h2 id="Flex的属性"><a href="#Flex的属性" class="headerlink" title="Flex的属性"></a>Flex的属性</h2><h4 id="作用于容器的属性："><a href="#作用于容器的属性：" class="headerlink" title="作用于容器的属性："></a>作用于容器的属性：</h4><ul>
-<li>flex-direction：规定了主轴的方向X或者Y</li>
-<li>flex-wrap：设置子项是否换行</li>
-<li>flex-flow：是flex-direction和flex-wrap的综合缩写，默认值为：row nowrap</li>
-<li>justify-content：子项在主轴上分布的方式</li>
-<li>align-items：子项在侧轴上对齐的方式</li>
-<li>align-content：子项有多行时，该属性生效。当容器的侧轴上有多余空间，align-content用了调整多个子项行在容器侧轴上的对齐方式，和justify-content属性控制子项在主轴上分布属性类似。</li>
+            <ul>
+<li><a href="http://www.shenshuai.me/2019/06/18/vue基础介绍，数据绑定" target="_blank" rel="noopener">第一篇：vue基础介绍，数据绑定(computed+watch)</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/20/vue样式class和style" target="_blank" rel="noopener">第二篇：vue样式class和style</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/22/vue组件及生命周期" target="_blank" rel="noopener">第三篇：vue组件及生命周期</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/24/vue父子组件之间的数据传递" target="_blank" rel="noopener">第四篇：vue父子组件之间的数据传递</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/24/vue动画与过渡" target="_blank" rel="noopener">第五篇：vue动画与过渡</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/24/vue-router路由的使用" target="_blank" rel="noopener">第六篇：vue-router路由的使用</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/24/vuex数据管理" target="_blank" rel="noopener">第七篇：vuex数据管理</a></li>
 </ul>
-<h4 id="作用于子项的属性："><a href="#作用于子项的属性：" class="headerlink" title="作用于子项的属性："></a>作用于子项的属性：</h4><ul>
-<li>order：设置一个数字，用来控制子项排序的先后，数字越小越靠前，负值也可以。</li>
-<li>flex-grow：设置一个数字（扩大比例），用了控制子项在容器中所占的比例（如果都设置1，所有子项大小相等，如果有一个为2，则该子项是其它子项的2倍），负值属性失效。</li>
-<li>flex-shrink：设置一个数字（缩小比例），默认值为1，负值失效。</li>
-<li>flex-basis：子项在分配容器剩余空间之前的一个依据基础，如果设置为0，内容不考虑子项内容周围额外空间，如果设置为auto，子项的额外空间基于flex-grow分布。</li>
-<li>flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0 1 auto</li>
-<li>align-self：用来控制子项单独的覆写默认的对齐方式。</li>
-</ul>
-<h2 id="Flex的容器属性详细介绍"><a href="#Flex的容器属性详细介绍" class="headerlink" title="Flex的容器属性详细介绍"></a>Flex的容器属性详细介绍</h2><h3 id="flex-direction属性-四个值"><a href="#flex-direction属性-四个值" class="headerlink" title="flex-direction属性,四个值"></a>flex-direction属性,四个值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123; <span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse; &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Vue介绍"><a href="#Vue介绍" class="headerlink" title="Vue介绍"></a>Vue介绍</h3><h3 id="Vue数据绑定"><a href="#Vue数据绑定" class="headerlink" title="Vue数据绑定"></a>Vue数据绑定</h3>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/05/24/使用node的express框架搭建的webSocket请求/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/24/使用node的express框架搭建的webSocket请求/" itemprop="url">使用node的express框架搭建的webSocket请求</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-24T17:42:33+08:00">
+                2019-05-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用ws创建WebSocket服务"><a href="#使用ws创建WebSocket服务" class="headerlink" title="使用ws创建WebSocket服务"></a>使用ws创建WebSocket服务</h1><h2 id="新建package-json，用于安装ws"><a href="#新建package-json，用于安装ws" class="headerlink" title="新建package.json，用于安装ws"></a>新建package.json，用于安装ws</h2><p>执行npm init -y生成package.json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"name"</span>: <span class="string">"echo"</span>,</span><br><span class="line">	<span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</span><br><span class="line">	<span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">		<span class="attr">"express"</span>: <span class="string">"4.17.0"</span>,</span><br><span class="line">		<span class="attr">"ws"</span>: <span class="string">"^7.0.0"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行$npm install 命令安装依赖包</p>
+<p>创建一个server.js。作为项目启动的服务器，新建一个public文件夹，用来放置静态文件。<br>以下是server.js的内容<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line"><span class="keyword">var</span> WebSocket = <span class="built_in">require</span>(<span class="string">"ws"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//这一部分不能使用express创建服务的简写方法。</span></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"><span class="keyword">var</span> server = http.createServer(app);</span><br><span class="line"><span class="keyword">var</span> wss = <span class="keyword">new</span> WebSocket.Server(&#123;server&#125;)</span><br><span class="line"></span><br><span class="line">app.use(express.static(__dirname + <span class="string">"/public"</span>))</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">"connection"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">ws</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"连接成功"</span>);</span><br><span class="line">  ws.on(<span class="string">"message"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"接收到客户端的数据："</span>+data);</span><br><span class="line">    <span class="comment">// 后台接收到前端的数据后，向前端发送数据</span></span><br><span class="line">    ws.send(<span class="string">"server返回的："</span>+data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">server.listen(<span class="number">1688</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"服务器启动成功，通过1688端口访问"</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在public文件夹下，创建index.html文件<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>websocket echo<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">h2</span>&gt;</span>latency: <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"latency"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>ms<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lastMessage;</span><br><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	ws = <span class="keyword">new</span> WebSocket(<span class="string">'ws://127.0.0.1:1688'</span>);</span><br><span class="line">	ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">		ping();   </span><br><span class="line">	&#125;;</span><br><span class="line">	ws.onclose = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;<span class="comment">//当链接关闭的时候触发</span></span><br><span class="line"></span><br><span class="line">	&#125;;</span><br><span class="line">	ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;<span class="comment">//后台返回消息的时候触发</span></span><br><span class="line">		<span class="built_in">console</span>.log(e.data);</span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">new</span> <span class="built_in">Date</span> - lastMessage&gt;<span class="number">20</span>)&#123;</span><br><span class="line">			<span class="built_in">document</span>.getElementById(<span class="string">"latency"</span>).innerHTML = <span class="string">"响应时间过长，停止请求"</span>;</span><br><span class="line">			ws.close();</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">document</span>.getElementById(<span class="string">"latency"</span>).innerHTML = <span class="keyword">new</span> <span class="built_in">Date</span> - lastMessage;</span><br><span class="line">		setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">"计算出耗时之后，2s再发一次请求"</span>);</span><br><span class="line">			ping();</span><br><span class="line">		&#125;,<span class="number">2000</span>)</span><br><span class="line">	&#125;;</span><br><span class="line">	ws.onerror = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;<span class="comment">//错误情况触发</span></span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">ping</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			lastMessage = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">			ws.send(<span class="string">"ping"</span>);   <span class="comment">//向后台发送数据</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后可以使用node server.js启动服务，打开index.html文件就可以看到websocket发送和接收的数据。</p>
+<h2 id="只使用ws创建服务"><a href="#只使用ws创建服务" class="headerlink" title="只使用ws创建服务"></a>只使用ws创建服务</h2><p>单独使用ws创建服务，然后直接在浏览器打开index.html即可访问。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> WebSocket = <span class="built_in">require</span>(<span class="string">'ws'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> WebSocketServer = WebSocket.Server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> wss = <span class="keyword">new</span> WebSocketServer(&#123;</span><br><span class="line">    port: <span class="number">1688</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">wss.on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">ws</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"连接成功"</span>);</span><br><span class="line">    ws.on(<span class="string">"message"</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"接收到客户端的数据："</span> + data);</span><br><span class="line">        <span class="comment">// 后台接收到前端的数据后，向前端发送数据</span></span><br><span class="line">        ws.send(<span class="string">"server返回的："</span> + data)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'ws server started at port 1688...'</span>);</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/05/15/webpackDevLibrary/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/15/webpackDevLibrary/" itemprop="url">webpackDevLibrary</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T15:03:33+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用webpack开发一个npm包，并发布到npmjs"><a href="#使用webpack开发一个npm包，并发布到npmjs" class="headerlink" title="使用webpack开发一个npm包，并发布到npmjs"></a>使用webpack开发一个npm包，并发布到npmjs</h1><h2 id="创建webpack开发环境-设置package-json"><a href="#创建webpack开发环境-设置package-json" class="headerlink" title="创建webpack开发环境,设置package.json"></a>创建webpack开发环境,设置package.json</h2><p>执行npm init -y生成package.json<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"num-word-chinese"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">"将数字转成英文单词或者中文大写"</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"dist/num-word-chinese.js"</span>,</span><br><span class="line">  <span class="attr">"module"</span>: <span class="string">"src/index.js"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="attr">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"webpack"</span>: <span class="string">"^4.31.0"</span>,</span><br><span class="line">    <span class="attr">"webpack-cli"</span>: <span class="string">"^3.3.2"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"lodash"</span>: <span class="string">"^4.17.11"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>row(默认值):如果书写方式是ltr，那么flex子项是从左向右排列；</li>
-<li>row-reverse：如果书写方式ltr，方面flex子项是从右向左排列；</li>
-<li>column：和row类型，改变了主轴的方向为Y</li>
-<li>column：和row-reverse类似，方向上是从下往上</li>
+<li>main指定访问生成的js插件的入口</li>
+<li>module将js包添加为标准模块</li>
+<li>devDependencies，编译生成js包所需的开发依赖包，这里面引用的包，使用者使用安装该js时，不会下载这些依赖。</li>
+<li>dependencies，js包运行所需的依赖包，这里面引用的包，使用者使用安装该js时，会自动下载这些依赖。</li>
 </ul>
-<p>flex-direction属性展示效果图：<br><img src="/images/flex-direction.png" alt=""></p>
-<h3 id="flex-wrap属性-三个值"><a href="#flex-wrap属性-三个值" class="headerlink" title="flex-wrap属性,三个值"></a>flex-wrap属性,三个值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123; </span><br><span class="line">	<span class="attribute">flex-wrap</span>: nowrap | wrap | wrap-reverse; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建webpack-config-js修改配置"><a href="#创建webpack-config-js修改配置" class="headerlink" title="创建webpack.config.js修改配置"></a>创建webpack.config.js修改配置</h2><h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><p>现在，让我们以某种方式打包这个 library，能够实现以下几个目标：</p>
 <ul>
-<li>nowrap(默认值):单行显示</li>
-<li>wrap:多行显示</li>
-<li>wrap-reverse：多行显示，反转</li>
+<li>使用 externals 选项，避免将 lodash 打包到应用程序，而使用者会去加载它。</li>
+<li>将 library 的名称设置为 num-word-chinese。</li>
+<li>将 library 暴露为一个名为 numWordChinese 的变量。</li>
+<li>能够访问其他 Node.js 中的 library。</li>
 </ul>
-<p>flex-wrap属性展示效果图：<br><img src="/images/flex-wrap.png" alt=""></p>
-<h3 id="flex-flow属性，是flex-direction和flex-wrap的综合"><a href="#flex-flow属性，是flex-direction和flex-wrap的综合" class="headerlink" title="flex-flow属性，是flex-direction和flex-wrap的综合"></a>flex-flow属性，是flex-direction和flex-wrap的综合</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-flow: &lt;'flex-direction'&gt; || &lt;'flex-wrap'&gt;</span><br></pre></td></tr></table></figure>
-<p>默认属性值row nowrap</p>
-<h3 id="justify-content属性，五个属性值"><a href="#justify-content属性，五个属性值" class="headerlink" title="justify-content属性，五个属性值"></a>justify-content属性，五个属性值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">justify-content</span>: flex-start | flex-end | center | space-between | space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此外，consumer(使用者) 应该能够通过以下方式访问 library：</p>
 <ul>
-<li>flex-start(默认值)：子项靠近起始位置</li>
-<li>flex-end：子项靠近结束位置</li>
-<li>center：子项在一行的中间位置</li>
-<li>space-between：子项在主轴上平均分布，顶齐起始和结束的位置</li>
-<li>space-around：子项在主轴上平均分布，起始和结束位置的两端保留一半的空间</li>
+<li>ES2015 模块。例如 import numWordChinese from ‘num-word-chinese’。</li>
+<li>CommonJS 模块。例如 require(‘num-word-chinese’).</li>
+<li>全局变量，在通过 script 标签引入时</li>
 </ul>
-<p>justify-content属性展示效果图：<br><img src="/images/justify-content.png" alt=""></p>
-<h3 id="align-items属性的五个属性值"><a href="#align-items属性的五个属性值" class="headerlink" title="align-items属性的五个属性值"></a>align-items属性的五个属性值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">align-items</span>: flex-start | flex-end | center | baseline | stretch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename: <span class="string">'num-word-chinese.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="外部化lodash"><a href="#外部化lodash" class="headerlink" title="外部化lodash"></a>外部化lodash</h3><p>现在，如果执行 webpack，你会发现创建了一个体积相当大的文件。如果你查看这个文件，会看到 lodash 也被打包到代码中。在这种场景中，我们更倾向于把 lodash 当作 peerDependency。也就是说，consumer(使用者) 应该已经安装过 lodash 。因此，你就可以放弃控制此外部 library ，而是将控制权让给使用 library 的 consumer。</p>
+<p>这可以使用 externals 配置来完成：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">    filename: <span class="string">'num-word-chinese.js'</span></span><br><span class="line"> &#125;</span><br><span class="line"> &#125;,</span><br><span class="line"> externals: &#123;</span><br><span class="line">   lodash: &#123;</span><br><span class="line">     commonjs: <span class="string">'lodash'</span>,</span><br><span class="line">     commonjs2: <span class="string">'lodash'</span>,</span><br><span class="line">     amd: <span class="string">'lodash'</span>,</span><br><span class="line">     root: <span class="string">'_'</span></span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="暴露-library"><a href="#暴露-library" class="headerlink" title="暴露 library"></a>暴露 library</h3><p>对于用法广泛的 library，我们希望它能够兼容不同的环境，例如 CommonJS，AMD，Node.js 或者作为一个全局变量。为了让你的 library 能够在各种使用环境中可用，需要在 output 中添加 library 属性：<br>library: ‘numWordChinese’<br>将你的 library bundle 暴露为名为 numWordChinese 的全局变量，consumer 通过此名称来 import。为了让 library 和其他环境兼容，则需要在配置中添加 libraryTarget 属性。这个选项可以控制以不同形式暴露 library。最重要的模块输出选项应该是 libraryTarget ，它是用来决定模块以何种规范输出，在全局变量的 Name 是啥。其基本格式为：</p>
+<p>output.libraryTarget[String]: var | assign | this | window | global | commonjs | commonjs2 | amd | umd<br>上面那些全部是都是可选项值。这里先告诉大家，在现代 JS 的写法中，最后一个 umd 的选项是最常用的。<br>libraryTarget: ‘umd’</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    entry: <span class="string">'./src/index.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">        filename: <span class="string">'num-word-chinese.js'</span>,</span><br><span class="line">        library: <span class="string">'numWordChinese'</span>,</span><br><span class="line">        libraryTarget: <span class="string">'umd'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    externals: &#123;</span><br><span class="line">        lodash: &#123;</span><br><span class="line">            commonjs: <span class="string">'lodash'</span>,</span><br><span class="line">            commonjs2: <span class="string">'lodash'</span>,</span><br><span class="line">            amd: <span class="string">'lodash'</span>,</span><br><span class="line">            root: <span class="string">'_'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="添加npm包的应用功能"><a href="#添加npm包的应用功能" class="headerlink" title="添加npm包的应用功能"></a>添加npm包的应用功能</h2><p>src/index.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">'lodash'</span>;</span><br><span class="line"><span class="keyword">import</span> numRef <span class="keyword">from</span> <span class="string">'./ref.json'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">numToWord</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _.reduce(numRef, (accum, ref) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> ref.num === num ? ref.word : accum;</span><br><span class="line">  &#125;, <span class="string">''</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">numToChinese</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _.reduce(numRef, (accum, ref) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> ref.num === num ? ref.chinese : accum;</span><br><span class="line">  &#125;, <span class="string">''</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">wordToNum</span>(<span class="params">word</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> _.reduce(numRef, (accum, ref) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> ref.word === word &amp;&amp; word.toLowerCase() ? ref.num : accum;</span><br><span class="line">  &#125;, <span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">chineseCurrency</span>(<span class="params">number</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> chineseNumber = <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">var</span> num = [<span class="string">"零"</span>, <span class="string">"壹"</span>, <span class="string">"贰"</span>, <span class="string">"叁"</span>, <span class="string">"肆"</span>, <span class="string">"伍"</span>, <span class="string">"陆"</span>, <span class="string">"柒"</span>, <span class="string">"捌"</span>, <span class="string">"玖"</span> ];</span><br><span class="line">  <span class="keyword">var</span> unit = [<span class="string">"分"</span>, <span class="string">"角"</span>, <span class="string">"圆"</span>, <span class="string">"拾"</span>, <span class="string">"佰"</span>, <span class="string">"仟"</span>, <span class="string">"万"</span>, <span class="string">"拾"</span>, <span class="string">"佰"</span>, <span class="string">"仟"</span>, <span class="string">"亿"</span>, <span class="string">"拾"</span>, <span class="string">"佰"</span>, <span class="string">"仟"</span>, <span class="string">"万"</span> ];</span><br><span class="line">  <span class="keyword">var</span> tempNumber = <span class="built_in">Math</span>.round(number * <span class="number">100</span>) + <span class="string">""</span>;</span><br><span class="line">  <span class="keyword">var</span> tempNumberLength = tempNumber.length;</span><br><span class="line">  <span class="keyword">if</span>(<span class="string">"0"</span> === tempNumber)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"零元整"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span>(tempNumberLength &gt; <span class="number">15</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"超出转化范围"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> preReadZero = <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">var</span> i = tempNumberLength; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">    <span class="keyword">if</span> ((tempNumberLength - i + <span class="number">2</span>) % <span class="number">4</span> == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (i - <span class="number">4</span> &gt;= <span class="number">0</span> &amp;&amp; <span class="string">"0000"</span> === tempNumber.substring(i - <span class="number">4</span>, i)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!preReadZero) &#123;</span><br><span class="line">          chineseNumber = <span class="string">"零"</span> + chineseNumber  ;</span><br><span class="line">          preReadZero = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i -= <span class="number">3</span>; </span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      preReadZero = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> digit = <span class="built_in">parseInt</span>(tempNumber.substring(i - <span class="number">1</span>, i), <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">if</span> (digit == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!preReadZero) &#123;</span><br><span class="line">        chineseNumber = <span class="string">"零"</span> + chineseNumber  ;</span><br><span class="line">        preReadZero = <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ((tempNumberLength - i + <span class="number">2</span>) % <span class="number">4</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        chineseNumber = unit[tempNumberLength - i] + chineseNumber  ;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      chineseNumber = num[digit] + unit[tempNumberLength - i] + chineseNumber;</span><br><span class="line">      preReadZero = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (tempNumberLength - <span class="number">2</span> &gt;= <span class="number">0</span> &amp;&amp; <span class="string">"00"</span> === tempNumber.substring(tempNumberLength - <span class="number">2</span>, tempNumberLength))&#123;</span><br><span class="line">    chineseNumber += <span class="string">"整"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> chineseNumber;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>flex-start:子项在侧轴上靠近起始位置对齐</li>
-<li>flex-end：子项在侧轴上靠近结束位置对齐</li>
-<li>center：子项在侧轴上，居中对齐</li>
-<li>baseline：子项的内容靠基线对齐</li>
-<li>stretch</li>
+<li>numToWord数字转英文</li>
+<li>numToChinese数字转中文</li>
+<li>chineseCurrency数字转金融货币写法</li>
 </ul>
-<p>align-items属性展示效果图：<br><img src="/images/align-items.png" alt=""></p>
-<h3 id="align-content属性的六个属性值"><a href="#align-content属性的六个属性值" class="headerlink" title="align-content属性的六个属性值"></a>align-content属性的六个属性值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">align-content</span>:flex-start | flex-end | center | space-between | space-around | stretch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>只有在子项是多行时，该属性生效</strong></p>
-<ul>
-<li>flex-start:各行向容器侧轴的起始位置靠齐</li>
-<li>flex-end：各行向容器侧轴的结束位置靠齐</li>
-<li>center：各行在容器侧轴上居中对齐</li>
-<li>space-between：各行在容器侧轴上平均分布，两端不留空间</li>
-<li>space-around：各行在容器侧轴上平均分布，两端保留一半空间</li>
-<li>stretch：各行会伸缩以填满侧轴上的空间</li>
-</ul>
-<p>align-content属性展示效果图：<br><img src="/images/align-content.png" alt=""></p>
-<h2 id="Flex的子项属性详细介绍"><a href="#Flex的子项属性详细介绍" class="headerlink" title="Flex的子项属性详细介绍"></a>Flex的子项属性详细介绍</h2><h3 id="order属性是一个数字序号值"><a href="#order属性是一个数字序号值" class="headerlink" title="order属性是一个数字序号值"></a>order属性是一个数字序号值</h3><p>子项根据order数字的大小进行排序展示</p>
-<p>order属性展示效果图<br><img src="/images/order.png" alt=""></p>
-<h3 id="flex-grow属性，设置一个数字，表示扩大子项大小"><a href="#flex-grow属性，设置一个数字，表示扩大子项大小" class="headerlink" title="flex-grow属性，设置一个数字，表示扩大子项大小"></a>flex-grow属性，设置一个数字，表示扩大子项大小</h3><h3 id="flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效"><a href="#flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效" class="headerlink" title="flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效"></a>flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效</h3><h3 id="flex-basis，子项分配容器剩余空间的一个依据基础"><a href="#flex-basis，子项分配容器剩余空间的一个依据基础" class="headerlink" title="flex-basis，子项分配容器剩余空间的一个依据基础"></a>flex-basis，子项分配容器剩余空间的一个依据基础</h3><p>两个值，如果为0，内容不考虑子项的周围额外空间，如果是auto，以子项周围的额外空间进行分布</p>
-<p>flex-basis属性展示效果图：<br><img src="/images/flex-basis.png" alt=""></p>
-<h3 id="flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0-1-auto"><a href="#flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0-1-auto" class="headerlink" title="flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0 1 auto"></a>flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0 1 auto</h3><p>flex一般使用第一个数字</p>
-<h3 id="align-self属性的六个属性值-子项的对齐方式覆盖原有的对齐方式"><a href="#align-self属性的六个属性值-子项的对齐方式覆盖原有的对齐方式" class="headerlink" title="align-self属性的六个属性值,子项的对齐方式覆盖原有的对齐方式"></a>align-self属性的六个属性值,子项的对齐方式覆盖原有的对齐方式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">align-self</span>: auto | flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>auto:计算值为父元素的align-items属性值，如果该元素没有父元素，则计算值为stretch</li>
-<li>flex-start：子项在侧轴起始一侧，靠近起始的边</li>
-<li>flex-end：子项在侧轴结束的一侧，靠近结束的边</li>
-<li>center：子项在侧轴上居中</li>
-<li>baseline：子项基于元素的基线对齐</li>
-<li>stretch</li>
-</ul>
-<p>align-self属性展示效果图：<br><img src="/images/align-self.png" alt=""></p>
+<h2 id="使用npm-publish发布包"><a href="#使用npm-publish发布包" class="headerlink" title="使用npm publish发布包"></a>使用npm publish发布包</h2><p>安装好webpack和webpack-cli<br>执行webpack命令将src/index.js打包到dist/num-word-chinese.js<br>登录npm，第一次登录npm adduser；<br>以后登录npm login<br>登录成功之后，执行npm publish发布程序包</p>
+<h2 id="测试包的使用"><a href="#测试包的使用" class="headerlink" title="测试包的使用"></a>测试包的使用</h2><p>发布成功后，可以npm install –save-dev num-word-chinese安装包<br>初始化一套支持Es6的webpack环境进行测试</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> numWordChinese <span class="keyword">from</span> <span class="string">'num-word-chinese'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(numWordChinese.numToWord(<span class="number">8</span>));</span><br><span class="line"><span class="built_in">console</span>.log(numWordChinese.numToChinese(<span class="number">3</span>));</span><br><span class="line"><span class="built_in">console</span>.log(numWordChinese.chineseCurrency(<span class="number">88845</span>));</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1093,7 +1048,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1141,7 +1096,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1163,7 +1118,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
