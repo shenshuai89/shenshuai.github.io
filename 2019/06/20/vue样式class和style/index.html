@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="第一篇：vue基础介绍，数据绑定(computed+watch) 第二篇：vue样式class和style 第三篇：vue组件及生命周期 第四篇：vue父子组件之间的数据传递 第五篇：vue动画与过渡 第六篇：vue-router路由的使用 第七篇：vuex数据管理  Vue介绍Vue数据绑定">
+<meta name="description" content="第一篇：vue基础介绍，数据绑定(computed+watch) 第二篇：vue样式class和style 第三篇：vue组件及生命周期 第四篇：vue父子组件之间的数据传递 第五篇：vue动画与过渡 第六篇：vue-router路由的使用 第七篇：vuex数据管理  Vue绑定html class在绑定对象是class的时候，表达式结果的类型出了字符串外还可以是对象或数组。 对象语法1&amp;lt;">
 <meta name="keywords" content="vue 前端 框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue样式class和style(二)">
 <meta property="og:url" content="http://shenshuai.me/2019/06/20/vue样式class和style/index.html">
 <meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
-<meta property="og:description" content="第一篇：vue基础介绍，数据绑定(computed+watch) 第二篇：vue样式class和style 第三篇：vue组件及生命周期 第四篇：vue父子组件之间的数据传递 第五篇：vue动画与过渡 第六篇：vue-router路由的使用 第七篇：vuex数据管理  Vue介绍Vue数据绑定">
+<meta property="og:description" content="第一篇：vue基础介绍，数据绑定(computed+watch) 第二篇：vue样式class和style 第三篇：vue组件及生命周期 第四篇：vue父子组件之间的数据传递 第五篇：vue动画与过渡 第六篇：vue-router路由的使用 第七篇：vuex数据管理  Vue绑定html class在绑定对象是class的时候，表达式结果的类型出了字符串外还可以是对象或数组。 对象语法1&amp;lt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-22T14:16:28.475Z">
+<meta property="og:updated_time" content="2019-08-26T13:06:17.148Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue样式class和style(二)">
-<meta name="twitter:description" content="第一篇：vue基础介绍，数据绑定(computed+watch) 第二篇：vue样式class和style 第三篇：vue组件及生命周期 第四篇：vue父子组件之间的数据传递 第五篇：vue动画与过渡 第六篇：vue-router路由的使用 第七篇：vuex数据管理  Vue介绍Vue数据绑定">
+<meta name="twitter:description" content="第一篇：vue基础介绍，数据绑定(computed+watch) 第二篇：vue样式class和style 第三篇：vue组件及生命周期 第四篇：vue父子组件之间的数据传递 第五篇：vue动画与过渡 第六篇：vue-router路由的使用 第七篇：vuex数据管理  Vue绑定html class在绑定对象是class的时候，表达式结果的类型出了字符串外还可以是对象或数组。 对象语法1&amp;lt;">
 
 
 
@@ -343,15 +343,30 @@
 
       
         <ul>
-<li><a href="http://www.shenshuai.me/2019/06/18/vue基础介绍，数据绑定" target="_blank" rel="noopener">第一篇：vue基础介绍，数据绑定(computed+watch)</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/18/vue基础入门一方法和数据" target="_blank" rel="noopener">第一篇：vue基础介绍，数据绑定(computed+watch)</a></li>
 <li><a href="http://www.shenshuai.me/2019/06/20/vue样式class和style" target="_blank" rel="noopener">第二篇：vue样式class和style</a></li>
 <li><a href="http://www.shenshuai.me/2019/06/22/vue组件及生命周期" target="_blank" rel="noopener">第三篇：vue组件及生命周期</a></li>
-<li><a href="http://www.shenshuai.me/2019/06/24/vue父子组件之间的数据传递" target="_blank" rel="noopener">第四篇：vue父子组件之间的数据传递</a></li>
-<li><a href="http://www.shenshuai.me/2019/06/26/vue动画与过渡" target="_blank" rel="noopener">第五篇：vue动画与过渡</a></li>
-<li><a href="http://www.shenshuai.me/2019/06/28/vue-router路由的使用" target="_blank" rel="noopener">第六篇：vue-router路由的使用</a></li>
-<li><a href="http://www.shenshuai.me/2019/06/30/vuex数据管理" target="_blank" rel="noopener">第七篇：vuex数据管理</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/24/vue父子组件之间的数据传递/" target="_blank" rel="noopener">第四篇：vue父子组件之间的数据传递</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/26/vue动画与过渡/" target="_blank" rel="noopener">第五篇：vue动画与过渡</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/28/vue-router路由的使用/" target="_blank" rel="noopener">第六篇：vue-router路由的使用</a></li>
+<li><a href="http://www.shenshuai.me/2019/06/30/vuex数据管理/" target="_blank" rel="noopener">第七篇：vuex数据管理</a></li>
 </ul>
-<h3 id="Vue介绍"><a href="#Vue介绍" class="headerlink" title="Vue介绍"></a>Vue介绍</h3><h3 id="Vue数据绑定"><a href="#Vue数据绑定" class="headerlink" title="Vue数据绑定"></a>Vue数据绑定</h3>
+<h4 id="Vue绑定html-class"><a href="#Vue绑定html-class" class="headerlink" title="Vue绑定html class"></a>Vue绑定html class</h4><p>在绑定对象是class的时候，表达式结果的类型出了字符串外还可以是对象或数组。</p>
+<h5 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"&#123; active: isActive, 'text-danger': hasError &#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data: &#123;</span><br><span class="line">  isActive: <span class="literal">true</span>,</span><br><span class="line">  hasError: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>渲染结果：<div class="active text-danger"></div><br>绑定的对象可以在data中详细定义，也可以在计算属性中定义。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:<span class="class"><span class="keyword">class</span></span>=<span class="string">"classObject"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  classObject: &#123;</span><br><span class="line">    active: <span class="literal">true</span>,</span><br><span class="line">    <span class="string">'text-danger'</span>: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>计算属性中返回的对象<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:<span class="class"><span class="keyword">class</span></span>=<span class="string">"classObject"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">data: &#123;</span><br><span class="line">  isActive: <span class="literal">true</span>,</span><br><span class="line">  error: <span class="literal">null</span></span><br><span class="line">&#125;,</span><br><span class="line">computed: &#123;</span><br><span class="line">  classObject: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      active: <span class="keyword">this</span>.isActive &amp;&amp; !<span class="keyword">this</span>.error,</span><br><span class="line">      <span class="string">'text-danger'</span>: <span class="keyword">this</span>.error &amp;&amp; <span class="keyword">this</span>.error.type === <span class="string">'fatal'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h5><p>可以给绑定的class后添加一个数组<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:<span class="class"><span class="keyword">class</span></span>=<span class="string">"[activeClass, errorClass]"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">data: &#123;</span><br><span class="line">  activeClass: <span class="string">'active'</span>,</span><br><span class="line">  errorClass: <span class="string">'text-danger'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>数组内放的是data数据对象。</p>
+<p>数组可以根据条件切换列表中的 class，可以用三元表达式：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[isActive ? activeClass : '', errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>当有多个条件 class 时这样写有些繁琐。所以在数组语法中也可以使用对象语法：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">v-bind:class</span>=<span class="string">"[&#123; activeClass: isActive &#125;, errorClass]"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>对象语法中，类名class在前，后边是判断。数组语法中，变量在前，后边跟的是类名。数组中可以再次放对象。<strong>对象名(类名)在前，数组数(数据)在前</strong></p>
+</blockquote>
+<h4 id="Vue添加style样式"><a href="#Vue添加style样式" class="headerlink" title="Vue添加style样式"></a>Vue添加style样式</h4><h5 id="对象语法-1"><a href="#对象语法-1" class="headerlink" title="对象语法"></a>对象语法</h5><p>v-bind:style的对象语法和css语法类似。因为这里的style是js对象，所以属性要写成驼峰式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:style=<span class="string">"&#123; color: activeColor, fontSize: fontSize + 'px' &#125;"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">data:&#123;</span><br><span class="line">    activeColor:<span class="string">'red'</span>,</span><br><span class="line">    fontSize:<span class="number">30</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用直接绑定一个样式对象，把样式信息数据写在data中，这样可以让模板更加清晰<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:style=<span class="string">"styleObject"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">data:&#123;</span><br><span class="line">    styleObject:&#123;</span><br><span class="line">          color:<span class="string">"red"</span>,</span><br><span class="line">          fontSize:<span class="string">"12px"</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="数组语法-1"><a href="#数组语法-1" class="headerlink" title="数组语法"></a>数组语法</h5><p>数组语法可以将<strong>多个样式对象</strong>应用到一个元素上.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-bind:style=<span class="string">"[styleObject,baseStyles]"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">data:&#123;</span><br><span class="line">    styleObject:&#123;</span><br><span class="line">          color:<span class="string">"red"</span>,</span><br><span class="line">          fontSize:<span class="string">"12px"</span></span><br><span class="line">     &#125;,</span><br><span class="line">    baseStyles:&#123;</span><br><span class="line">          fontSize:<span class="string">"18px"</span>;</span><br><span class="line">          margin:<span class="string">"0px"</span>,</span><br><span class="line">          padding:<span class="string">"0px"</span></span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -381,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/18/js正则表达式深度解析/" rel="next" title="js正则表达式深度解析">
-                <i class="fa fa-chevron-left"></i> js正则表达式深度解析
+              <a href="/2019/06/18/vue基础入门一方法和数据/" rel="next" title="vue基础介绍，数据绑定(一)">
+                <i class="fa fa-chevron-left"></i> vue基础介绍，数据绑定(一)
               </a>
             
           </div>
@@ -494,7 +509,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -555,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue介绍"><span class="nav-number">1.</span> <span class="nav-text">Vue介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue数据绑定"><span class="nav-number">2.</span> <span class="nav-text">Vue数据绑定</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue绑定html-class"><span class="nav-number">1.</span> <span class="nav-text">Vue绑定html class</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象语法"><span class="nav-number">1.1.</span> <span class="nav-text">对象语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数组语法"><span class="nav-number">1.2.</span> <span class="nav-text">数组语法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue添加style样式"><span class="nav-number">2.</span> <span class="nav-text">Vue添加style样式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#对象语法-1"><span class="nav-number">2.1.</span> <span class="nav-text">对象语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数组语法-1"><span class="nav-number">2.2.</span> <span class="nav-text">数组语法</span></a></li></ol></li></ol></div>
             
 
           </div>

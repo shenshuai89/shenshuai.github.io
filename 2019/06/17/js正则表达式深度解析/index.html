@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="正则表达式 regexp,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="正则简介和图形化工具使用正则表达式是一套匹配固定格式字符串的语法规则。常用来对字符串的查找替换等操作。为了方便学习和使用正则表达式，可以借助图形化工具翻译如网站regexper可以将表达式转换为图形语义1var reg = /\w&amp;#123;3,8&amp;#125;@(\w|\d)&amp;#123;2,5&amp;#125;\.(\w)&amp;#123;2&amp;#125;/ 如下图展示正则表达式可以通过对象字面量创建：1var">
+<meta name="keywords" content="正则表达式 regexp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js正则表达式深度解析">
+<meta property="og:url" content="http://shenshuai.me/2019/06/17/js正则表达式深度解析/index.html">
+<meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
+<meta property="og:description" content="正则简介和图形化工具使用正则表达式是一套匹配固定格式字符串的语法规则。常用来对字符串的查找替换等操作。为了方便学习和使用正则表达式，可以借助图形化工具翻译如网站regexper可以将表达式转换为图形语义1var reg = /\w&amp;#123;3,8&amp;#125;@(\w|\d)&amp;#123;2,5&amp;#125;\.(\w)&amp;#123;2&amp;#125;/ 如下图展示正则表达式可以通过对象字面量创建：1var">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://shenshuai.me/images/regex1.png">
+<meta property="og:image" content="http://shenshuai.me/images/regex2.png">
+<meta property="og:image" content="http://shenshuai.me/images/regex3.png">
+<meta property="og:image" content="http://shenshuai.me/images/regex4.png">
+<meta property="og:image" content="http://shenshuai.me/images/regex5.png">
+<meta property="og:image" content="http://shenshuai.me/images/regex6.png">
+<meta property="og:image" content="http://shenshuai.me/images/%5Ehello.png">
+<meta property="og:updated_time" content="2019-08-26T13:06:17.138Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js正则表达式深度解析">
+<meta name="twitter:description" content="正则简介和图形化工具使用正则表达式是一套匹配固定格式字符串的语法规则。常用来对字符串的查找替换等操作。为了方便学习和使用正则表达式，可以借助图形化工具翻译如网站regexper可以将表达式转换为图形语义1var reg = /\w&amp;#123;3,8&amp;#125;@(\w|\d)&amp;#123;2,5&amp;#125;\.(\w)&amp;#123;2&amp;#125;/ 如下图展示正则表达式可以通过对象字面量创建：1var">
+<meta name="twitter:image" content="http://shenshuai.me/images/regex1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://shenshuai.me/2019/06/17/js正则表达式深度解析/">
+
+
+
+
+
+  <title>js正则表达式深度解析 | 北鸟南游<br>前端开发设计师</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">北鸟南游<br>前端开发设计师</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">web前端开发，设计师</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-关于">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/06/17/js正则表达式深度解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="shenshuai.me">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="北鸟南游<br>前端开发设计师">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">js正则表达式深度解析</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-17T21:02:33+08:00">
+                2019-06-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端开发/" itemprop="url" rel="index">
+                    <span itemprop="name">前端开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="正则简介和图形化工具使用"><a href="#正则简介和图形化工具使用" class="headerlink" title="正则简介和图形化工具使用"></a>正则简介和图形化工具使用</h2><p>正则表达式是一套匹配固定格式字符串的语法规则。常用来对字符串的查找替换等操作。<br>为了方便学习和使用正则表达式，可以借助图形化工具翻译<br>如网站<a href="https://regexper.com" target="_blank" rel="noopener">regexper</a>可以将表达式转换为图形语义<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\w&#123;3,8&#125;@(\w|\d)&#123;2,5&#125;\.(\w)&#123;2&#125;/</span></span><br></pre></td></tr></table></figure></p>
+<p>如下图展示<img src="/images/regex1.png" alt="regex1">正则表达式可以通过对象字面量创建：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="regexp">/\d+/</span>;</span><br></pre></td></tr></table></figure></p>
+<p>也可以使用构造函数创建 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'\\bhello\\b'</span>,<span class="string">'g'</span>);</span><br></pre></td></tr></table></figure>
+<p>正则表达式只有一个test方法，即(正则).<strong>test</strong>(字符串)，其他的为字符串方法如(字符串).<strong>match</strong>(正则)，(字符串).<strong>search</strong>(正则)，(字符串).<strong>replace</strong>(正则)，(字符串).<strong>split</strong>(正则)</p>
+<h2 id="修饰符"><a href="#修饰符" class="headerlink" title="修饰符"></a>修饰符</h2><ul>
+<li><p>g: global全局搜索，不添加的话，只搜索到第一个就会停止</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'上海市北京市郑州市'</span>.match(<span class="regexp">/市/</span>,<span class="string">"省"</span>)</span><br><span class="line"><span class="comment">// ["市", index: 2, input: "上海市北京市郑州市", groups: undefined]</span></span><br><span class="line"><span class="string">'上海市北京市郑州市'</span>.match(<span class="regexp">/市/g</span>,<span class="string">"省"</span>)</span><br><span class="line"><span class="comment">//  ["市", "市", "市"]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>i: ignore case 忽略大小写，默认是大小写敏感</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'heLlo worLd'</span>.replace(<span class="regexp">/l/g</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"heL!o worLd"</span></span><br><span class="line"><span class="string">'heLlo worLd'</span>.replace(<span class="regexp">/l/gi</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"he!!o wor!d"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>m：multiple line多行搜索 </p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"@123</span></span><br><span class="line"><span class="string">@456</span></span><br><span class="line"><span class="string">@789"</span>.replace(<span class="regexp">/^@./g</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"!23</span></span><br><span class="line"><span class="string">@456</span></span><br><span class="line"><span class="string">@789"</span></span><br><span class="line"></span><br><span class="line"><span class="string">"@123</span></span><br><span class="line"><span class="string">@456</span></span><br><span class="line"><span class="string">@789"</span>.replace(<span class="regexp">/^@./gm</span>,<span class="string">"!"</span>)</span><br><span class="line"><span class="string">"!23</span></span><br><span class="line"><span class="string">!56</span></span><br><span class="line"><span class="string">!89"</span></span><br></pre></td></tr></table></figure>
+<h2 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h2><p>正则表达是有两种基本字符类型组成</p>
+<ul>
+<li><p>原义文本字符：如“是”，“s”</p>
+</li>
+<li><p>元字符:在正则表达式中有特殊含义的非字母字符<br>^ |  $ ? <em> + . \ ( ) { } [ ]<br>|名称|含义|<br>|:—|:–:|<br>| ^ | 匹配输入字符串的开始位置。如果是在[]内，表示否定的意思 |<br>| $ | 匹配字符串结束的位置。 |<br>| . | 匹配除换行符（\n、\r）之外的任何单个字符。 |<br>| \ | 将下一个字符标记为一个特殊字符的引用转义符。 |<br>| </em> | 匹配显示零次或多次 |<br>| + | 匹配显示1次或多次 |<br>| ? | 匹配显示0次或1次 |<br>| \b | 匹配一个单词边界，也就是指单词和空格间的位置。 |<br>| \B | 匹配非单词边界。 |<br>| \d | 匹配一个数字字符。 |<br>| \D |匹配一个非数字字符。 |<br>| \n |匹配一个换行符。 |<br>| \r | 匹配一个回车符 |<br>| \s | 匹配任何空白字符，包括空格、制表符、换页符等等。 |<br>| \S | 匹配任何非空白字符。 |<br>| \w | 匹配字母、数字、下划线。 |<br>| \W | 匹配非字母、数字、下划线。 |</p>
+<p><strong>\b</strong>  匹配边界值<br><img src="/images/regex2.png" alt="regex2"></p>
+</li>
+</ul>
+<p>“hello world lo”.replace(/lo\b/g,”!”)       &gt;   “hel! world !”</p>
+<p>“hello world lo”.replace(/\Blo\b/g,”!”)   &gt;   “hel! world lo”</p>
+<p>  <strong>\w</strong><br>  <img src="/images/regex3.png" alt="regex3"><br>  <strong>\d</strong><br>  <img src="/images/regex4.png" alt="regex4"></p>
+<h2 id="字符类"><a href="#字符类" class="headerlink" title="字符类"></a>字符类</h2><p>一般情况下正则字符匹配的是一个字符串。如果匹配一类特性的字符，要创建一个特定的字符类，元字符[]可以把一些字符归为一类，表达式可以匹配这一类的字符。</p>
+<p>如果使用/[hello]/,匹配到单独的或h、或e、或l、或o单个字母<br>/hello/匹配到完整的hello单词</p>
+<p>/[hello]/<br> <img src="/images/regex5.png" alt="regex5"><br>/hello/<br> <img src="/images/regex6.png" alt="regex6"></p>
+<p> <strong>在字符类里面写上^表示否定</strong></p>
+<p>[^hello]<br> <img src="/images/^hello.png" alt="^hello"></p>
+<h2 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h2><p>{20}匹配20次<br>{4,}至少4次<br>{1,5}1次到5次<br>{0,8} 0次到8次<br>? 零次或一次，最多一次<br>+一次或多次，至少一次<br>*零次或者多次</p>
+<h2 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h2><p>可以使用()对要匹配的内容进行分组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"a1a2a3a4"</span>.replace(<span class="regexp">/\w\d&#123;3&#125;/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">// 匹配不到结果 "a1a2a3a4"</span></span><br><span class="line"><span class="string">"a1a2a3a4"</span>.replace(<span class="regexp">/(\w\d)&#123;3&#125;/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">//可以匹配字母加数字的重复3次  "Xa4"</span></span><br></pre></td></tr></table></figure></p>
+<p>分组常用于改变数据格式，反向引用<br>$代表分组的内容，$1表示第一组，$2表示第二组<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"2019-08-06"</span>.replace(<span class="regexp">/(\d&#123;4&#125;)-(\d&#123;2&#125;)-(\d&#123;2&#125;)/g</span>,<span class="string">"$2/$3/$1"</span>)</span><br><span class="line"><span class="comment">// "08/06/2019"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="范围类"><a href="#范围类" class="headerlink" title="范围类"></a>范围类</h2><p>正则表达式里有创建字符类，可以用来匹配一类字符，如[0123456789],这样会造成书写困难不雅观。可以直接写成[0-9],字母可以写成[a-z]。这是一个闭区间，包含了两头的字符。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"2019-05-01"</span>.replace(<span class="regexp">/[0-9]/g</span>,<span class="string">"x"</span>)  =&gt;  <span class="string">"xxxx-xx-xx"</span></span><br><span class="line"><span class="string">"2019-05-01"</span>.replace(<span class="regexp">/[0-9-]/g</span>,<span class="string">"x"</span>)  =&gt; <span class="string">"xxxxxxxxxx"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="贪婪模式和非贪婪模式"><a href="#贪婪模式和非贪婪模式" class="headerlink" title="贪婪模式和非贪婪模式"></a>贪婪模式和非贪婪模式</h2><p>正则表达式会尽可能多的匹配，默认贪婪模式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"1234567"</span>.replace(<span class="regexp">/\d&#123;3,5&#125;/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">// "X67"</span></span><br></pre></td></tr></table></figure></p>
+<p>将贪婪模式转为非贪婪模式，只需要在量词后加?<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"1234567"</span>.replace(<span class="regexp">/\d&#123;3,5&#125;?/g</span>,<span class="string">"X"</span>)</span><br><span class="line"><span class="comment">// "XX7"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="前瞻"><a href="#前瞻" class="headerlink" title="前瞻"></a>前瞻</h2><p>正则表达式从文本左边往右边匹配解析，向右边的方向称作“前”<br>从右往左匹配称作“后”<br><strong>正向前瞻</strong>  exp(?=assert)  当符合了第一个表达式后，继续向右查看是否符合断言部分（也是正则表达式），符合了则为匹配<br><strong>负向前瞻</strong>  exp(?!assert)   当符合了第一个表达式后，继续向右查看是否符合断言部分（也是正则表达式），不符合断言，则为匹配</p>
+<p><strong><u>断言部分不参与替换</u></strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;(?!(w))/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">// "123wfor!dwordN" 匹配到789并替换成N，因为123后面是w，不符合断言部分的后边不是w条件</span></span><br><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;(?!(f))/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">// "Nwfor!dwordN"  匹配到123和789，断言是后边不能是f，都符合条件</span></span><br><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;((?!(for)).)*$/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">//"123wfor!dwordN" 匹配到了789，因为123后边包含了for单词   </span></span><br><span class="line"><span class="comment">// (assert.)*$表示以任意字符结尾往左查找，来判断断言部分的内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ((?!word).)*$ 表示字符串中不能包含word的断言</span></span><br><span class="line"><span class="string">"123wfor!dword789"</span>.replace(<span class="regexp">/\d&#123;3&#125;((?!(word)).)*$/g</span>,<span class="string">"N"</span>)</span><br><span class="line"><span class="comment">//"123wfor!dwordN"</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/正则表达式-regexp/" rel="tag"># 正则表达式 regexp</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/24/使用node的express框架搭建的webSocket请求/" rel="next" title="使用node的express框架搭建的webSocket请求">
+                <i class="fa fa-chevron-left"></i> 使用node的express框架搭建的webSocket请求
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/18/vue基础入门一方法和数据/" rel="prev" title="vue基础介绍，数据绑定(一)">
+                vue基础介绍，数据绑定(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="shenshuai.me">
+            
+              <p class="site-author-name" itemprop="name">shenshuai.me</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/shenshuai89" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://weibo.com/beiniaonanyou" target="_blank" title="sina">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>sina</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:shenshuai89@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://jsfiddle.net/user/shenshuai" target="_blank" title="jsfiddle">
+                      
+                        <i class="fa fa-fw fa-jsfiddle"></i>jsfiddle</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则简介和图形化工具使用"><span class="nav-number">1.</span> <span class="nav-text">正则简介和图形化工具使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修饰符"><span class="nav-number">2.</span> <span class="nav-text">修饰符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元字符"><span class="nav-number">3.</span> <span class="nav-text">元字符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符类"><span class="nav-number">4.</span> <span class="nav-text">字符类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#量词"><span class="nav-number">5.</span> <span class="nav-text">量词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分组"><span class="nav-number">6.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#范围类"><span class="nav-number">7.</span> <span class="nav-text">范围类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贪婪模式和非贪婪模式"><span class="nav-number">8.</span> <span class="nav-text">贪婪模式和非贪婪模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前瞻"><span class="nav-number">9.</span> <span class="nav-text">前瞻</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">shenshuai.me</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
