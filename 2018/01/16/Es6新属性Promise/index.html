@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,">
+  <meta name="keywords" content="JavaScript es6 promise,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Promise对象的创建Promise是一个新对象，创建方法和数组类似var p = new Promise();Promise函数中接受一个函数作为参数对象， 1234567var p = new Promise(function resolver(resolve, reject)&amp;#123;	if(ok)&amp;#123;		resolve(&quot;这里是成功执行&quot;)	&amp;#125;else&amp;#123;">
-<meta name="keywords" content="JavaScript">
+<meta name="description" content="Promise对象的创建 promise解决前端异步请求过程的回调问题，在回调函数过程中，往往无法知道哪个回调函数先执行结束，而且这个结束状态的时间点也无法控制，和网络状态，服务器性能等因素有关。 promise的出现还优雅的解决了异步回调嵌套函数的书写方式。  promise有三个状态， 三种状态： pending（进行中）、fulfilled（已成功）和rejected（已失败）  状态只能是">
+<meta name="keywords" content="JavaScript es6 promise">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Es6新增属性Promise对象">
 <meta property="og:url" content="http://shenshuai.me/2018/01/16/Es6新属性Promise/index.html">
 <meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
-<meta property="og:description" content="Promise对象的创建Promise是一个新对象，创建方法和数组类似var p = new Promise();Promise函数中接受一个函数作为参数对象， 1234567var p = new Promise(function resolver(resolve, reject)&amp;#123;	if(ok)&amp;#123;		resolve(&quot;这里是成功执行&quot;)	&amp;#125;else&amp;#123;">
+<meta property="og:description" content="Promise对象的创建 promise解决前端异步请求过程的回调问题，在回调函数过程中，往往无法知道哪个回调函数先执行结束，而且这个结束状态的时间点也无法控制，和网络状态，服务器性能等因素有关。 promise的出现还优雅的解决了异步回调嵌套函数的书写方式。  promise有三个状态， 三种状态： pending（进行中）、fulfilled（已成功）和rejected（已失败）  状态只能是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-10T03:52:13.121Z">
+<meta property="og:updated_time" content="2020-02-24T09:19:20.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Es6新增属性Promise对象">
-<meta name="twitter:description" content="Promise对象的创建Promise是一个新对象，创建方法和数组类似var p = new Promise();Promise函数中接受一个函数作为参数对象， 1234567var p = new Promise(function resolver(resolve, reject)&amp;#123;	if(ok)&amp;#123;		resolve(&quot;这里是成功执行&quot;)	&amp;#125;else&amp;#123;">
+<meta name="twitter:description" content="Promise对象的创建 promise解决前端异步请求过程的回调问题，在回调函数过程中，往往无法知道哪个回调函数先执行结束，而且这个结束状态的时间点也无法控制，和网络状态，服务器性能等因素有关。 promise的出现还优雅的解决了异步回调嵌套函数的书写方式。  promise有三个状态， 三种状态： pending（进行中）、fulfilled（已成功）和rejected（已失败）  状态只能是">
 
 
 
@@ -222,9 +222,41 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -342,14 +374,80 @@
       
 
       
-        <h2 id="Promise对象的创建"><a href="#Promise对象的创建" class="headerlink" title="Promise对象的创建"></a>Promise对象的创建</h2><p>Promise是一个新对象，创建方法和数组类似<br>var p = new Promise();<br>Promise函数中接受一个函数作为参数对象，</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> <span class="title">resolver</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(ok)&#123;</span><br><span class="line">		resolve(<span class="string">"这里是成功执行"</span>)</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+        <h2 id="Promise对象的创建"><a href="#Promise对象的创建" class="headerlink" title="Promise对象的创建"></a>Promise对象的创建</h2><blockquote>
+<p>promise解决前端异步请求过程的回调问题，在回调函数过程中，往往无法知道哪个回调函数先执行结束，而且这个结束状态的时间点也无法控制，和网络状态，服务器性能等因素有关。</p>
+<p>promise的出现还优雅的解决了异步回调嵌套函数的书写方式。</p>
+</blockquote>
+<p>promise有三个状态，</p>
+<p><strong>三种状态</strong>：</p>
+<p><code>pending</code>（进行中）、<code>fulfilled</code>（已成功）和<code>rejected</code>（已失败） </p>
+<p>状态只能是pending==》fulfilled或者pending==》rejected</p>
+<p> <strong>两个特点：</strong></p>
+<ol>
+<li>对象的状态不受外界影响</li>
+<li>一旦状态改变，就不会再变</li>
+</ol>
+<p>基本用法：直接通过new新建promise对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(<span class="comment">/** 值为真 **/</span>)&#123;</span><br><span class="line">       resolve(val)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">       reject(error)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Promise构造函数接受一个含有（resolve、reject）两个参数的函数*<em>Fn1</em>作为参数，Fn函数内部的代码为同步执行代码为立即得到执行处理。</p>
 <h2 id="Promise对象的使用"><a href="#Promise对象的使用" class="headerlink" title="Promise对象的使用"></a>Promise对象的使用</h2><p>在当前文件夹中创建arr.txt文件[1,2,3,6,9];<br>使用jquery的ajax异步请求数据的方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var p = new Promise(<span class="keyword">function</span> resolver(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">"./arr.txt"</span>,</span><br><span class="line">		dataType:<span class="string">"json"</span>,</span><br><span class="line">		success:<span class="keyword">function</span>(data)&#123;</span><br><span class="line">			console.log(data);</span><br><span class="line">			resolve(<span class="string">"这里是成功执行"</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="keyword">function</span>(err)&#123;</span><br><span class="line">			console.log(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then(<span class="keyword">function</span>(resolve)&#123;</span><br><span class="line">	// 调用成功时</span><br><span class="line">	console.log(resolve); // (7) [1,2,3,6,9]</span><br><span class="line">&#125;, <span class="keyword">function</span>(reject)&#123;</span><br><span class="line">	// 调用失败</span><br><span class="line">	console.log(reject);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="多个方法的异步使用"><a href="#多个方法的异步使用" class="headerlink" title="多个方法的异步使用"></a>多个方法的异步使用</h2><p>在Es5中经常会有，请求过一个数据之后，通过这个数据的结果再去调用另一个数据接口，这时候就需要回调<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">	url:<span class="string">'./test.txt'</span>,</span><br><span class="line">	dataType:<span class="string">'json'</span>,</span><br><span class="line">	success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">		// 如果成功了，继续下一步请求</span><br><span class="line">		$.ajax(&#123;</span><br><span class="line">			url:<span class="string">'./test.txt'</span>,</span><br><span class="line">			dataType:<span class="string">'json'</span>,</span><br><span class="line">			success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">				// 如果成功了，继续下一步请求</span><br><span class="line">				$.ajax(&#123;</span><br><span class="line">					url:<span class="string">'./test.txt'</span>,</span><br><span class="line">					dataType:<span class="string">'json'</span>,</span><br><span class="line">					success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">						// 如果成功了，继续下一步请求</span><br><span class="line">						</span><br><span class="line">					&#125;,</span><br><span class="line">					error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;,</span><br><span class="line">			error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;,</span><br><span class="line">	error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>这种在写法上会造成后期的难以维护，可以使用Promise的then(fn1,fn2)方法书写<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> xicai = 1;</span><br><span class="line"><span class="built_in">let</span> zuofan = 0;</span><br><span class="line"><span class="built_in">let</span> chifan = 1;</span><br><span class="line"><span class="keyword">function</span> xicaiFun(resolve,reject)&#123;</span><br><span class="line">	console.log(<span class="string">"准备开始洗菜"</span>);</span><br><span class="line">	<span class="keyword">if</span> (xicai==1) &#123;</span><br><span class="line">		resolve(<span class="string">"洗菜已经完成"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"洗菜出现错误"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> zuofanFun(resolve,reject)&#123;</span><br><span class="line">	console.log(<span class="string">"准备开始做饭"</span>);</span><br><span class="line">	<span class="keyword">if</span> (zuofan==1) &#123;</span><br><span class="line">		resolve(<span class="string">"做饭已经完成"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"做饭出现错误"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> chifanFun(resolve,reject)&#123;</span><br><span class="line">	console.log(<span class="string">"准备开始吃饭"</span>);</span><br><span class="line">	<span class="keyword">if</span> (chifan==1) &#123;</span><br><span class="line">		resolve(<span class="string">"吃饭已经完成"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"吃饭出现错误"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">new Promise(xicaiFun)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">		console.log(data);</span><br><span class="line">		<span class="built_in">return</span> new Promise(zuofanFun)</span><br><span class="line">	&#125;,<span class="keyword">function</span>(e)&#123;</span><br><span class="line">		console.log(e)</span><br><span class="line">	&#125;)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">		console.log(data);</span><br><span class="line">		<span class="built_in">return</span> new Promise(chifanFun)</span><br><span class="line">	&#125;,<span class="keyword">function</span>(e)&#123;</span><br><span class="line">		console.log(e)</span><br><span class="line">	&#125;)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">		console.log(data)</span><br><span class="line">	&#125;,<span class="keyword">function</span>(e)&#123;</span><br><span class="line">		console.log(e)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="Promise对象的all方法"><a href="#Promise对象的all方法" class="headerlink" title="Promise对象的all方法"></a>Promise对象的all方法</h2><p>在当前文件夹中创建json.txt文件{“name”:”promise”,”user”:”es6”,”year”:2016}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(<span class="keyword">function</span>(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'./arr.txt'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success(data)&#123;</span><br><span class="line">			resolve(<span class="string">"这里是执行成功"</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		error(e)&#123;</span><br><span class="line">			reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">var p2 = new Promise(<span class="keyword">function</span>(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'./json.txt'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success(data)&#123;</span><br><span class="line">			resolve(<span class="string">"这里是执行成功"</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		error(e)&#123;</span><br><span class="line">			reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Promise.all([</span><br><span class="line">	p1, p2</span><br><span class="line">]).<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">	console.log(<span class="string">"全都成功"</span>, data);</span><br><span class="line">&#125;, <span class="keyword">function</span>(err)&#123;</span><br><span class="line">	console.log(<span class="string">"至少有一个失败"</span>,err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="Promise对象的race方法"><a href="#Promise对象的race方法" class="headerlink" title="Promise对象的race方法"></a>Promise对象的race方法</h2><p>race可以设置多个接口地址的请求，只获取最先取到的数据值</p>
+<h2 id="then和catch"><a href="#then和catch" class="headerlink" title="then和catch"></a>then和catch</h2><p>promise对象生成后，可用then处理resolve数据，用catch处理reject的数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"01首先会得到执行"</span>)</span><br><span class="line">    <span class="comment">// resolve参数可以传递给then</span></span><br><span class="line">    resolve(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">// resolve和reject只能执行一个函数</span></span><br><span class="line">    <span class="comment">// reject(0)</span></span><br><span class="line">&#125;).then( <span class="function">(<span class="params">val</span>)=&gt;</span>&#123; <span class="built_in">console</span>.log(<span class="string">"03then接收到resolve的参数"</span>,val) &#125;)</span><br><span class="line">  .catch(<span class="function">(<span class="params">err</span>)=&gt;</span>&#123; <span class="built_in">console</span>.error(<span class="string">"03catch接收到reject的参数"</span>,err) &#125;);</span><br><span class="line"><span class="comment">//同步任务</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"02执行同步任务"</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>执行结果</strong><br><em>01首先会得到执行</em><br><em>02执行同步任务</em><br>*03then接收到resolve的参数 1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">new Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">    console.log(&quot;01首先会得到执行&quot;)</span><br><span class="line">    // resolve参数可以传递给then</span><br><span class="line">    // resolve(1)</span><br><span class="line">    // resolve和reject只能执行一个函数</span><br><span class="line">    reject(0)</span><br><span class="line">&#125;).then( (val)=&gt;&#123; console.log(&quot;03then接收到resolve的参数&quot;,val) &#125;)</span><br><span class="line">  .catch((err)=&gt;&#123; console.error(&quot;03catch接收到reject的参数&quot;,err) &#125;);</span><br><span class="line">//同步任务</span><br><span class="line">console.log(&quot;02执行同步任务&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>执行结果</strong><br><em>01首先会得到执行</em><br><em>02执行同步任务</em><br>03catch接收到reject的参数 0</p>
+<blockquote>
+<p> 一般来说，不要在<code>then</code>方法里面定义 Reject 状态的回调函数（即<code>then</code>的第二个参数），推荐用<code>catch</code>方法。 </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">promise</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// success</span></span><br><span class="line">  &#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// error</span></span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">promise</span><br><span class="line">  .then(<span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123; <span class="comment">//cb</span></span><br><span class="line">    <span class="comment">// success</span></span><br><span class="line">  &#125;)</span><br><span class="line">  .catch(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// error</span></span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<p> 第二种写法要好于第一种写法，理由是第二种写法可以捕获前面<code>then</code>方法执行中的错误，也更接近同步的写法（<code>try/catch</code>）。因此，建议使用<code>catch</code>方法，而不使用<code>then</code>方法的第二个参数。 </p>
+<h2 id="resolve和reject"><a href="#resolve和reject" class="headerlink" title="resolve和reject"></a>resolve和reject</h2><p>promise构造函数接受的参数函数Fn包含两个参数(resolve和reject)，这两个参数是JavaScript的内置函数。</p>
+<p> resolve函数的作用是将Promise实例的状态从 未完成 变为 成功，（pending –》fullfilled），在异步操作成功时调用，并将异步操作的结果作为参数传递then。 </p>
+<p> reject函数的作用是将Promise实例的状态从 未完成 变为 失败，（pending –》rejected），在异步操作失败时调用，并将异步操作报出的错误作为参数传递给catch。 </p>
+<h2 id="同步任务、微任务、宏任务"><a href="#同步任务、微任务、宏任务" class="headerlink" title="同步任务、微任务、宏任务"></a>同步任务、微任务、宏任务</h2><p>同步任务是按照代码出现的顺序立即执行。然后执行异步任务，异步任务有微任务和宏任务，先执行微任务，再执行宏任务。</p>
+<p> <strong>微任务microtask</strong></p>
+<ul>
+<li>process.nextTick</li>
+<li>promise</li>
+<li>Object.observe</li>
+<li>MutationObserver<br><strong>tasks宏任务</strong></li>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>setImmediate</li>
+<li>I/O</li>
+<li>UI渲染</li>
+</ul>
+<p>then和catch里注册的函数是微任务</p>
+<p>宏任务是定时器里面的任务，setTimeout和setInterval</p>
+<p>这三者的执行顺序是   ①同步—-②微任务—–③宏任务</p>
+<blockquote>
+<p><strong>微任务和异步任务的区别</strong></p>
+<p>微任务是在本轮事件循环的末尾执行</p>
+<p>异步任务是在下一轮事件循环中被执行</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(()=&gt;&#123;</span><br><span class="line">	console.log(&quot;04异步任务最后执行&quot;)</span><br><span class="line">&#125;,0)</span><br><span class="line">new Promise((resolve,reject)=&gt;&#123;</span><br><span class="line">    console.log(&quot;01首先会得到执行&quot;)</span><br><span class="line">    // resolve参数可以传递给then</span><br><span class="line">    resolve(1)</span><br><span class="line">    // resolve和reject只能执行一个函数</span><br><span class="line">    // reject(0)</span><br><span class="line">&#125;).then( (val)=&gt;&#123; console.log(&quot;03then接收到resolve的参数&quot;,val) &#125;)</span><br><span class="line">  .catch((err)=&gt;&#123; console.error(&quot;03catch接收到reject的参数&quot;,err) &#125;);</span><br><span class="line">//同步任务</span><br><span class="line">console.log(&quot;02执行同步任务&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>执行结果</strong></p>
+<p><em>01首先会得到执行</em><br><em>02执行同步任务</em><br><em>03then接收到resolve的参数 1</em><br><em>04异步任务最后执行</em></p>
+<h2 id="all、race和any"><a href="#all、race和any" class="headerlink" title="all、race和any"></a>all、race和any</h2><p> <code>Promise.all()</code>方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="built_in">Promise</span>.all([p1, p2, p3]);</span><br></pre></td></tr></table></figure>
+<p><code>p</code>的状态由<code>p1</code>、<code>p2</code>、<code>p3</code>决定，分成两种情况。</p>
+<ol>
+<li>只有<code>p1</code>、<code>p2</code>、<code>p3</code>的状态都变成<code>fulfilled</code>，<code>p</code>的状态才会变成<code>fulfilled</code>，此时<code>p1</code>、<code>p2</code>、<code>p3</code>的返回值组成一个数组，传递给<code>p</code>的回调函数。</li>
+<li>只要<code>p1</code>、<code>p2</code>、<code>p3</code>之中有一个被<code>rejected</code>，<code>p</code>的状态就变成<code>rejected</code>，此时第一个被<code>reject</code>的实例的返回值，会传递给<code>p</code>的回调函数。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> scorePromise = databasePromise</span><br><span class="line">  .then(findAllscores);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> userPromise = databasePromise</span><br><span class="line">  .then(getCurrentUser);</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.all([</span><br><span class="line">  scorePromise,</span><br><span class="line">  userPromise</span><br><span class="line">])</span><br><span class="line">.then(<span class="function">(<span class="params">[scores, user]</span>) =&gt;</span> scoresToUser(scores, user));</span><br></pre></td></tr></table></figure>
+<p>只有scorePromise和userPromise两个异步操作，只有等到它们结果都返回才触发scoresToUser函数</p>
+<p><strong>注意</strong> <u>如果作为参数的 Promise 实例，自己定义了<code>catch</code>方法，那么它一旦被<code>rejected</code>，并不会触发<code>Promise.all()</code>的<code>catch</code>方法。</u> </p>
+<p> <code>Promise.race()</code>方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> p = <span class="built_in">Promise</span>.race([p1, p2, p3]);</span><br></pre></td></tr></table></figure>
+<p> 只要<code>p1</code>、<code>p2</code>、<code>p3</code>之中有一个实例率先改变状态，<code>p</code>的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给<code>p</code>的回调函数。  </p>
+<p> <code>Promise.any()</code>方法接受一组 Promise 实例作为参数，包装成一个新的 Promise 实例。只要参数实例有一个变成<code>fulfilled</code>状态，包装实例就会变成<code>fulfilled</code>状态；如果所有参数实例都变成<code>rejected</code>状态，包装实例就会变成<code>rejected</code>状态。</p>
+<p> <code>Promise.any()</code>跟<code>Promise.race()</code>方法很像，只有一点不同，就是不会因为某个 Promise 变成<code>rejected</code>状态而结束。 </p>
+<p>在当前文件夹中创建json.txt文件{“name”:”promise”,”user”:”es6”,”year”:2016}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(<span class="keyword">function</span>(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'./arr.txt'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success(data)&#123;</span><br><span class="line">			resolve(<span class="string">"这里是执行成功"</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		error(e)&#123;</span><br><span class="line">			reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">var p2 = new Promise(<span class="keyword">function</span>(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'./json.txt'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success(data)&#123;</span><br><span class="line">			resolve(<span class="string">"这里是执行成功"</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		error(e)&#123;</span><br><span class="line">			reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Promise.all([</span><br><span class="line">	p1, p2</span><br><span class="line">]).<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">	console.log(<span class="string">"全都成功"</span>, data);</span><br><span class="line">&#125;, <span class="keyword">function</span>(err)&#123;</span><br><span class="line">	console.log(<span class="string">"至少有一个失败"</span>,err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>race可以设置多个接口地址的请求，只获取最先取到的数据值</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Promise.race([</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'http://a1.img.store.com/data/adoafejkd'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;),</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'http://a2.img.store.com/data/adoafejkd'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;),</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'http://a5.img.store.com/data/adoafejkd'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>延伸阅读：</p>
+<p><a href="https://mp.weixin.qq.com/s/iiAhbNsZK2_V3bVfGHt6Rw" target="_blank" rel="noopener">深度分析promise注册微任务和执行过程</a></p>
 
       
     </div>
@@ -367,7 +465,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/tags/JavaScript-es6-promise/" rel="tag"># JavaScript es6 promise</a>
           
         </div>
       
@@ -471,7 +569,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -482,7 +580,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -493,7 +591,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -554,7 +652,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise对象的创建"><span class="nav-number">1.</span> <span class="nav-text">Promise对象的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise对象的使用"><span class="nav-number">2.</span> <span class="nav-text">Promise对象的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多个方法的异步使用"><span class="nav-number">3.</span> <span class="nav-text">多个方法的异步使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise对象的all方法"><span class="nav-number">4.</span> <span class="nav-text">Promise对象的all方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise对象的race方法"><span class="nav-number">5.</span> <span class="nav-text">Promise对象的race方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise对象的创建"><span class="nav-number">1.</span> <span class="nav-text">Promise对象的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise对象的使用"><span class="nav-number">2.</span> <span class="nav-text">Promise对象的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#then和catch"><span class="nav-number">3.</span> <span class="nav-text">then和catch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#resolve和reject"><span class="nav-number">4.</span> <span class="nav-text">resolve和reject</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同步任务、微任务、宏任务"><span class="nav-number">5.</span> <span class="nav-text">同步任务、微任务、宏任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#all、race和any"><span class="nav-number">6.</span> <span class="nav-text">all、race和any</span></a></li></ol></div>
             
 
           </div>
@@ -574,7 +672,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -753,6 +851,323 @@
 
 
   
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
 
 
 

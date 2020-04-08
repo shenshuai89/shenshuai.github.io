@@ -221,9 +221,41 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
   
 </nav>
 
@@ -252,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/01/21/exports和module.exports以及export的区别/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/06/17/js正则表达式深度解析/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -271,7 +303,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/21/exports和module.exports以及export的区别/" itemprop="url">exports和module.exports以及export的区别</a></h2>
+                <a class="post-title-link" href="/2019/06/17/js正则表达式深度解析/" itemprop="url">js正则表达式深度解析</a></h2>
         
 
         <div class="post-meta">
@@ -283,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-21T21:20:54+08:00">
-                2018-01-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-17T21:02:33+08:00">
+                2019-06-17
               </time>
             
 
@@ -345,19 +377,15 @@
       
         
           
-            <blockquote>
-<blockquote>
-<p>exports和module.exports属于CommonJs规范，export属于Es6定义</p>
-</blockquote>
-</blockquote>
-<h2 id="CommonJS-exports和module-exports-模块规范"><a href="#CommonJS-exports和module-exports-模块规范" class="headerlink" title="CommonJS(exports和module.exports)模块规范"></a>CommonJS(exports和module.exports)模块规范</h2><p>NodeJs使用的是CommonJs规范，根据这个规范每个js文件就是一个模块，有自己的作用域。<br>在一个文件内部定义的变量，函数，类都是私有的，其他文件看不到。</p>
-<p>exports对象是module.exports的引用。<br>关于引用可以使用下面的例子来解释清楚：<br>ECMAScript的变量值类型共有两种;<br>基本类型(primitive values):包括undefined,null,boolean,number,string五种基本类型。<br>引用类型(reference values):保存在内存中的对象，不能直接操作，只能通过保存在变量的地址引用对其进行操作。<br>exports和module.exports属于object类型，属于引用类型。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = &#123;</span><br><span class="line">	exports:&#123;</span><br><span class="line">		name:<span class="string">"I am module exports"</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> exports = <span class="built_in">module</span>.exports;<span class="comment">// exports是对module.exports的引用，就是说exports指向的内存地址和module.exports指向的内存地址一样。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.exports); <span class="comment">//&#123;name:'I am module exports'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(exports); <span class="comment">//&#123;name:'I am module exports'&#125;</span></span><br><span class="line"></span><br><span class="line">exports.name = <span class="string">"change name"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.exports); <span class="comment">//&#123;name:'change name'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(exports); <span class="comment">//&#123;name:'change name'&#125;</span></span><br><span class="line">**由此可见，exports和<span class="built_in">module</span>.exports是引用的同一块内存地址**</span><br><span class="line"><span class="comment">//如果重新定义一个对象，将exports的引用指向重新定义的对象</span></span><br><span class="line"><span class="keyword">var</span> newObj = &#123;</span><br><span class="line">	name:<span class="string">"this is new Object"</span>,</span><br><span class="line">	func:<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x*x;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">exports = newObj;<span class="comment">//这时newObj这个Object在内存中指向了新的地址，所以exports也指向了这个新地址，和原来的module.exports对象内存地址没有任何关系。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">module</span>.exports);<span class="comment">//&#123;name:'change name'&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(exports);<span class="comment">//&#123;name:'this is new Object',function:[Function]&#125;</span></span><br><span class="line"><span class="string">``</span></span><br><span class="line"></span><br><span class="line">回到nodeJs中，<span class="built_in">module</span>.exports初始的时候置为&#123;&#125;,exports也指向这个空对象。</span><br><span class="line">下面的写法，作用是一样的</span><br><span class="line"><span class="string">``</span><span class="string">` js</span></span><br><span class="line"><span class="string">exports.name = function(x)&#123;</span></span><br><span class="line"><span class="string">	console.log(x)</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string">module.exports.name = function(x)&#123;</span></span><br><span class="line"><span class="string">	console.log(x)</span></span><br><span class="line"><span class="string">&#125;;</span></span><br></pre></td></tr></table></figure></p>
-<p>但是如果按照下面的写法，效果就不同<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">exports = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(x)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//上面的function是一块新的内存地址，导致了exports和module.exports不存在任何关系，而require下看到的只有module.exports这个对象，看不到exports对象，所以这样写是有问题是无法导出的。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面的这个写法是可以导出，module.exports除了导出对象、函数，还可以导出所有的类型，如字符串，数值，布尔...</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="Es6-export-模块规范"><a href="#Es6-export-模块规范" class="headerlink" title="Es6(export)模块规范"></a>Es6(export)模块规范</h2><p>不同于commonJs，Es6使用export和import来导入导出模块<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//info.js</span></span><br><span class="line"><span class="keyword">var</span> firstName = <span class="string">"Michael"</span>;</span><br><span class="line"><span class="keyword">var</span> lastName = <span class="string">"jackson"</span>;</span><br><span class="line"><span class="keyword">var</span> year = <span class="number">1958</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;firstName, lastName, year&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>需要特别注意的是，export命令规定的是对外的接口，必须与模块内部的变量建立一一对应关系<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 写法一</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> m = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写法二</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;m&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 写法三</span></span><br><span class="line"><span class="keyword">var</span> n = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;n <span class="keyword">as</span> m&#125;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="export-default"><a href="#export-default" class="headerlink" title="export default"></a>export default</h3><p>使用export default命令，为模块指定默认输出,一个文件只能有一个默认输出<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
+          正则简介和图形化工具使用正则表达式是一套匹配固定格式字符串的语法规则。常用来对字符串的查找替换等操作。为了方便学习和使用正则表达式，可以借助图形化工具翻译如网站regexper可以将表达式转换为图形语义1var reg = /\w&#123;3,8&#125;@(\w|\d)&#123;2,5&#1
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/17/js正则表达式深度解析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -404,7 +432,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/01/17/Flex布局/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/05/24/使用node的express框架搭建的webSocket请求/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -423,7 +451,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/17/Flex布局/" itemprop="url">flex页面布局详解</a></h2>
+                <a class="post-title-link" href="/2019/05/24/使用node的express框架搭建的webSocket请求/" itemprop="url">使用node的express框架搭建的webSocket请求</a></h2>
         
 
         <div class="post-meta">
@@ -435,8 +463,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-17T20:54:18+08:00">
-                2018-01-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-24T17:42:33+08:00">
+                2019-05-24
               </time>
             
 
@@ -497,86 +525,15 @@
       
         
           
-            <h2 id="Flexbox介绍"><a href="#Flexbox介绍" class="headerlink" title="Flexbox介绍"></a>Flexbox介绍</h2><p>Flex主要是为了解决<strong>容器</strong>内部<strong>子项</strong>的对齐和自由分配，即使它们大小是未知的或者动态的。<br>Flex背后设计思想给容器控制子项的宽度和高度的能力，使得flex子项可以自动填满容器的可用空间（主要是适用所有显示设备和屏幕大小）。</p>
-<h2 id="Flex的属性"><a href="#Flex的属性" class="headerlink" title="Flex的属性"></a>Flex的属性</h2><h4 id="作用于容器的属性："><a href="#作用于容器的属性：" class="headerlink" title="作用于容器的属性："></a>作用于容器的属性：</h4><ul>
-<li>flex-direction：规定了主轴的方向X或者Y</li>
-<li>flex-wrap：设置子项是否换行</li>
-<li>flex-flow：是flex-direction和flex-wrap的综合缩写，默认值为：row nowrap</li>
-<li>justify-content：子项在主轴上分布的方式</li>
-<li>align-items：子项在侧轴上对齐的方式</li>
-<li>align-content：子项有多行时，该属性生效。当容器的侧轴上有多余空间，align-content用了调整多个子项行在容器侧轴上的对齐方式，和justify-content属性控制子项在主轴上分布属性类似。</li>
-</ul>
-<h4 id="作用于子项的属性："><a href="#作用于子项的属性：" class="headerlink" title="作用于子项的属性："></a>作用于子项的属性：</h4><ul>
-<li>order：设置一个数字，用来控制子项排序的先后，数字越小越靠前，负值也可以。</li>
-<li>flex-grow：设置一个数字（扩大比例），用了控制子项在容器中所占的比例（如果都设置1，所有子项大小相等，如果有一个为2，则该子项是其它子项的2倍），负值属性失效。</li>
-<li>flex-shrink：设置一个数字（缩小比例），默认值为1，负值失效。</li>
-<li>flex-basis：子项在分配容器剩余空间之前的一个依据基础，如果设置为0，内容不考虑子项内容周围额外空间，如果设置为auto，子项的额外空间基于flex-grow分布。</li>
-<li>flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0 1 auto</li>
-<li>align-self：用来控制子项单独的覆写默认的对齐方式。</li>
-</ul>
-<h2 id="Flex的容器属性详细介绍"><a href="#Flex的容器属性详细介绍" class="headerlink" title="Flex的容器属性详细介绍"></a>Flex的容器属性详细介绍</h2><h3 id="flex-direction属性-四个值"><a href="#flex-direction属性-四个值" class="headerlink" title="flex-direction属性,四个值"></a>flex-direction属性,四个值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123; <span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse; &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>row(默认值):如果书写方式是ltr，那么flex子项是从左向右排列；</li>
-<li>row-reverse：如果书写方式ltr，方面flex子项是从右向左排列；</li>
-<li>column：和row类型，改变了主轴的方向为Y</li>
-<li>column：和row-reverse类似，方向上是从下往上</li>
-</ul>
-<p>flex-direction属性展示效果图：<br><img src="/images/flex-direction.png" alt=""></p>
-<h3 id="flex-wrap属性-三个值"><a href="#flex-wrap属性-三个值" class="headerlink" title="flex-wrap属性,三个值"></a>flex-wrap属性,三个值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123; </span><br><span class="line">	<span class="attribute">flex-wrap</span>: nowrap | wrap | wrap-reverse; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>nowrap(默认值):单行显示</li>
-<li>wrap:多行显示</li>
-<li>wrap-reverse：多行显示，反转</li>
-</ul>
-<p>flex-wrap属性展示效果图：<br><img src="/images/flex-wrap.png" alt=""></p>
-<h3 id="flex-flow属性，是flex-direction和flex-wrap的综合"><a href="#flex-flow属性，是flex-direction和flex-wrap的综合" class="headerlink" title="flex-flow属性，是flex-direction和flex-wrap的综合"></a>flex-flow属性，是flex-direction和flex-wrap的综合</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flex-flow: &lt;'flex-direction'&gt; || &lt;'flex-wrap'&gt;</span><br></pre></td></tr></table></figure>
-<p>默认属性值row nowrap</p>
-<h3 id="justify-content属性，五个属性值"><a href="#justify-content属性，五个属性值" class="headerlink" title="justify-content属性，五个属性值"></a>justify-content属性，五个属性值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">justify-content</span>: flex-start | flex-end | center | space-between | space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>flex-start(默认值)：子项靠近起始位置</li>
-<li>flex-end：子项靠近结束位置</li>
-<li>center：子项在一行的中间位置</li>
-<li>space-between：子项在主轴上平均分布，顶齐起始和结束的位置</li>
-<li>space-around：子项在主轴上平均分布，起始和结束位置的两端保留一半的空间</li>
-</ul>
-<p>justify-content属性展示效果图：<br><img src="/images/justify-content.png" alt=""></p>
-<h3 id="align-items属性的五个属性值"><a href="#align-items属性的五个属性值" class="headerlink" title="align-items属性的五个属性值"></a>align-items属性的五个属性值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">align-items</span>: flex-start | flex-end | center | baseline | stretch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>flex-start:子项在侧轴上靠近起始位置对齐</li>
-<li>flex-end：子项在侧轴上靠近结束位置对齐</li>
-<li>center：子项在侧轴上，居中对齐</li>
-<li>baseline：子项的内容靠基线对齐</li>
-<li>stretch</li>
-</ul>
-<p>align-items属性展示效果图：<br><img src="/images/align-items.png" alt=""></p>
-<h3 id="align-content属性的六个属性值"><a href="#align-content属性的六个属性值" class="headerlink" title="align-content属性的六个属性值"></a>align-content属性的六个属性值</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">align-content</span>:flex-start | flex-end | center | space-between | space-around | stretch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>只有在子项是多行时，该属性生效</strong></p>
-<ul>
-<li>flex-start:各行向容器侧轴的起始位置靠齐</li>
-<li>flex-end：各行向容器侧轴的结束位置靠齐</li>
-<li>center：各行在容器侧轴上居中对齐</li>
-<li>space-between：各行在容器侧轴上平均分布，两端不留空间</li>
-<li>space-around：各行在容器侧轴上平均分布，两端保留一半空间</li>
-<li>stretch：各行会伸缩以填满侧轴上的空间</li>
-</ul>
-<p>align-content属性展示效果图：<br><img src="/images/align-content.png" alt=""></p>
-<h2 id="Flex的子项属性详细介绍"><a href="#Flex的子项属性详细介绍" class="headerlink" title="Flex的子项属性详细介绍"></a>Flex的子项属性详细介绍</h2><h3 id="order属性是一个数字序号值"><a href="#order属性是一个数字序号值" class="headerlink" title="order属性是一个数字序号值"></a>order属性是一个数字序号值</h3><p>子项根据order数字的大小进行排序展示</p>
-<p>order属性展示效果图<br><img src="/images/order.png" alt=""></p>
-<h3 id="flex-grow属性，设置一个数字，表示扩大子项大小"><a href="#flex-grow属性，设置一个数字，表示扩大子项大小" class="headerlink" title="flex-grow属性，设置一个数字，表示扩大子项大小"></a>flex-grow属性，设置一个数字，表示扩大子项大小</h3><h3 id="flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效"><a href="#flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效" class="headerlink" title="flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效"></a>flex-shrink属性，设置一个数字，表示缩写子项大小，在容器空间不足的情况下生效</h3><h3 id="flex-basis，子项分配容器剩余空间的一个依据基础"><a href="#flex-basis，子项分配容器剩余空间的一个依据基础" class="headerlink" title="flex-basis，子项分配容器剩余空间的一个依据基础"></a>flex-basis，子项分配容器剩余空间的一个依据基础</h3><p>两个值，如果为0，内容不考虑子项的周围额外空间，如果是auto，以子项周围的额外空间进行分布</p>
-<p>flex-basis属性展示效果图：<br><img src="/images/flex-basis.png" alt=""></p>
-<h3 id="flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0-1-auto"><a href="#flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0-1-auto" class="headerlink" title="flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0 1 auto"></a>flex：是flex-grow，flex-shrink和flex-basis属性的综合缩写，默认值为0 1 auto</h3><p>flex一般使用第一个数字</p>
-<h3 id="align-self属性的六个属性值-子项的对齐方式覆盖原有的对齐方式"><a href="#align-self属性的六个属性值-子项的对齐方式覆盖原有的对齐方式" class="headerlink" title="align-self属性的六个属性值,子项的对齐方式覆盖原有的对齐方式"></a>align-self属性的六个属性值,子项的对齐方式覆盖原有的对齐方式</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span>&#123;</span><br><span class="line">	<span class="attribute">align-self</span>: auto | flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>auto:计算值为父元素的align-items属性值，如果该元素没有父元素，则计算值为stretch</li>
-<li>flex-start：子项在侧轴起始一侧，靠近起始的边</li>
-<li>flex-end：子项在侧轴结束的一侧，靠近结束的边</li>
-<li>center：子项在侧轴上居中</li>
-<li>baseline：子项基于元素的基线对齐</li>
-<li>stretch</li>
-</ul>
-<p>align-self属性展示效果图：<br><img src="/images/align-self.png" alt=""></p>
-
-          
+          使用ws创建WebSocket服务新建package.json，用于安装ws执行npm init -y生成package.json12345678&#123;	"name": "echo",	"version": "0.0.1",	"dependencies": &#123;		"express":
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/24/使用node的express框架搭建的webSocket请求/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -623,7 +580,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/01/16/Es6新属性generator/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/05/15/webpackDevLibrary/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -642,7 +599,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/16/Es6新属性generator/" itemprop="url">Es6新增属性generator对象</a></h2>
+                <a class="post-title-link" href="/2019/05/15/webpackDevLibrary/" itemprop="url">webpackDevLibrary</a></h2>
         
 
         <div class="post-meta">
@@ -654,8 +611,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-16T17:24:14+08:00">
-                2018-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T15:03:33+08:00">
+                2019-05-15
               </time>
             
 
@@ -716,14 +673,15 @@
       
         
           
-            <h2 id="generator对象的创建"><a href="#generator对象的创建" class="headerlink" title="generator对象的创建"></a>generator对象的创建</h2><p>generator函数创建,在一般的函数函数名前添加*,就可以将一般函数转换为generator函数；<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> *<span class="function"><span class="title">show</span></span>()&#123;</span><br><span class="line">	console.log(<span class="string">"first"</span>);</span><br><span class="line">	yield;</span><br><span class="line">	console.log(<span class="string">"second"</span>)</span><br><span class="line">&#125;</span><br><span class="line">var gen = show();</span><br><span class="line">gen.next();  // first</span><br><span class="line">gen.next();  // second</span><br></pre></td></tr></table></figure></p>
-<h2 id="yield的传参使用"><a href="#yield的传参使用" class="headerlink" title="yield的传参使用"></a>yield的传参使用</h2><p>yield传参和返回值<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> *gen(x)&#123;</span><br><span class="line">	alert(1);</span><br><span class="line">	console.log(<span class="string">"x"</span>, x) // x 11</span><br><span class="line">	<span class="built_in">let</span> a = yield;</span><br><span class="line">	alert(2);</span><br><span class="line">	alert(a); //66</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">let</span> genObj = gen(11);</span><br><span class="line">console.log(genObj)</span><br><span class="line">genObj.next(99); //第一个next传参不起作用，参数要在函数中设置</span><br><span class="line">genObj.next(66); //这个参数可以传递给yield</span><br></pre></td></tr></table></figure></p>
-<h2 id="yield的返回值使用"><a href="#yield的返回值使用" class="headerlink" title="yield的返回值使用"></a>yield的返回值使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> *<span class="function"><span class="title">gen</span></span>()&#123;</span><br><span class="line">	alert(1);</span><br><span class="line">	yield 66; //yield后面跟的值，相当于第一个函数的返回值</span><br><span class="line">	alert(2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">let</span> genObj = gen();</span><br><span class="line">console.log(genObj)</span><br><span class="line"><span class="built_in">let</span> res1 = genObj.next(); </span><br><span class="line"><span class="built_in">let</span> res2 = genObj.next();</span><br><span class="line">console.log(res1)  //  &#123;value: 66, <span class="keyword">done</span>: <span class="literal">false</span>&#125;</span><br><span class="line">console.log(res2)  //  &#123;value: undefined, <span class="keyword">done</span>: <span class="literal">true</span>&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="使用runner进行多步数据获取"><a href="#使用runner进行多步数据获取" class="headerlink" title="使用runner进行多步数据获取"></a>使用runner进行多步数据获取</h2><p>先下载安装一个generator-runner-blue的插件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">runner(<span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> data1 =<span class="keyword">yield</span> axios.get(<span class="string">"./data/1.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data ).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line">	<span class="keyword">let</span> data2 =<span class="keyword">yield</span> axios.get(<span class="string">"./data/2.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data ).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line">	<span class="keyword">let</span> data3 =<span class="keyword">yield</span> axios.get(<span class="string">"./data/3.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data ).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line"></span><br><span class="line">	<span class="built_in">console</span>.log(data1, data2, data3)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>generator更适合处理带有异步的请求数据，promise使用请求多个接口的数据<br>带有逻辑判断的回调<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">runner(<span class="function"><span class="keyword">function</span> *(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">let</span> userData = <span class="keyword">yield</span> axios.get(<span class="string">"./data/1.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data ).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line"></span><br><span class="line">     <span class="keyword">if</span>(userData.type == <span class="string">"vip"</span>)&#123;</span><br><span class="line">           <span class="keyword">let</span> items= <span class="keyword">yield</span> axios.get(<span class="string">"./data/vip.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data ).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line"></span><br><span class="line">     &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">           <span class="keyword">let</span> items= <span class="keyword">yield</span> axios.get(<span class="string">"./data/user.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data ).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line"></span><br><span class="line">     &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="async-await属性"><a href="#async-await属性" class="headerlink" title="async await属性"></a>async await属性</h2><p>使用Es7的async await属性可以不用下载runner.js脚本，该方法其实是generator的一个语法糖<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">let</span> data1 = <span class="keyword">await</span> axios.get(<span class="string">"./data/1.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line">	<span class="keyword">let</span> data2 = <span class="keyword">await</span> axios.get(<span class="string">"./data/2.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line">	<span class="keyword">let</span> data3 = <span class="keyword">await</span> axios.get(<span class="string">"./data/3.txt"</span>).then(<span class="function"><span class="params">response</span> =&gt;</span> response.data).catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br><span class="line"></span><br><span class="line">	<span class="built_in">console</span>.log(data1, data2, data3)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
+          使用webpack开发一个npm包，并发布到npmjs创建webpack开发环境,设置package.json执行npm init -y生成package.json12345678910111213141516171819&#123;  "name": "num-word-chinese",  "v
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/15/webpackDevLibrary/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -770,7 +728,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/01/16/Es6新属性Promise/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2019/03/24/学习less/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -789,7 +747,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/16/Es6新属性Promise/" itemprop="url">Es6新增属性Promise对象</a></h2>
+                <a class="post-title-link" href="/2019/03/24/学习less/" itemprop="url">学习less</a></h2>
         
 
         <div class="post-meta">
@@ -801,8 +759,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-16T10:20:54+08:00">
-                2018-01-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T09:20:03+08:00">
+                2019-03-24
               </time>
             
 
@@ -863,16 +821,19 @@
       
         
           
-            <h2 id="Promise对象的创建"><a href="#Promise对象的创建" class="headerlink" title="Promise对象的创建"></a>Promise对象的创建</h2><p>Promise是一个新对象，创建方法和数组类似<br>var p = new Promise();<br>Promise函数中接受一个函数作为参数对象，</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> <span class="title">resolver</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(ok)&#123;</span><br><span class="line">		resolve(<span class="string">"这里是成功执行"</span>)</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="Promise对象的使用"><a href="#Promise对象的使用" class="headerlink" title="Promise对象的使用"></a>Promise对象的使用</h2><p>在当前文件夹中创建arr.txt文件[1,2,3,6,9];<br>使用jquery的ajax异步请求数据的方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var p = new Promise(<span class="keyword">function</span> resolver(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">"./arr.txt"</span>,</span><br><span class="line">		dataType:<span class="string">"json"</span>,</span><br><span class="line">		success:<span class="keyword">function</span>(data)&#123;</span><br><span class="line">			console.log(data);</span><br><span class="line">			resolve(<span class="string">"这里是成功执行"</span>);</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="keyword">function</span>(err)&#123;</span><br><span class="line">			console.log(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then(<span class="keyword">function</span>(resolve)&#123;</span><br><span class="line">	// 调用成功时</span><br><span class="line">	console.log(resolve); // (7) [1,2,3,6,9]</span><br><span class="line">&#125;, <span class="keyword">function</span>(reject)&#123;</span><br><span class="line">	// 调用失败</span><br><span class="line">	console.log(reject);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="多个方法的异步使用"><a href="#多个方法的异步使用" class="headerlink" title="多个方法的异步使用"></a>多个方法的异步使用</h2><p>在Es5中经常会有，请求过一个数据之后，通过这个数据的结果再去调用另一个数据接口，这时候就需要回调<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">	url:<span class="string">'./test.txt'</span>,</span><br><span class="line">	dataType:<span class="string">'json'</span>,</span><br><span class="line">	success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">		// 如果成功了，继续下一步请求</span><br><span class="line">		$.ajax(&#123;</span><br><span class="line">			url:<span class="string">'./test.txt'</span>,</span><br><span class="line">			dataType:<span class="string">'json'</span>,</span><br><span class="line">			success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">				// 如果成功了，继续下一步请求</span><br><span class="line">				$.ajax(&#123;</span><br><span class="line">					url:<span class="string">'./test.txt'</span>,</span><br><span class="line">					dataType:<span class="string">'json'</span>,</span><br><span class="line">					success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">						// 如果成功了，继续下一步请求</span><br><span class="line">						</span><br><span class="line">					&#125;,</span><br><span class="line">					error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">					&#125;</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;,</span><br><span class="line">			error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;,</span><br><span class="line">	error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>这种在写法上会造成后期的难以维护，可以使用Promise的then(fn1,fn2)方法书写<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">let</span> xicai = 1;</span><br><span class="line"><span class="built_in">let</span> zuofan = 0;</span><br><span class="line"><span class="built_in">let</span> chifan = 1;</span><br><span class="line"><span class="keyword">function</span> xicaiFun(resolve,reject)&#123;</span><br><span class="line">	console.log(<span class="string">"准备开始洗菜"</span>);</span><br><span class="line">	<span class="keyword">if</span> (xicai==1) &#123;</span><br><span class="line">		resolve(<span class="string">"洗菜已经完成"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"洗菜出现错误"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> zuofanFun(resolve,reject)&#123;</span><br><span class="line">	console.log(<span class="string">"准备开始做饭"</span>);</span><br><span class="line">	<span class="keyword">if</span> (zuofan==1) &#123;</span><br><span class="line">		resolve(<span class="string">"做饭已经完成"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"做饭出现错误"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> chifanFun(resolve,reject)&#123;</span><br><span class="line">	console.log(<span class="string">"准备开始吃饭"</span>);</span><br><span class="line">	<span class="keyword">if</span> (chifan==1) &#123;</span><br><span class="line">		resolve(<span class="string">"吃饭已经完成"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		reject(<span class="string">"吃饭出现错误"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">new Promise(xicaiFun)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">		console.log(data);</span><br><span class="line">		<span class="built_in">return</span> new Promise(zuofanFun)</span><br><span class="line">	&#125;,<span class="keyword">function</span>(e)&#123;</span><br><span class="line">		console.log(e)</span><br><span class="line">	&#125;)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">		console.log(data);</span><br><span class="line">		<span class="built_in">return</span> new Promise(chifanFun)</span><br><span class="line">	&#125;,<span class="keyword">function</span>(e)&#123;</span><br><span class="line">		console.log(e)</span><br><span class="line">	&#125;)</span><br><span class="line">.<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">		console.log(data)</span><br><span class="line">	&#125;,<span class="keyword">function</span>(e)&#123;</span><br><span class="line">		console.log(e)</span><br><span class="line">	&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="Promise对象的all方法"><a href="#Promise对象的all方法" class="headerlink" title="Promise对象的all方法"></a>Promise对象的all方法</h2><p>在当前文件夹中创建json.txt文件{“name”:”promise”,”user”:”es6”,”year”:2016}<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(<span class="keyword">function</span>(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'./arr.txt'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success(data)&#123;</span><br><span class="line">			resolve(<span class="string">"这里是执行成功"</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		error(e)&#123;</span><br><span class="line">			reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">var p2 = new Promise(<span class="keyword">function</span>(resolve, reject)&#123;</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'./json.txt'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success(data)&#123;</span><br><span class="line">			resolve(<span class="string">"这里是执行成功"</span>)</span><br><span class="line">		&#125;,</span><br><span class="line">		error(e)&#123;</span><br><span class="line">			reject(<span class="string">"这里是失败"</span>)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Promise.all([</span><br><span class="line">	p1, p2</span><br><span class="line">]).<span class="keyword">then</span>(<span class="keyword">function</span>(data)&#123;</span><br><span class="line">	console.log(<span class="string">"全都成功"</span>, data);</span><br><span class="line">&#125;, <span class="keyword">function</span>(err)&#123;</span><br><span class="line">	console.log(<span class="string">"至少有一个失败"</span>,err);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="Promise对象的race方法"><a href="#Promise对象的race方法" class="headerlink" title="Promise对象的race方法"></a>Promise对象的race方法</h2><p>race可以设置多个接口地址的请求，只获取最先取到的数据值</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Promise.race([</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'http://a1.img.store.com/data/adoafejkd'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;),</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'http://a2.img.store.com/data/adoafejkd'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;),</span><br><span class="line">	$.ajax(&#123;</span><br><span class="line">		url:<span class="string">'http://a5.img.store.com/data/adoafejkd'</span>,</span><br><span class="line">		dataType:<span class="string">'json'</span>,</span><br><span class="line">		success:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">			...</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+          css的预处理语言，可以理解成是对css的一层封装，但最终less代码还是要编译成css，浏览器不认识less。使用less的方法
 
-          
+直接引用less文件，并且引入less.min.js文件做编译
+借助一下工具将less转为css
+使用node进行编译 首先安装node install -g les
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/03/24/学习less/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -919,7 +880,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2017/12/15/移动端开发兼容/">
+    <link itemprop="mainEntityOfPage" href="http://shenshuai.me/2018/12/13/ajax的跨域和jsonp的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="shenshuai.me">
@@ -938,7 +899,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/15/移动端开发兼容/" itemprop="url">移动端开发兼容性</a></h2>
+                <a class="post-title-link" href="/2018/12/13/ajax的跨域和jsonp的使用/" itemprop="url">ajax的跨域和jsonp的使用</a></h2>
         
 
         <div class="post-meta">
@@ -950,8 +911,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-15T22:05:04+08:00">
-                2017-12-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T11:05:18+08:00">
+                2018-12-13
               </time>
             
 
@@ -1012,17 +973,16 @@
       
         
           
-            <p>// 移动端meta标签<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"viewport"</span> content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1, maximum-scale=1"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>// X5浏览器内核解析<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"x5-orientation"</span> content=<span class="string">"portrait"</span> /&gt;  // 强制竖屏</span><br><span class="line">&lt;meta name=<span class="string">"x5-fullscreen"</span> content=<span class="string">"true"</span> /&gt;  // 强制全屏</span><br></pre></td></tr></table></figure></p>
-<p>// UC浏览器内核<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"screen-orientation"</span> content=<span class="string">"portrait"</span>&gt;</span><br><span class="line">&lt;meta name=<span class="string">"full-screen"</span> content=<span class="string">"yes"</span>&gt;</span><br></pre></td></tr></table></figure></p>
-<p>//取消数字拨号的链接<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=<span class="string">"format-detection"</span> content=<span class="string">"telephone=no, email=no"</span>&gt;</span><br><span class="line">可以给数字单独添加拨号的链接 &lt;a href=<span class="string">"tel:15812345678"</span>&gt;15812345678&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
-<p>//去掉移动端点击时的背景颜色<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a, input, button&#123;</span><br><span class="line">     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>//清除按钮的圆角<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">input, button &#123;</span><br><span class="line">    -webkit-appearance: none;</span><br><span class="line">    border-radius: 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>// 禁止文字缩放<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body *&#123;</span><br><span class="line">    -webkit-text-size-adjust:100%;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>// Font Boosting  在一段文字我们没有给他设置高度的时候，在webkit内核下，文字的大小被浏览器放大<br>解决办法：设置高度，如果高度不定，设置最大高度 max-height<br>// 禁止文字缩放<br>//移动端取消虚拟键盘弹出<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">document.activeElement.blur() // ios隐藏键盘</span><br><span class="line">this.<span class="variable">$refs</span>.input.blur() // android隐藏键盘</span><br></pre></td></tr></table></figure></p>
-<p>动态计算html的font-size，定义rem的大小<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">doc, win</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> docEl = doc.documentElement,</span><br><span class="line">        resizeEvt = <span class="string">'orientationchange'</span> <span class="keyword">in</span> <span class="built_in">window</span> ? <span class="string">'orientationchange'</span> : <span class="string">'resize'</span>,</span><br><span class="line">        recalc = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> clientWidth = docEl.clientWidth;</span><br><span class="line">            <span class="keyword">if</span> (!clientWidth) <span class="keyword">return</span>;</span><br><span class="line">            docEl.style.fontSize = <span class="number">20</span> * (clientWidth / <span class="number">320</span>) + <span class="string">'px'</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="keyword">if</span> (!doc.addEventListener) <span class="keyword">return</span>;</span><br><span class="line">        win.addEventListener(resizeEvt, recalc, <span class="literal">false</span>);</span><br><span class="line">        doc.addEventListener(<span class="string">'DOMContentLoaded'</span>, recalc, <span class="literal">false</span>);</span><br><span class="line">    &#125;)(<span class="built_in">document</span>, <span class="built_in">window</span>);</span><br></pre></td></tr></table></figure></p>
-
-          
+          文章中源码地址：github
+JavaScript原生ajax对象web页面和数据的交互读取是网页的基本功能，使用ajax是常用的技术方案之一。通过创建var xhr = new XMLHttpRequest()对象来进行工作。代码参考文件ajax.html123456789101112var xh
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/13/ajax的跨域和jsonp的使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1060,7 +1020,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1108,7 +1068,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1119,7 +1079,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1130,7 +1090,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1195,7 +1155,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1370,6 +1330,323 @@
 
 
   
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
 
 
 
