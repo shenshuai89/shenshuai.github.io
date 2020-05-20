@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="北鸟南游&lt;br&gt;前端开发设计师">
 <meta property="og:description" content="Dom的回流Reflow和重绘Repait 回流：元素的大小和位置的定义，触发页面重新布局，导致渲染树重新计算布局和渲染  比如添加删除课件的DOM元素；元素位置改变；元素大小改变；内容变化；页面一开始渲染（这个无法避免）；因为回流是根据视口大小计算元素的位置和大小，所以浏览器的窗口尺寸变化也会引发回流…  重绘：元素样式的改变（宽高、大小、位置等不变）  如：outline、visibility">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-20T14:22:36.039Z">
+<meta property="og:updated_time" content="2020-05-20T15:10:14.573Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器渲染原理解析">
 <meta name="twitter:description" content="Dom的回流Reflow和重绘Repait 回流：元素的大小和位置的定义，触发页面重新布局，导致渲染树重新计算布局和渲染  比如添加删除课件的DOM元素；元素位置改变；元素大小改变；内容变化；页面一开始渲染（这个无法避免）；因为回流是根据视口大小计算元素的位置和大小，所以浏览器的窗口尺寸变化也会引发回流…  重绘：元素样式的改变（宽高、大小、位置等不变）  如：outline、visibility">
@@ -400,6 +400,15 @@
 <li><p>样式集中处理</p>
 </li>
 <li><p>放弃操作dom，基于vue/react/等数据驱动开发</p>
+</li>
+<li><p>动画效果应用到position属性为absolute或fixed的元素上(脱离了文档流)</p>
+</li>
+<li><p>css3硬件加速(GUP加速)  transform</p>
+</li>
+<li><p>牺牲平滑度换取速度</p>
+<p>每次1像素移动一个动画，会使用100%CPU，动画看上去是跳动的。因为浏览器正在和更新回流做斗争，每次移动3像素可能会看起平滑度低了，但是不会导致CPU在低配机器中抖动。</p>
+</li>
+<li><p>避免使用table布局和css的JavaScript表达式</p>
 </li>
 </ol>
 </li>
